@@ -1,0 +1,55 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage{xurl}
+\usepackage{csquotes}
+\usepackage{bookmark}
+\usepackage{minted}
+\usepackage{indentfirst}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage[nomessages]{fp}
+\usepackage[numbib,notlof,notlot,nottoc]{tocbibind}
+\usepackage[
+	backend=bibtex,
+	sorting=none,
+	block=ragged,
+	style=iso-numeric
+]{biblatex}
+
+\usetikzlibrary{calc}
+\usemintedstyle{vs}
+\hypersetup{colorlinks=true, urlcolor=blue}
+\addbibresource{./references}
+
+% Using 1.5 is UGLY
+\renewcommand{\baselinestretch}{1,15}
+
+\begin{document}
+
+\include{sections/titlepage.tex}
+\include{sections/declaration.tex}
+\include{sections/annotationAndKeywords.tex}
+
+% Add empty page for printing
+
+\tableofcontents
+
+\include{sections/introduction.tex}
+\include{sections/webrtc.tex}
+\include{sections/connectionModels.tex}
+\include{sections/voipTechnologies.tex}
+\include{sections/matrix.tex}
+\include{sections/matrixRTC.tex}
+\include{sections/breakoutRooms.tex}
+\include{sections/future.tex}
+
+\printbibliography[heading=bibnumbered, title={Reference}]
+
+\end{document}

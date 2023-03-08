@@ -1,0 +1,20 @@
+name: Build
+
+on:
+  pull_request: {}
+  push:
+    branches: [stable]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: xu-cheng/latex-action@v2
+        with:
+          latexmk_shell_escape: true
+          root_file: matrixRTC.tex
+      - uses: actions/upload-artifact@v3
+        with:
+          name: matrixRTC.pdf
+          path: ./matrixRTC.pdf

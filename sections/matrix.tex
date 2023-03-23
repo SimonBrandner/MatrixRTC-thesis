@@ -80,17 +80,17 @@ Matrix má několik základních primitiv, které si zde rozebereme.
 \subsubsection{Uživatelé}
 
 Každý klient je spojený s uživatelským účtem, ty jsou identifikované pomocí
-\mintinline{html}{user_id}. To má obecně následující formu:
-\mintinline{html}{@localpart:domain}. Reálné uživatelské ID pak může vypadat
-takto: \mintinline{html}{@alice:server.org} \cite{MatrixORG-Spec}.
+\mintinline{text}{user_id}. To má obecně následující formu:
+\mintinline{text}{@localpart:domain}. Reálné uživatelské ID pak může vypadat
+takto: \mintinline{text}{@alice:server.org} \cite{MatrixORG-Spec}.
 
 \subsubsection{Zařízení}
 
 Zařízení mají v protokolu Matrix specifický význam -- nejedná se o fyzická
 zařízení, ale jedná se o abstrakce jednotlivých přihlášených klientů. Každý
 uživatel může mít několik zařízení, ze kterých využívá svůj účet. Zařízení je
-obvykle identifikováno pomocí \mintinline{html}{user_id} a
-\mintinline{html}{device_id} \cite{MatrixORG-Spec}.
+obvykle identifikováno pomocí \mintinline{text}{user_id} a
+\mintinline{text}{device_id} \cite{MatrixORG-Spec}.
 
 Zařízení mají hlavně význam pro šifrování -- viz část \ref{matrix-encryption}.
 

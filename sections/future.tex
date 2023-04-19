@@ -1,23 +1,56 @@
 \section{Budoucnost}\label{future}
 
-Lorem
+Je těžké předpovídat, jak se budou VoIP aplikace vyvíjet v příštích několika
+letech, ale některá fakta nám mohou mírně napovědět -- na ně se v této části
+podíváme.
 
-\subsection{Non-VoIP MatrixRTC use-cases}
+\subsection{Využití MatrixRTC v non-VoIP aplikacích}
 
-Lorem
+Přestože historicky hlavním účelem MatrixRTC je VoIP pomocí protokolu Matrix,
+WebRTC umožňují přenos arbitrárních informací, je tedy možné MatrixRTC využít i
+pro jiné účely.
 
-\subsubsection{Thirdroom -- virtualní světy postavené na Matrixu}\label{thirdroom}
+\subsubsection{Third Room -- virtuální světy postavené na Matrixu}\label{thirdroom}
 
-Lorem
+Jedním z projektů, který využívá MatrixRTC, je \href{https://thirdroom.io}{Third
+	Room} \cite{ThirdRoom-Homepage}. Jedná se o vizi otevřeného
+Metaverse\footnote{
+	\textit{Metaverse} je virtuální svět, ve kterém mohou lidé trávit svůj čas
+	prací, zábavou, socializováním atp. Termín \textit{Metaverse} vytvořil Neal
+	Stephenson ve své sci-fi knize \textit{Snow Crash}
+	\cite{TechTarget-WhatIsTheMetaverse}
+}, které používá Matrix jako svou signalling vrstvu pro virtuální 3D světy.
 
-\subsubsection{The Board -- vituální tabule}
+Third Room využívá engine jménem \textit{Manifold}, který je založený na
+technologiích jako je \href{https://threejs.org/}{Three.js},
+\href{https://github.com/NateTheGreatt/bitECS}{bitECS}
+a \href{https://rapier.rs/}{Rapier}. Jako své Matrix SDK využívá \href{https://www.npmjs.com/package/hydrogen-view-sdk}{Hydrogen SDK} \cite{ThirdRoom-Homepage}.
 
-Lorem
+\subsubsection{TheBoard -- virtuální tabule}
 
-\subsection{Web Transports -- alternativa k WebRTC}
+\href{https://github.com/toger5/TheBoard}{TheBoard} je nástroj pro spolupráci,
+který umožňuje svým uživatelům kreslit na virtuální tabuli v reálném
+čase~\cite{GitHub-TheBoard}. TheBoard aktuálně MatrixRTC nevyužívá, ale je to
+vhodný kandidát pro jeho využití, neboť by projekt mohl využít WebRTC datové
+kanály k téměř okamžité komunikaci v reálném čase.
 
-Lorem
+\subsection{Web Transport -- alternativa k WebRTC}
+
+\textit{Web Transport} je experimentální protokol pro klient-server komunikaci
+založenou na UDP. Představuje alternativu k WebRTC, neboť rovněž umožňuje
+posílání médií a arbitrárních dat s nízkým zpožděním \cite{GitHub-WebTransport-Explainer}.
 
 \subsection{Digital Markets Act}
 
-Lorem
+\textit{Digital Markets Act} (\textit{DMA}) je legislativa, jejímž cílem je
+vytvořit více kompetitivní prostředí mezi tzv. \textit{gatekeepers}, což jsou
+velcí poskytovatelé klíčových služeb jako je chat, VoIP atp.; příkladem je Meta,
+Apple, Google a Microsoft. DMA nařizuje, aby tito poskytovatelé umožnili přístup
+k jejich APIs, což by umožnilo lepší interoperabilitu mezi službami. DMA zároveň
+nařizuje, že u služeb, které poskytují E2E šifrování, by ho API měla zachovávat
+\cite{Element-AGuideToNavigateTheDMA}.
+
+Aktuálně je vývoj Matrix přemostění komplikován tím, že gatekeepers nemusí mít
+veřejná a zdokumentovaná API, DMA by ale mohlo tuto situaci změnit a umožnit
+snadnější vývoj přemostění, což by mohlo napomoct protokolu Matrix, aby byl
+využíván větším množstvím běžných uživatelů.

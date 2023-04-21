@@ -34,30 +34,31 @@ provozu. Nehrozí ani, že při selhání backendu by se uživatelé klientů ne
 spojit. Tento přístup má ale bohužel také mnoho nevýhod
 \cite{HalOpenScience-SFUs}.
 
-První může být složitější vytvoření samotného spojení dvou klientů -- v
-klasickém P2P modelu obvykle dochází k tomu, že jeden uživatel volá druhého, to
-samé ale u full-mesh spojení platit nemusí. Když se nový uživatel pokouší
+První může být složitější vytvoření samotného spojení dvou klientů --
+v~klasickém P2P modelu obvykle dochází k tomu, že jeden uživatel volá druhého,
+to samé ale u full-mesh spojení platit nemusí. Když se nový uživatel pokouší
 připojit do skupinového hovoru, je nejasné, zda jeho klient volá klienty, kteří
-v hovoru již jsou, či naopak. Je sice možné definovat příslušné pravidlo, ale v
-případě, že se dva uživatelé pokusí připojit ve stejný okamžik, je situace
-komplikovanější, neboť nelze jednoznačně určit, kdo je volající a volaný. Jedním
-řešením jsou tzv. \textit{glare resolution algorithms}, které řeší situaci, kdy
-se oba klienti snaží kontaktovat toho druhého. Obvykle každý klient vygeneruje
-náhodné číslo, které je poté v případě, že dochází ke \textit{glare} situaci,
-porovnáno s číslem druhého klienta a klient s větším či menším číslem (záleží na
-implementaci) je pak vybrán jako volající \cite{MagnusWesterlund-GlareInWebRTC}.
-Někdy také dochází k lexikografickému porovnání identifikátorů klientů pro
-zvolení klienta, který bude kontaktovat toho druhého \cite{GitHub-MSC3401}.
+se hovoru již účastní, či naopak. Je sice možné definovat příslušné pravidlo,
+ale v případě, že se dva uživatelé pokusí připojit ve stejný okamžik, je situace
+komplikovanější, neboť nelze jednoznačně určit, kdo je volající a~kdo volaný.
+Jedním řešením jsou tzv. \textit{glare resolution algorithms}, které řeší
+situaci, kdy se klienti snaží kontaktovat navzájem ve stejný okamžik. Obvykle
+každý klient vygeneruje náhodné číslo, které je poté v případě, že dochází ke
+\textit{glare} situaci, porovnáno s číslem druhého klienta a klient s větším či
+menším číslem (záleží na implementaci) je pak vybrán jako volající
+\cite{MagnusWesterlund-GlareInWebRTC}. Někdy také dochází k lexikografickému
+porovnání identifikátorů klientů pro zvolení klienta, který bude kontaktovat
+toho druhého \cite{GitHub-MSC3401}.
 
 Full-mesh spojení má také nevýhodu v tom ohledu, že může častěji docházet k tzv.
 \textit{split-brains} \cite{StephenHaddock-SplitBrainAvoidance}. Protože je
 každý klient spojen s každým dalším klientem, je spojení velmi náchylné k
 chybám, hrozí tedy, že jeden z klientů budu přijímat streamy jen od určité
 podskupiny klientů, zatímco jiný klient bude přijímat stream od jiné podskupiny
-klientů, a tak dva uživatelé, kteří se hovoru účastní můžou mít značně odlišný
+klientů, a tak dva uživatelé, kteří se hovoru účastní, můžou mít značně odlišný
 zážitek.
 
-Dalším problémem je zátěž na klienta, protože musí přijímat RTP streamy všech
+Dalším problémem je zátěž klienta, protože musí přijímat RTP streamy všech
 klientů, které nejdříve rozšifrovává a dekóduje. Zároveň posílá všechny své RTP
 streamy ostatním klientům, ty musí naopak enkódovat a následně zašifrovat. Při
 vyšším počtu klientů v hovoru je pak třeba, aby všichni klienti běželi na
@@ -106,7 +107,7 @@ download, neboť přijímá jen jeden stream. Má ale relativně dost nevýhod
 
 První z nich je, že streamy jsou mixované do jednoho streamu, který je pak pro
 všechny klienty stejný, neumožňuje tedy uživatelům klientů, aby si vybrali,
-kterému streamu budou věnovat pozornost atp.
+který stream budou sledovat atp.
 \cite{Red5Pro-WebRTCScalingApproaches}.
 
 Zároveň proces transkódování a mixování je poměrně náročný na výkon, příslušný
@@ -148,7 +149,7 @@ obrázku č. \ref{sfu}.
 Toto řešení má několik výhod -- umožňuje E2EE, neboť nepotřebuje streamy
 transkódovat a mixovat \cite{WebRTCHacks-TrueE2EE}. Z tohoto důvodu také nemá
 takové požadavky na hardware, jednotlivé streamy jsou klientům posílány
-samostatně, takže si uživatel může zvolit, čemu bude věnovat pozornost
+samostatně, takže si uživatel může zvolit, co bude sledovat
 \cite{Red5Pro-WebRTCScalingApproaches}. Zároveň tento model umožňuje tzv.
 \textit{federaci} (více v částech \ref{matrix} a \ref{matrixRTC}).
 

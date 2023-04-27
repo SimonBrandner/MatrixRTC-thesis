@@ -5,14 +5,22 @@ Tato část práce vychází převážně z knihy
 	APIs} \cite{WebRTCForTheCurious}.
 
 \textit{Web Real-Time Communication} (\textit{WebRTC}) je protokol, který
-umožňuje vytvoření bezpečného dvousměrného spojení mezi dvěma klienty pro
+umožňuje vytvoření bezpečného obousměrného spojení mezi dvěma klienty pro
 přeposílání audia, videa a libovolných dat v reálném čase
 \cite{WebRTCForTheCurious}.
 
-Jeho \textit{Application Programming Interface} (\textit{API}) je specifikováno
-jen v~JavaScriptu, ale existují i jiné implementace \cite{WebRTCForTheCurious},
-jako je např. \href{pion/webrtc: Pure Go implementation of the WebRTC API}{Pion}
-\cite{GitHub-Pion-WebRTC} či
+WebRTC spojení je složeno ze \textit{stop} (\textit{tracks}) a datových kanálů
+(\textit{data channels}). Stopa může být např. audio z mikrofonu či video z
+kamery \cite{MDN-WebRTC-MediaStreamTrack}, tyto stopy mohou být přiřazeny do
+tzv. \textit{streamů} (stream je často složen ze dvou stop -- audio a videa
+např. z mikrofonu a kamery či z počítače
+uživatele)~\cite{MDN-WebRTC-MediaStream}. Datové kanály se pak používají k
+přenosu libovolných dat \cite{WebRTCORG-GettingStarted-DataChannels}.
+
+\textit{Application Programming Interface} (\textit{API}) protokolu WebRTC je
+specifikováno jen v~JavaScriptu, ale existují i jiné implementace
+\cite{WebRTCForTheCurious}, jako je např. \href{pion/webrtc: Pure Go
+	implementation of the WebRTC API}{Pion} \cite{GitHub-Pion-WebRTC} či
 \href{https://github.com/webrtc-rs/webrtc}{WebRTC.rs}
 \cite{GitHub-WebRTCRS-WebRTC}.
 
@@ -37,55 +45,137 @@ komponenty rozebereme a popíšeme k čemu slouží.
 	\label{signallingServer}
 \end{figure}
 
-\textit{Signalling} je zásadní pro vytvoření samotného spojení, neboť klienti
-neví, jak se na síti najít. Využívá se tzv. \textit{signalling server}. Chce-li
-klient 1 volat klienta 2, vygeneruje tzv. \textit{Session Description Protocol}
-(\textit{SDP}) \textit{offer}, kterou pomocí signalling serveru přepošle
-klientovi 2. Chce-li klient 2 hovor přijmout, vygeneruje tzv. \textit{SDP
-	answer}, kterou pak naopak přepošle klientovi 1. Poté, co si klienti vymění tyto
-zprávy, jsou schopní vytvořit \textit{peer-to-peer} (\textit{P2P}) spojení \cite{WebRTCForTheCurious}.
+\textit{Signalling} je zásadní součást WebRTC. Jedná se o proces při kterém si
+klienti vyměňují pomocí tzv. \textit{signalling serveru} informace o tom, jak
+mohou být druhým klientem kontaktováni, jaká média a data plánují posílat, jaké
+kodeky podporují atp. Zprávy, které si klienti pomocí signalling serveru
+vyměňují, se nazývají \textit{session descriptions}, jsou ve formátu, který je
+definován protokolem zvaným \textit{Session Description Protocol} (\textit{SDP})
+(místo \textit{session description} se někdy píše jen \textit{SDP})
+\cite{WebRTCForTheCurious}.
 
-Každá SDP zpráva popisuje IP adresy a porty klientů (vice v části
-\ref{connecting}), audio a video stopy, které daný klient posílá, kodeky, které
-podporuje atp. \cite{WebRTCForTheCurious}.
+Chce-li klient 1 volat klienta 2, vygeneruje tzv \textit{
+	session description offer} (\textit{SDP offer}), kterou pomocí signalling
+serveru přepošle klientovi 2. Chce-li klient 2 hovor přijmout, vygeneruje
+tzv. \textit{
+	session description answer} (\textit{SDP answer}), kterou naopak přepošle
+klientovi 1. Poté, co dojde k výměně session descriptions, klienti budou
+nejspíše schopní vytvořit \textit{peer-to-peer} (\textit{P2P}) spojení.
+Tento proces se nazývá \textit{negotiation}
+\cite{WebRTCForTheCurious,MozillaBlog-PerfectNegotiation}
 
-Skládá se z \textit{párů klíč-hodnota} (\textit{key-value pairs}). Klíč je vždy
-jedno písmeno a je následován \mintinline{text}{=}, po kterém následuje hodnota \cite{WebRTCForTheCurious}.
+Dojde-li během hovoru ke změnám spojení (změní se stopy, které klienti posílají,
+či se změní pozice klienta na síti), proběhne tzv. \textit{renegotiation}, kdy
+se proces výměny session descriptions opakuje
+\cite{MozillaBlog-PerfectNegotiation}.
 
-Reálné SDP můžeme vidět níže. Klíč \mintinline{text}{v} značí verzi, která je
-vždy \mintinline{text}{0}, \mintinline{text}{o} popisuje tvůrce session,
-\mintinline{text}{s} značí název session, \mintinline{text}{c} obsahuje
-informace o spojení a klíč \mintinline{text}{t} značí dobu, po kterou je session
-aktivní. \mintinline{text}{a=group:BUNDLE} značí, že přes jedno peer spojení
-posíláme více druhů informací; některé implementace vytváří jedno peer spojení
-na každou stopu, což ale není preferováno~\cite{WebRTCForTheCurious}.
+SDP se skládá z \textit{párů klíč-hodnota} (\textit{key-value pairs}). Každý pár
+má formát \mintinline{text}{<klíč>=<hodnota>}. SDP může stejný klíč obsahovat
+několikrát. Záleží na pořadí jednotlivých řádků -- SDP začíná obecnými
+informacemi o spojení, které jsou následovány jednotlivými média-sekcemi, které
+popisují obousměrného stopu \cite{WebRTCForTheCurious}. Je-li hodnota
+nedefinovaná, používá se znak \mintinline{text}{-} \cite{IETF-RFC8866}. SDP
+podporuje několik klíčů, WebRTC využívá následující
+\cite{WebRTCForTheCurious,IETF-RFC8866}:
 
-Toto SDP obsahuje 2 média-sekce značené klíčem \mintinline{text}{m}, hodnota má
-formát \mintinline{text}{<port> <typ stopy> <protokol> <typy payloadu>}. Typy
-payloadu mezi hodnotami \mintinline{text}{96} a \mintinline{text}{127} jsou
-dynamické, využívá se tedy \mintinline{text}{a=rtpmap} pro specifikaci kodeku. V
-našem případě je port \mintinline{text}{4000} a protokol
-\mintinline{text}{RTP/AVP} (\textit{Real-time Transport Protocol Profile for
-	Audio and Video}). Typy stopy jsou pak \mintinline{text}{audio} či
-\mintinline{text}{video}. Typ payloadu je dynamický a z
-\mintinline{text}{a=rtpmap} lze vidět, že \mintinline{text}{111} značí, že se
-jedná o kodek Opus, a \mintinline{text}{96}, že se jedná o kodek VP8.
-\mintinline{text}{a=sendrecv} značí, že klient je ochotný používat danou média
-sekci jak na příjem, tak na odesílání; další možné hodnoty jsou
-\mintinline{text}{sendonly}, \mintinline{text}{recvonly} a
-\mintinline{text}{inactive}. \mintinline{text}{a=msid} má formát
-\mintinline{text}{<ID streamu> <ID stopy>} -- můžeme vidět, že každá stopa má
-své ID, ale obě náleží stejnému streamu; více streamů bychom mohli vidět např.
-pokud by uživatel posílal video ze své kamery a zároveň sdílel svou
-obrazovku~\cite{WebRTCForTheCurious}.
+\begin{itemize}
+	\item \mintinline{text}{v} -- značí verzi, která je vždy \mintinline{text}{0}
+	\item \mintinline{text}{o} -- popisuje tvůrce spojení, slouží jako jeho
+	      unikátní identifikátor, skládá se z:
+	      \begin{itemize}
+		      \item \mintinline{text}{username} -- ID uživatele, který zahájil spojení
+		      \item \mintinline{text}{sess-id} -- unikátní číslo, které
+		            identifikuje spojení
+		      \item \mintinline{text}{sess-version} -- verze session
+		            description, která by se měla po každé změně zvýšit
+		      \item \mintinline{text}{nettype} -- typ sítě, je vždy
+		            \mintinline{text}{IN} (internet)
+		      \item \mintinline{text}{addrtype} -- typ adresy, je buď
+		            \mintinline{text}{IP4}, nebo \mintinline{text}{IP6}
+		      \item \mintinline{text}{unicast-address} -- IP adresa tvůrce spojení
+	      \end{itemize}
+	\item \mintinline{text}{s} -- název session, SDP nesmí obsahovat více než
+	      jeden klíč \mintinline{text}{s}
+	\item \mintinline{text}{c} -- informace o spojení, pro WebRTC není klíč
+	      \mintinline{text}{c} příliš zásadní, neboť se pro spojování využívá
+	      protokolu ICE (více v části \ref{connecting}), skládá se z:
+	      \begin{itemize}
+		      \item \mintinline{text}{nettype} -- typ sítě, je vždy
+		            \mintinline{text}{IN} (internet)
+		      \item \mintinline{text}{addrtype} -- typ adresy, je buď
+		            \mintinline{text}{IP4}, nebo \mintinline{text}{IP6}
+		      \item \mintinline{text}{connection-address} -- IP adresa využita
+		            ke spojení
+	      \end{itemize}
+	\item klíč \mintinline{text}{t} -- čas, kdy spojení začíná a končí, skládá
+	      se z:
+	      \begin{itemize}
+		      \item \mintinline{text}{start-time} -- čas, kdy spojení začne; pokud je
+		            \mintinline{text}{0}, spojení je permanentní
+		      \item \mintinline{text}{stop-time} -- čas, kdy spojení skončí; pokud je
+		            \mintinline{text}{0}, doba spojení není omezena
+	      \end{itemize}
+	\item \mintinline{text}{a} -- atribut, jeho formát je
+	      \mintinline{text}{a=<jméno>:<hodnota>}; SDP může obsahovat několik
+	      klíčů \mintinline{text}{a}, ať už pro celé spojení, nebo pro
+	      specifickou média-sekci
+	\item \mintinline{text}{m} -- popis médií, skládá se z:
+	      \begin{itemize}
+		      \item \mintinline{text}{media} -- typ média, je buď
+		            \mintinline{text}{audio}, \mintinline{text}{video},
+		            \mintinline{text}{application}, \mintinline{text}{text},
+		            nebo \mintinline{text}{message}
+		      \item \mintinline{text}{port} -- port, který je využit k posílání
+		            dat
+		      \item \mintinline{text}{proto} -- protokol, hodnoty mohou být:
+		            \begin{itemize}
+			            \item \mintinline{text}{udp} -- data jsou posílána přímo
+			                  přes protokol UDP
+			            \item \mintinline{text}{RTP/AVP} -- data jsou posílána
+			                  pomocí protokolu RTP (více v části \ref{rtp}) s
+			                  profilem pro audio a video
+			            \item \mintinline{text}{RTP/SAVP} -- data jsou posílána
+			                  pomocí protokolu SRTP (více v části \ref{srtp})
+			            \item \mintinline{text}{RTP/SAVPF} -- data jsou posílána
+			                  pomocí protokolu SRTP s podporou pro RTCP (více v
+			                  části \ref{rtcp})
+		            \end{itemize}
+		      \item \mintinline{text}{fmt} -- seznam čísel, která určují
+		            podporované formáty dat; čísla od \mintinline{text}{0} do
+		            \mintinline{text}{95} referují ke specifickým formátům; u
+		            čísel od \mintinline{text}{96} do \mintinline{text}{127} se
+		            využívá \mintinline{text}{a=rtpmap:<fmt> <codec>} pro
+		            specifikaci kodeku
+	      \end{itemize}
+\end{itemize}
 
-Další klíče se týkají ICE, který je popsán v části \ref{ice}.
+SDP podporuje několik různých atributů, následující jsou zásadní pro WebRTC
+\cite{WebRTCForTheCurious,IETF-RFC8866,IETF-RFC5888,IETF-RFC8841}:
+\begin{itemize}
+	\item \mintinline{text}{a=group:BUNDLE} značí, že přes jedno peer spojení
+	      posíláme více stop; některé implementace vytváří jedno peer spojení na
+	      každou stopu, což ale není doporučeno
+	\item \mintinline{text}{a=sendrecv}, \mintinline{text}{a=sendonly},
+	      \mintinline{text}{a=recvonly} a \mintinline{text}{a=inactive} --
+	      značí, směr dat dané média sekce; oba klienti by se měli shodnout na
+	      směru dat, obsahuje-li tedy SDP offer \mintinline{text}{a=sendonly},
+	      SDP answer by měla obsahovat \mintinline{text}{a=recvonly} pro danou
+	      média-sekci
+	\item \mintinline{text}{a=mid} -- číslo média-sekce
+	\item \mintinline{text}{a=msid} -- ID stopy a streamu, má formát
+	      \mintinline{text}{<ID streamu> <ID stopy>}
+	\item \mintinline{text}{a=rtpmap} -- zmíněno v předchozím odstavci
+	\item \mintinline{text}{a=sctp-port} -- port používaný protokolem SCTP (více
+	      v části \ref{sctp})
+	\item \mintinline{text}{a=max-message-size} -- maximální velikost zprávy v
+	      bytech
+\end{itemize}
 
-\begin{minted}[breaklines]{text}
+\begin{minted}[breaklines,fontsize=\footnotesize]{text}
 v=0
 o=- 2021867665009852994 2 IN IP4 127.0.0.1
 s=-
-c=IN IP4 0.0.0.0
+c=IN IP4 192.168.1.1
 t=0 0
 a=group:BUNDLE 0 1
 a=ice-ufrag:o6S/
@@ -97,20 +187,44 @@ a=sendrecv
 a=candidate:foundation 1 udp 2130706431 192.168.1.1 53165 typ host generation 0
 a=end-of-candidates
 a=msid:yvKPspsHcYcwGFTw DfQnKjQQuweLFdV
-a=rtpmap:0 PCMU/8000
 a=rtpmap:111 OPUS/48000/2
 m=video 4000 RTP/AVP 96
 a=mid:1
-a=sendrecv
+a=sendonly
 a=msid:yvKPspsHcYcwGFTw Ii65zvjKITaFf0T
 a=rtpmap:96 VP8/90000
+m=application 9 UDP/DTLS/SCTP webrtc-datachannel
+a=mid:2
+a=sctp-port:5000
+a=max-message-size:262144
 \end{minted}
 
-SDP je dvousměrný protokol, takže answer by měla obsahovat všechny média-sekce,
-které obsahovala i offer. Obě strany se musí shodnout např. na kodecích, které
-budou využity, a na směru médií (např. pokud jedna strana má danou média-sekci
-označenou jako \mintinline{text}{sendonly}, druhá stana by ji měla mít jako
-\mintinline{text}{recvonly}) \cite{WebRTCForTheCurious}.
+Výše můžeme vidět příklad reálného SDP, které obsahuje 3 média-sekce. Obě
+používají port \mintinline{text}{4000} a protokol \mintinline{text}{RTP/AVP}. V
+klíči \mintinline{text}{o} je důležité třetí pole s hodnotou
+\mintinline{text}{2}, která indikuje verzi session description. Klíč
+\mintinline{text}{s} nemá hodnotu, spojení je tedy bez názvu. Klíč
+\mintinline{text}{c} je pak pro WebRTC nepodstatný.
+
+První sekce je \mintinline{text}{audio}, její \mintinline{text}{mid} je
+\mintinline{text}{0} a její směr je \mintinline{text}{sendrecv}, takže umožňuje
+přijímání i posílání audio stopy Formát je dynamický a z
+\mintinline{text}{a=rtpmap} lze vidět, že \mintinline{text}{111} značí, že se
+jedná o kodek Opus. Můžeme si rovněž povšimnout specifikace ID streamu a stopy.
+
+Druhá sekce je \mintinline{text}{video}, její \mintinline{text}{mid} je
+\mintinline{text}{1} a její směr je \mintinline{text}{sendonly}, klient je tedy
+ochotný používat tuto média-sekci pro posílání videa. Formát je opět dynamický,
+z \mintinline{text}{a=rtpmap} lze vidět, že číslo \mintinline{text}{96} značí,
+že se jedná o kodek VP8. Je také vidět, že stopa patří do stejného streamu jako
+stopa v první media sekci.
+
+Třetí sekce je \mintinline{text}{application} a popisuje datový kanál. Její
+\mintinline{text}{mid} je \mintinline{text}{2}. Protokol SCTP využívá port
+\mintinline{text}{5000} a maximální velikost zprávy je \mintinline{text}{262144}
+\si{\byte}, což je \mintinline{text}{256} \si{\kibi\byte}.
+
+Další klíče se týkají protokolu ICE, který je popsán v části \ref{ice}.
 
 \subsection{Spojování}\label{connecting}
 
@@ -296,7 +410,7 @@ Nabízí-li každá strana 2 kandidáty, existují pak 4 páry kandidátů. Klie
 využijí ICE ping pakety, aby ověřili, které páry jsou funkční. Ty páry, u
 kterých došlo k výměně dat, jsou pak označeny za \textit{validní kandidáty}.
 Controlling klient následně vybere jeden z validních párů a označí ho za
-\textit{nominovaný pár}. Klienti se pak znovu pokusí o dvousměrnou komunikaci
+\textit{nominovaný pár}. Klienti se pak znovu pokusí o obousměrnou komunikaci
 pomocí tohoto páru, a je-li úspěšná, stává se z daného párů \textit{vybraný pár
 	kandidátů} \cite{WebRTCForTheCurious}.
 
@@ -323,7 +437,7 @@ svého počítače. Dalším příkladem je server, který přeposílá streamy 
 uživatelů, jak je popsáno v části \ref{connectionModels}
 \cite{WebRTCForTheCurious}.
 
-\subsubsection{RTP}
+\subsubsection{RTP}\label{rtp}
 
 \textit{Real-time Transport Protocol} (\textit{RTP}) je protokol, který se
 využívá pro přenos médií. RTP umožňuje posílání několik streamů (ve WebRTC je
@@ -331,13 +445,13 @@ RTP stream jedna stopa) přes jedno peer-spojení. RTP zároveň dává vývojá
 informace o časování a pořadí paketů, je ale nezávislé na kodeku
 \cite{WebRTCForTheCurious}.
 
-\subsubsection{RTCP}
+\subsubsection{RTCP}\label{rtcp}
 
 \textit{RTP Control Protocol} (\textit{RTCP}) je protokol, který umožňuje
 přeposílání metadat o RTP spojení. Obvykle se jedná o metadata jako je např.
 ztráta paketů \cite{WebRTCForTheCurious}.
 
-\subsection{Posílání dat -- SCTP}
+\subsection{Posílání dat -- SCTP}\label{sctp}
 
 \textit{Stream Control Transmission Protocol} (\textit{SCTP}) je protokol, který
 umožňuje přeposílání libovolných dat pomocí WebRTC. WebRTC \textit{datové
@@ -357,7 +471,7 @@ popíšeme níže.
 protokolu TLS, ale je určený pro šifrování dat, která jsou posílána přes
 protokol UDP místo TCP \cite{WebRTCForTheCurious}.
 
-\subsubsection{SRTP}
+\subsubsection{SRTP}\label{srtp}
 
 \textit{Secure Real-time Transport Protocol} (\textit{SRTP}) je protokol, který
 využívá externích klíčů vygenerovaných DTLS k šifrování RTP paketů

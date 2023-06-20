@@ -1,10 +1,9 @@
 \section{Skupinové volání pomocí WebRTC}\label{connectionModels}
 
 Jak bylo zmíněno v části \ref{webRTC}, protokol WebRTC funguje na P2P bázi
-\cite{WebRTCORG-PeerConnections}, což přináší otázku, jak využít tuto
-technologii pro skupinové volání, kdy je peer klientů potenciálně více než
-dva. K řešení tohoto problému existuje několik přístupů, které si následně
-rozebereme.
+\cite{WebRTCORG-PeerConnections}. To přináší otázku, zda a jak využít tuto
+technologii pro skupinové volání -- hovory, které mají více než dva účastníky. K
+řešení tohoto problému existuje několik přístupů, které si následně rozebereme.
 
 \subsection{Full-mesh}
 
@@ -59,9 +58,9 @@ klientů, a tak dva uživatelé, kteří se hovoru účastní, můžou mít zna�
 zážitek.
 
 Dalším problémem je zátěž klienta, protože musí přijímat RTP streamy všech
-klientů, které nejdříve rozšifrovává a dekóduje. Zároveň posílá všechny své RTP
-streamy ostatním klientům, ty musí naopak enkódovat a následně zašifrovat. Při
-vyšším počtu klientů v hovoru je pak třeba, aby všichni klienti běželi na
+klientů, které nejdříve rozšifruje a poté rozkóduje. Zároveň posílá všechny své
+RTP streamy ostatním klientům, ty musí naopak zakódovat a následně zašifrovat.
+Při vyšším počtu klientů v hovoru je pak třeba, aby všichni klienti běželi na
 dostatečně silném hardwaru
 \cite{BBC-FirstWebcamMadeCoffeePotFamous,Red5Pro-WebRTCScalingApproaches}.
 
@@ -101,9 +100,9 @@ klientům. Existují zde dva hlavní přístupy
 První možností je tzv. \textit{Multipoint Control Unit} (dále \textit{MCU}),
 tento server přijímá streamy jednotlivých klientů a následně je transkóduje a
 mixuje do jednoho, který pak zpět posílá všem uživatelům (viz obrázek č.
-\ref{mcu}). Hlavní výhodou tohoto přístupu je, že klient nemusí mít vysoký ani
-download, neboť přijímá jen jeden stream. Má ale relativně dost nevýhod
-\cite{Red5Pro-WebRTCScalingApproaches}.
+\ref{mcu}). Hlavní výhodou tohoto přístupu je, že klient nemusí mít vysokou
+rychlost stahování dat, neboť přijímá jen jeden stream. Má ale relativně dost
+nevýhod \cite{Red5Pro-WebRTCScalingApproaches}.
 
 První z nich je, že streamy jsou mixované do jednoho streamu, který je pak pro
 všechny klienty stejný, neumožňuje tedy uživatelům klientů, aby si vybrali,
@@ -115,9 +114,9 @@ server tedy potřebuje silný hardware. Tento proces je také mírně časově n
 což znamená, že uživatelé vidí a slyší věci s mírným
 zpožděním~\cite{Red5Pro-WebRTCScalingApproaches}.
 
-Poslední nevýhodou, kterou zmíníme, je to, že aby server mohl streamy
-transkódovat a mixovat, je nutné, aby je nejdříve rozšifroval, což znamená, že z
-principu není možné, aby komunikace mezi klienty byla
+Poslední nevýhodou, kterou zmíníme, je to, že pro transkódování a mixování
+streamů je nutné, aby je server nejdříve rozšifroval. To znamená, že z principu
+není možné, aby komunikace mezi klienty byla
 E2EE~\cite{ITSecurityKnowHow-E2EGainsANewMeaning}.
 
 \subsubsection{Selective Forwarding Unit}

@@ -33,12 +33,13 @@ Dnes většina VoIP aplikací, jako je např. Microsoft Teams, Discord, Google M
 Jitsi Meet atp., využívá protokolu \textit{WebRTC} (\textit{RTC} je zkratka pro
 \textit{Real Time Communication}), který se stal standardem pro komunikaci na
 internetu v reálném čase \cite{LevelUp-WhatPowerMeetAndTeams,
-	Discord-HowDoesItHandleMillionsOfUsers, Jitsi-Projects, WebRTCORG-Homepage}.
-Těmito aplikacemi se budeme zabývat v části \ref{webRTC}. Oproti prvním VoIP
-aplikacím tyto přinesly mnoho zlepšení, mimo jiné např. umožňují skupinové
-hovory až tisíců uživatelů \cite{MicrosoftLearn-MSTeamsLimitsAndSpecs}. To, jak
-je toho docíleno, shrneme v části \ref{connectionModels}. A samotným aplikacím
-se pak budeme věnovat v~části~\ref{voipTech}.
+Discord-HowDoesItHandleMillionsOfUsers, Jitsi-Projects, WebRTCORG-Homepage}.
+Těmito aplikacemi se budeme zabývat v části \ref{webRTC}. Výše uvedený software
+oproti prvním VoIP aplikacím (jako byla Speak Freely) přinesl mnoho zlepšení,
+mimo jiné např. umožňujE skupinové hovory až tisíců uživatelů
+\cite{MicrosoftLearn-MSTeamsLimitsAndSpecs}. To, jak je toho docíleno, shrneme v
+části \ref{connectionModels}. A samotným aplikacím se pak budeme věnovat
+v~části~\ref{voipTech}.
 
 Ale přes mnoho zlepšení, ke kterým bezpochyby došlo, však v jistých ohledech
 dochází spíše ke zhoršení. Například protokoly, které používáme pro e-mailovou
@@ -59,8 +60,8 @@ změnit. Právě protokol Matrix bude dalším tématem, kterým se budeme zabý
 jelikož kromě běžných funkcí pro chat také umožňuje VoIP hovory pomocí WebRTC
 (více v části \ref{matrixRTC}) \cite{MatrixORG-Homepage,MatrixORG-Spec}.
 
-Přesto, že protokol Matrix podporuje VoIP hovory, je tato část protokolu stále
-ve vývoji \cite{GitHub-MSC3401,GitHub-MSC3898} a chybí jí některé funkce, jako
+Přestože protokol Matrix podporuje VoIP hovory, je tato část protokolu stále
+ve vývoji~\cite{GitHub-MSC3401,GitHub-MSC3898} a chybí jí některé funkce, jako
 jsou např. break-out rooms. V částí \ref{breakoutRooms} se pokusíme navrhnout,
 jak do protokolu tuto funkci přidat a následně ji i implementujeme.
 

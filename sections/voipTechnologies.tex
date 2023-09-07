@@ -1,0 +1,52 @@
+\section{Další VoIP technologie}\label{voipTech}
+
+MatrixRTC a WebRTC samozřejmě nejsou jediné VoIP technologie -- v~této části se
+na tyto VoIP technologie podíváme.
+
+\subsection{Protokol SIP}
+
+\textit{Session Initiation Protocol} (\textit{SIP}) je protokol, který
+specifikuje komunikaci se signalling serverem, umožňuje oznámit ostatním
+klientům, že je klient aktivní, volat ostatní klienty, ukončení hovoru atp \cite{ExtraHop-SIPOverview}.
+
+\subsection{LiveKit}
+
+\textit{LiveKit} je open-source projekt, který by měl zjednodušit práci vývojářů
+s WebRTC. Jedná se o SFU (viz \ref{connectionModels}) a kolekci klient SDKs
+\cite{LiveKit-Homepage,GitHub-LiveKit}.
+
+Jeho SFU využívá Pion, jako signalling vrstva se využívá \textit{WebSockets} \cite{GitHub-LiveKit}.
+
+\subsection{Protokol aplikace Zoom}
+
+Zoom je konferenční software, který stojí na protokolech SIP, \textit{Real Time
+	Messaging Protocol} (\textit{RTMP}) a WebRTC. SIP se využívá na signalling,
+RTMP na samotný přenos médií a WebRTC API pro získání streamu dat z kamery
+či obrazovky. Ve webových prohlížečích používá pro přenos médií WebSockets,
+což je zvláštní rozhodnutí vzhledem k tomu, že WebSockets používají TCP~\cite{WebRTCHacks-HowZoomAvoidWebRTC,EBODigital-HowDoesZoomWork,
+	Zoom-Homepage}.
+
+\subsection{Protokol aplikace Discord}
+
+Discord je aplikace na chat a VoIP hovory \cite{Discord-WhatIsDiscord}. Používá
+protokol WebRTC jako základ své technologie, neboť je podporován na celé škále
+prohlížečů a operačních systémů. V prohlížečích Discord využívá jejich nativní
+implementace WebRTC, ale na desktopu, Androidu a iOS využívají nativní knihovnu
+pro WebRTC napsanou v C++; některé funkce tedy fungují lépe např. v desktopové
+aplikaci než v prohlížeči \cite{Discord-HowDoesItHandleMillionsOfUsers}.
+
+Nativní knihovna v C++ umožňuje Discordu větší kontrolu nad WebRTC, což dává
+prostor pro různá zjednodušení. Vzhledem k tomu, že v případě Discordu klient
+vždy volá server, je možné vynechat ICE. Discord také používá Salsa20 šifrování,
+protože je rychlejší než DTLS a SRTP. Zároveň šetří data tím, že neposílá žádné
+pakety, pokud uživatel zrovna nemluví
+\cite{Discord-HowDoesItHandleMillionsOfUsers}.
+
+Signalling server používá WebSockets a je napsaný v jazyce Elixir
+\cite{Discord-HowDoesItHandleMillionsOfUsers}.
+
+\subsection{Protokol aplikace Jitsi}
+
+\textit{Jitsi} je kolekce open-source projektů, které poskytují VoIP služby,
+které jsou vhodné pro self-hosting \cite{Jitsi-Docs-Introduction}. Jako
+signalling vrstvu používá protokol XMPP \cite{XMPPORG-WebRTC}.

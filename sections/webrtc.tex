@@ -236,8 +236,11 @@ Tradiční aplikace často používají model klient-server, kde má server fixo
 známou IP adresu, kterou může klient využít pro komunikaci. Ve WebRTC tomu ale
 tak není, neboť protokol je P2P, oba klienti jsou tedy zodpovědní za vytvoření
 obousměrného spojení, což může být složité, ale má to své vyhody menší zpoždění
-a E2EE, vývojář se zároveň nemusí starat o žádné servery
-\cite{WebRTCForTheCurious}.
+a end-to-end šifrování (E2EE)\footnote{End-to-end šifrování je metoda, kde
+třetí strany nemůžou číst data, neboť klíče mají jen koncové strany. Příkladem
+je mnoho aplikací pro chat, kde server nemůže číst zprávy uživatelů, neboť klíče
+mají jen klienti daných uživatelé \cite{IBM-EndToEndEncryption}.}, vývojář se
+zároveň nemusí starat o žádné servery \cite{WebRTCForTheCurious}.
 
 Pro vytvoření spojení se používá protokolu \textit{Interactive Connectivity
 	Establishment} (\textit{ICE}). Protokol ICE slouží k nalezení nejlepšího

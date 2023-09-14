@@ -49,11 +49,14 @@ komponenty rozebereme a popíšeme k čemu slouží.
 klienti vyměňují pomocí tzv. \textit{signalling serveru} informace o tom, jak
 mohou být druhým klientem kontaktováni, jaká média a data plánují posílat, jaké
 kodeky\footnote{Kodek je hardware či software, který se využívá pro zakódování,
-či rozkódování médii \cite{Britannica-Codec,TechTarget-Codec}.} podporují atp. Zprávy, které si klienti pomocí signalling serveru
-vyměňují, se nazývají \textit{session descriptions}, jsou ve formátu, který je
-definován protokolem zvaným \textit{Session Description Protocol} (\textit{SDP})
-(místo \textit{session description} se někdy píše jen \textit{SDP})
-\cite{WebRTCForTheCurious}.
+či rozkódování médii \cite{Britannica-Codec,TechTarget-Codec}.} podporují atp.
+Zprávy, které si klienti pomocí signalling serveru vyměňují, se nazývají
+\textit{session descriptions}, jsou ve formátu, který je definován protokolem
+zvaným \textit{Session Description Protocol} (\textit{SDP}) (místo
+\textit{session description} se někdy píše jen \textit{SDP})
+\cite{WebRTCForTheCurious}. Signalling server není nijak standardizován, jedinou
+podmínkou je výměna SDP, což vede k tomu, že aplikace často nejsou mezi sebou
+kompatibilní \cite{MDN-Web-SignalingAndVideoCalling}.
 
 Chce-li klient 1 volat klienta 2, vygeneruje tzv \textit{
 	session description offer} (\textit{SDP offer}), kterou pomocí signalling

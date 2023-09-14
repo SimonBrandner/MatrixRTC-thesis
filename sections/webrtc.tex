@@ -332,9 +332,11 @@ kontaktovat \cite{WebRTCForTheCurious}.
 
 Bohužel Mapped Address vůbec nemusí být užitečná, pokud je použito NAT mapování
 typu \textit{Address Dependent}, což znamená, že router 1 přijímá na daném
-mapování pakety pouze od STUN serveru. STUN naštěstí umožňuje zjištění typu NAT
-mapování, takže klient předem ví, jestli ho bude možné kontaktovat
-\cite{WebRTCForTheCurious}.
+mapování pakety pouze od STUN serveru\footnote{Address Dependent mapování lze
+často také nalézt pod pojmem \textit{Symmetric} NAT. Tento pojem je ale
+nepřesný, neboť reálné NAT často nelze snadno klasifikovat do kategorií
+\cite{IETF-RFC4787}.}. STUN naštěstí umožňuje zjištění typu NAT mapování, takže
+klient předem ví, jestli ho bude možné kontaktovat \cite{WebRTCForTheCurious}.
 
 \subsubsection{TURN}
 

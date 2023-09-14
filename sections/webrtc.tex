@@ -58,14 +58,13 @@ zvaným \textit{Session Description Protocol} (\textit{SDP}) (místo
 podmínkou je výměna SDP, což vede k tomu, že aplikace často nejsou mezi sebou
 kompatibilní \cite{MDN-Web-SignalingAndVideoCalling}.
 
-Chce-li klient 1 volat klienta 2, vygeneruje tzv \textit{
-	session description offer} (\textit{SDP offer}), kterou pomocí signalling
-serveru přepošle klientovi 2. Chce-li klient 2 hovor přijmout, vygeneruje
-tzv. \textit{
-	session description answer} (\textit{SDP answer}), kterou naopak přepošle
-klientovi 1. Poté, co dojde k výměně session descriptions, klienti budou
-nejspíše schopní vytvořit \textit{peer-to-peer} (\textit{P2P}) spojení.
-Tento proces se nazývá \textit{negotiation}
+Chce-li klient 1 volat klienta 2, vygeneruje tzv. \textit{session description
+offer} (\textit{SDP offer}), kterou pomocí signalling serveru přepošle klientovi
+2. Chce-li klient 2 hovor přijmout, vygeneruje tzv. \textit{session description
+answer} (\textit{SDP answer}), kterou naopak přepošle klientovi 1. Poté, co
+dojde k výměně session descriptions, klienti budou nejspíše schopní vytvořit
+\textit{peer-to-peer} (\textit{P2P}) spojení. Tento proces se nazývá
+\textit{negotiation}
 \cite{WebRTCForTheCurious,MozillaBlog-PerfectNegotiation}
 
 Dojde-li během hovoru ke změnám spojení (změní se stopy, které klienti posílají,

@@ -5,9 +5,11 @@ Tato část práce vychází převážně z knihy
 	APIs} \cite{WebRTCForTheCurious}.
 
 \textit{Web Real-Time Communication} (\textit{WebRTC}) je protokol, který
-umožňuje vytvoření bezpečného obousměrného spojení mezi dvěma klienty pro
-přeposílání audia, videa a libovolných dat v reálném čase
-\cite{WebRTCForTheCurious}.
+umožňuje vytvoření bezpečného obousměrného \textit{peer-to-peer}
+(\textit{P2P})\footnote{Peer-to-peer spojení dvou počítačů je takové spojení,
+kde k výměně dat není třeba žádný server \cite{MerriamWebster-PeerToPeer}.}
+spojení mezi dvěma klienty pro přeposílání audia, videa a libovolných dat v
+reálném čase \cite{WebRTCForTheCurious}.
 
 WebRTC spojení je složeno ze \textit{stop} (\textit{tracks}) a datových kanálů
 (\textit{data channels}). Stopa může být např. audio z mikrofonu či video z
@@ -62,8 +64,8 @@ Chce-li klient 1 volat klienta 2, vygeneruje tzv. \textit{session description
 offer} (\textit{SDP offer}), kterou pomocí signalling serveru přepošle klientovi
 2. Chce-li klient 2 hovor přijmout, vygeneruje tzv. \textit{session description
 answer} (\textit{SDP answer}), kterou naopak přepošle klientovi 1. Poté, co
-dojde k výměně session descriptions, klienti budou nejspíše schopní vytvořit
-\textit{peer-to-peer} (\textit{P2P}) spojení. Tento proces se nazývá
+dojde k výměně session descriptions, klienti budou nejspíše schopní vytvořit P2P
+spojení. Tento proces se nazývá
 \textit{negotiation}
 \cite{WebRTCForTheCurious,MozillaBlog-PerfectNegotiation}.
 

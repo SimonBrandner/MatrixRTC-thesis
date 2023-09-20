@@ -50,7 +50,7 @@ Establishment} (\textit{ICE}). Protokol ICE slouží k nalezení nejlepšího
 způsobu, jak vytvořit spojení mezi dvěma klienty. Každý klient zveřejní své tzv.
 \textit{ICE kandidáty}, což jsou v podstatě IP adresy a porty, na kterých je
 klient dostižitelný (více v části \ref{ice})~\cite{WebRTCForTheCurious}. V této
-části se zabýváme jen samotným výběrem těchto kandidátů, o tom, jak si klienti
+části se zabýváme jen samotným výběrem těchto kandidátů; o tom, jak si klienti
 předají informace o tom kandidátech se dozvíte v sekci \ref{signalling}.
 
 \subsubsection{NAT}\label{nat}
@@ -94,29 +94,35 @@ adres routerů, které ale klienti nutně neznají, zároveň je nutné, aby rou
 věděl, na jaký z klientů paket přeposlat \cite{WebRTCForTheCurious}.
 
 Routery využívají k řešení této situace metodu \textit{Network Address
-Translation} (\textit{NAT}). NAT umožňuje vytvořit mapování mezi IP adresou a
-portem, které jsou viditelné zvenčí, a IP adresou a portem, které jsou viditelné v síti routeru \cite{WebRTCForTheCurious}.
+Translation} (\textit{NAT}). NAT umožňuje vytvořit mapování mezi veřejnou IP
+adresou\footnote{Pro zjednodušení předpokládáme statické veřejné IP adresy.} a
+portem a privátní IP adresou a portem v podsíti routeru
+\cite{WebRTCForTheCurious}.
 
 Jednou z možností mapování je \textit{port forwarding}, jde o statické
-namapování předem definovaného portu použitelného zvenčí sítě routeru na IP
-adresu a port v siti routeru. Na obrázku \ref{natFig} by mohl router 2 mít
-vytvořené takové mapování, že v případě, že zvenčí sítě přijde paket na port
-\mintinline{text}{80}, router ho přesměruje na klienta 3 na port
-\mintinline{text}{90}. Zároveň pošle-li klient 3 paket na router na port
-\mintinline{text}{90}, bude přeposlán routerem přes port \mintinline{text}{80}.
-Toto mapování je vhodné pro případy, kdy chceme, aby dané zařízení za routerem
-bylo dostižitelné na IP adrese routeru na pevně daném portu
-\cite{G2-WhatIsPortForwarding}. (Pro zjednodušení předpokládáme, že IP adresa
-routeru je statická.)
+namapování předem definovaného portu na privátní IP adresu a port v podsiti
+routeru. Router 2 by mohl mít vytvořené takové mapování, že přijde-li paket na
+adresu \mintinline{text}{1.0.0.2:80} (tedy na port \mintinline{text}{80} na
+routeru 2), router 2 ho přesměruje na adresu \mintinline{text}{192.168.0.1:90}
+(port \mintinline{text}{90} na klientovi 3). Zároveň pošle-li klient 3 paket na
+\mintinline{text}{192.168.0.254:90}, bude přeposlán routerem přes port
+\mintinline{text}{80} (příjemce bude tedy vidět \mintinline{text}{1.0.0.2:80}
+jako zdrojovou adresu). Toto mapování je vhodné pro případy, kdy chceme, aby
+dané zařízení za routerem bylo dostižitelné na IP adrese routeru na pevně daném
+portu \cite{G2-WhatIsPortForwarding}.
 
 Mapování ale nemusí být pevné a může existovat jen dočasně. Pošle-li klient 1
-paket na IP adresu routeru 2 na port \mintinline{text}{80}, vybere router 1 port
-a přepošle paket z tohoto portu. Když následně klient 3 pošle paket na router 1
-na portu, ze kterého přišel paket první, router 1 rozpozná dle portu, že má
-paket přeposlat klientovi 1. Toto mapování může ale v budoucnosti
-zaniknout\footnote{Jak dlouho je mapování funkční závisí na mnoha faktorech.
-Např. pokud je použit protokol TCP, mapování se ruší explicitně.}. Tento typ
-mapování je nejčastější pro běžná zařízení \cite{WebRTCForTheCurious}.
+paket na \mintinline{text}{192.168.0.254:80} (port \mintinline{text}{80} na
+routeru 2), vybere router 1 nějaký port \mintinline{text}{P}, vytvoří mapování a
+přepošle paket z tohoto portu (příjemce bude tedy vidět
+\mintinline{text}{1.0.0.1:P} jako zdrojovou adresu). Když následně klient 3
+pošle paket na \mintinline{text}{1.0.0.1:P} (port \mintinline{text}{P} na
+routeru~1), router 1 rozpozná dle portu, že má paket zpět přeposlat na
+\mintinline{text}{192.168.0.1:80} (klienta 1, který posláním svého paketu
+mapování vytvořil). Toto mapování může ale v budoucnosti zaniknout\footnote{Jak
+dlouho je mapování funkční závisí na mnoha faktorech. Např. pokud je použit
+protokol TCP, mapování se ruší explicitně.}. Tento typ mapování je nejčastější
+pro běžná zařízení \cite{WebRTCForTheCurious}.
 
 \subsubsection{STUN}
 
@@ -152,29 +158,34 @@ mapování je nejčastější pro běžná zařízení \cite{WebRTCForTheCurious
 	\label{stun}
 \end{figure}
 
+NAT sice umožňuje vytvořit mapování mezi veřejnou IP adresou a portem a IP
+adresou a portem v podsíti, ale klienti v podsíti neví, jaká je veřejná IP
+adresa routeru (obzvlášť pokud je dynamická), a pokud není použit port
+forwarding, neví ani, jaký port budu využit pro přeposíláním paketů.
 \textit{Session Traversal Utilities for NAT} (\textit{STUN}) je protokol, který
-umožňuje překonat problémy popsané v sekci \ref{nat}. Protokol
-STUN byl vytvořen pro práci s \textit{NAT} (\textit{Network Address
-Translation}) \cite{WebRTCForTheCurious}.
+nám umožňuje tato omezení překonat \cite{WebRTCForTheCurious}.
 
 V síti, která je vidět na obrázku \ref{stun}, klient 1 pošle \textit{STUN
-	Binding Request} STUN serveru, který má známou statickou veřejnou IP adresu.
-Router 1 využije metody NAT pro vytvoření mapování na určitém portu. STUN
-server pomocí \textit{STUN Binding Response} pošle na router 1 informace o
-tom, z jaké IP adresy a portu request přišel. Protože bylo na routeru 1
-vytvořeno mapování, ví, že pokud přijde zpráva na daném portu, má ji
-přeposlat klientovi 1, ten poté ze STUN Binding Response může vyčíst, jaká
-je jeho \textit{Mapped Address} (někdy také \textit{veřejná IP adresa} či
-\textit{Server Reflexive Candidate}). V~podstatě se jedná o automatické
+Binding Request} na \mintinline{text}{1.0.0.3} (na STUN server, který má známou
+statickou veřejnou IP adresu.) Router 1 využije metody NAT pro vytvoření
+mapování na určitém portu \mintinline{text}{P}. STUN server vidí, že paket
+přišel z adresy \mintinline{text}{1.0.0.1:P}, tuto informací pomocí \textit{STUN
+Binding Response} pošle zpět na \mintinline{text}{1.0.0.1:P} (router 1). Protože
+bylo na routeru 1 vytvořeno mapování, router 1 ví, že pokud přijde paket na port
+\mintinline{text}{P}, má jej přeposlat na IP adresu
+\mintinline{text}{192.168.0.1} (klientovi 1), ten poté ze STUN Binding Response
+může vyčíst, jaká je jeho veřejná IP adresa  (někdy také \textit{Mapped Address}
+či \textit{Server Reflexive Candidate}). V~podstatě se jedná o automatické
 dynamické port forwardování~\cite{WebRTCForTheCurious}.
 
 Bohužel Mapped Address vůbec nemusí být užitečná, pokud je použito NAT mapování
 typu \textit{Address Dependent}, což znamená, že router 1 přijímá na daném
-mapování pakety pouze od STUN serveru\footnote{Address Dependent mapování lze
-často také nalézt pod pojmem \textit{Symmetric} NAT. Tento pojem je ale
-nepřesný, neboť reálné NAT často nelze snadno klasifikovat do kategorií
-\cite{IETF-RFC4787}.}. STUN naštěstí umožňuje zjištění typu NAT mapování, takže
-klient předem ví, jestli ho bude možné kontaktovat \cite{WebRTCForTheCurious}.
+mapování pakety pouze z IP adresy \mintinline{text}{1.0.0.1} (ze STUN
+serveru)\footnote{Address Dependent mapování lze často také nalézt pod pojmem
+\textit{Symmetric} NAT. Tento pojem je ale nepřesný, neboť reálné NAT často
+nelze snadno klasifikovat do kategorií \cite{IETF-RFC4787}.}. STUN naštěstí
+umožňuje zjištění typu NAT mapování, takže klient předem ví, jestli ho bude
+možné kontaktovat \cite{WebRTCForTheCurious}.
 
 \subsubsection{TURN}
 
@@ -214,25 +225,29 @@ pokud je klient za jinak restriktivním firewallem. TURN lze také využít,
 přeje-li si klient, aby druhý klient neznal jeho IP adresu
 \cite{WebRTCForTheCurious}.
 
-Jak je vidět na obrázku \ref{turn}, TURN server funguje jako proxy (prostředník),
-přes které jsou přeposílána data. Přeje-li si klient 1 využít TURN server, musí
-nejdříve vytvořit tzv. \textit{alokaci}, která je následně využita k přeposílání
-dat. Aby alokaci klient 1 vytvořil, musí serveru poskytnout uživatelské jméno,
-heslo, protokol (může být UDP nebo TCP) a port~\cite{WebRTCForTheCurious}.
+TURN server funguje jako proxy (prostředník), přes které jsou přeposílána data.
+Přeje-li si klient 1 na obrázku \ref{turn} využít TURN server, musí nejdříve
+vytvořit tzv. \textit{alokaci}, která je následně využita k přeposílání dat. Aby
+alokaci klient 1 vytvořil, musí serveru poskytnout uživatelské jméno, heslo,
+protokol (může být UDP nebo TCP) a port~\cite{WebRTCForTheCurious}.
 
-Podaří-li se alokaci vytvořit, odpověď TURN serveru obsahuje Mapped Address
-(stejně jako v případě STUN), \textit{Lifetime}, což je doba, po kterou bude
-alokace aktivní, \textit{Relayed Address}, což je adresa, kterou klient 1 předá
-ostatním klientům. Pokud jsou na ni poslány pakety, budou TURN serverem
-přesměrovány na klienta, který vytvořil danou alokaci
-\cite{WebRTCForTheCurious}.
+Podaří-li se alokaci vytvořit, odpověď TURN serveru obsahuje podobně jako u STUN
+Mapped Address (v našem případě \mintinline{text}{1.0.0.1:P1}),
+\textit{Lifetime}, což je doba, po kterou bude alokace aktivní, \textit{Relayed
+Address} (v našem případě \mintinline{text}{1.0.0.3:P2}), což je adresa, kterou
+klient 1 předá ostatním klientům. Pokud jsou na Relayed Adresu
+(\mintinline{text}{1.0.0.3:P2}) poslány pakety, budou TURN serverem přesměrovány
+na Mapped Adresu (adresu, ze které byla vytvořena alokace) -- router 1
+(\mintinline{text}{1.0.0.1:P1}), který následně přepošle pakety na klienta 1 na
+základě mapování, které bylo vytvořeno při vytváření
+alokace~\cite{WebRTCForTheCurious}.
 
 Nyní musí klient 2 poslat TURN serveru STUN Binding Request a klientovi 1 sdělit
-svou Mapped Address. Klient 1 pak může klientovi 2 povolit, aby na danou alokaci
+svou veřejnou adresu. Klient 1 pak může klientovi 2 povolit, aby na danou alokaci
 posílal pakety \cite{WebRTCForTheCurious}.
 
-Klient 1 poté může poslat \textit{Send Indication}, která obsahuje data, které se
-mají přeposlat klientovi 2 \cite{WebRTCForTheCurious}.
+Klient 1 může posílat na TURN server \textit{Send Indication}, která obsahuje
+data, které se mají přeposlat klientovi 2 \cite{WebRTCForTheCurious}.
 
 Posílá-li se velké množství paketů, může být nevýhodné, aby každý z nich
 obsahoval IP adresu a port. Je tedy možné vytvořit tzv. \textit{kanál}

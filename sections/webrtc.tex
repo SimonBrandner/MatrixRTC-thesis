@@ -1,3 +1,4 @@
+
 \section{Protokol WebRTC}\label{webRTC}
 
 Tato část práce vychází převážně z knihy
@@ -56,15 +57,23 @@ předají informace o tom kandidátech se dozvíte v sekci \ref{signalling}.
 
 \begin{figure}[H]
 	\centering
-	\begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
-		\node[draw] (router1) at (0,-1.5) {Router 1 (1.0.0.1)};
-		\node[draw] (client1) at (-3,-3) {Klient 1 (192.168.0.1)};
-		\node[draw] (client2) at (3,-3) {Klient 2 (192.168.0.2)};
-
-		\node[draw] (internet) at (0,0) {Internet};
-
-		\node[draw] (router2) at (0,1.5) {Router 2 (1.0.0.2)};
-		\node[draw] (client3) at (0,3) {Klient 3 (192.168.0.1)};
+	\begin{tikzpicture}
+		\node[draw] (client3) at (0,3.75) {\textbf{Klient 3}\\PR: 192.168.0.1};
+		\node[draw] (router2) at (0,1.75) {
+			\textbf{Router 2}\\
+			PU: 1.0.0.2\\
+			PR: 192.168.0.254
+		};
+		
+		\node[draw] (internet) at (0,0) {\textbf{Internet}};
+		
+		\node[draw] (router1) at (0,-1.75) {
+			\textbf{Router 1}\\
+			PU: 1.0.0.1\\
+			PR: 192.168.0.254
+		};
+		\node[draw] (client1) at (-4,-1.75) {\textbf{Klient 1}\\PR: 192.168.0.1};
+		\node[draw] (client2) at (4,-1.75) {\textbf{Klient 2}\\PR: 192.168.0.2};
 
 		\draw[<->] (client1) -- (router1);
 		\draw[<->] (client2) -- (router1);
@@ -73,7 +82,7 @@ předají informace o tom kandidátech se dozvíte v sekci \ref{signalling}.
 		\draw[<->] (internet) -- (router2);
 		\draw[<->] (router2) -- (client3);
 	\end{tikzpicture}
-	\caption{NAT}
+	\caption{NAT (\publicPrivateIP)}
 	\label{natFig}
 \end{figure}
 
@@ -113,15 +122,24 @@ mapování je nejčastější pro běžná zařízení \cite{WebRTCForTheCurious
 
 \begin{figure}[H]
 	\centering
-	\begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
-		\node[draw] (router1) at (-3,0) {Router 1 (1.0.0.1)};
-		\node[draw] (client1) at (-3,-1.5) {Klient 1 (192.168.0.1)};
+	\begin{tikzpicture}
+		\node[draw] (stunServer) at (0,1.5) {\textbf{STUN server}\\PU: 1.0.0.3};
 
-		\node[draw] (router2) at (3,0) {Router 2 (1.0.0.2)};
-		\node[draw] (client2) at (3,-1.5) {Klient 2 (192.168.0.2)};
+		\node[draw] (internet) at (0,0) {\textbf{Internet}};
 
-		\node[draw] (internet) at (0,1.5) {Internet};
-		\node[draw] (stunServer) at (0,3) {STUN server (1.0.0.3)};
+		\node[draw] (router1) at (-3,-1.75) {
+			\textbf{Router 1}\\
+			PR: 192.168.0.254\\
+			PU: 1.0.0.1
+		};
+		\node[draw] (client2) at (3,-4) {\textbf{Klient 2}\\PR: 192.168.0.2};
+
+		\node[draw] (router2) at (3,-1.75) {
+			\textbf{Router 2}\\
+			PR: 192.168.0.254\\
+			PU: 1.0.0.2
+		};
+		\node[draw] (client1) at (-3,-4) {\textbf{Klient 1}\\PR: 192.168.0.1};
 
 		\draw[<->] (client1) -- (router1);
 		\draw[<->] (router1) -- (internet);
@@ -130,7 +148,7 @@ mapování je nejčastější pro běžná zařízení \cite{WebRTCForTheCurious
 
 		\draw[<->] (internet) -- (stunServer);
 	\end{tikzpicture}
-	\caption{STUN}
+	\caption{STUN (\publicPrivateIP)}
 	\label{stun}
 \end{figure}
 
@@ -162,21 +180,31 @@ klient předem ví, jestli ho bude možné kontaktovat \cite{WebRTCForTheCurious
 
 \begin{figure}[H]
 	\centering
-	\begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
-		\node[draw] (router1) at (-3,0) {Router 1 (1.0.0.1)};
-		\node[draw] (client1) at (-3,-1.5) {Klient 1 (192.168.0.1)};
+	\begin{tikzpicture}
+		\node[draw] (turnServer) at (0,1.5) {\textbf{TURN server}\\PU: 1.0.0.3};
+		\node[draw] (internet) at (0,0) {\textbf{Internet}};
 
-		\node[draw] (router2) at (3,0) {Router 2 (1.0.0.2)};
-		\node[draw] (client2) at (3,-1.5) {Klient 2 (192.168.0.2)};
+		\node[draw] (router1) at (-3,-1.75) {
+			\textbf{Router 1}\\
+			PR: 192.168.0.254\\
+			PU: 1.0.0.1
+		};
+		\node[draw] (client1) at (-3,-4) {\textbf{Klient 1}\\PR: 192.168.0.1};
 
-		\node[draw] (turnServer) at (0,1.5) {TURN server (1.0.0.3)};
+		\node[draw] (router2) at (3,-1.75) {
+			\textbf{Router 2}\\
+			PR: 192.168.0.254\\
+			PR: 1.0.0.2
+		};
+		\node[draw] (client2) at (3,-4) {\textbf{Klient 2}\\PR: 192.168.0.2};
 
 		\draw[<->] (client1) -- (router1);
-		\draw[<->] (router1) -- (turnServer);
-		\draw[<->] (turnServer) -- (router2);
+		\draw[<->] (router1) -- (internet);
+		\draw[<->] (turnServer) -- (internet);
+		\draw[<->] (internet) -- (router2);
 		\draw[<->] (router2) -- (client2);
 	\end{tikzpicture}
-	\caption{TURN}
+	\caption{TURN (\publicPrivateIP)}
 	\label{turn}
 \end{figure}
 
@@ -305,7 +333,7 @@ využívá externích klíčů vygenerovaných DTLS k šifrování RTP paketů
 
 \begin{figure}[H]
 	\centering
-	\begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
+	\begin{tikzpicture}
 		\node[draw] (server) at (0,0) {Signalling server};
 		\node[draw] (client1) at (-5, 0) {Klient 1};
 		\node[draw] (client2) at (5, 0) {Klient 2};

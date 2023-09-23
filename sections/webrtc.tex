@@ -165,14 +165,14 @@ nám umožňuje tato omezení překonat \cite{WebRTCForTheCurious}.
 
 V síti, která je vidět na obrázku \ref{stun}, klient 1 pošle \textit{STUN
 Binding Request} na \mintinline{text}{1.0.0.3} (na STUN server, který má známou
-statickou veřejnou IP adresu.) Router 1 využije metody NAT pro vytvoření
+statickou veřejnou IP adresu). Router 1 využije metody NAT pro vytvoření
 mapování na určitém portu \mintinline{text}{P}. STUN server vidí, že paket
 přišel z adresy \mintinline{text}{1.0.0.1:P}, tuto informací pomocí \textit{STUN
 Binding Response} pošle zpět na \mintinline{text}{1.0.0.1:P} (router 1). Protože
 bylo na routeru 1 vytvořeno mapování, router 1 ví, že pokud přijde paket na port
 \mintinline{text}{P}, má jej přeposlat na IP adresu
 \mintinline{text}{192.168.0.1} (klientovi 1), ten poté ze STUN Binding Response
-může vyčíst, jaká je jeho veřejná IP adresa  (někdy také \textit{Mapped Address}
+může vyčíst, jaká je jeho veřejná IP adresa (někdy také \textit{Mapped Address}
 či \textit{Server Reflexive Candidate}). V~podstatě se jedná o automatické
 dynamické port forwardování~\cite{WebRTCForTheCurious}.
 
@@ -231,13 +231,13 @@ protokol (může být UDP nebo TCP) a port~\cite{WebRTCForTheCurious}.
 
 Podaří-li se alokaci vytvořit, odpověď TURN serveru obsahuje podobně jako u STUN
 Mapped Address (v našem případě \mintinline{text}{1.0.0.1:P1}),
-\textit{Lifetime}, což je doba, po kterou bude alokace aktivní, \textit{Relayed
-Address} (v našem případě \mintinline{text}{1.0.0.3:P2}), což je adresa, kterou
-klient 1 předá ostatním klientům. Pokud jsou na Relayed Adresu
+\textit{Lifetime} (což je doba, po kterou bude alokace aktivní), \textit{Relayed
+Address} (v našem případě \mintinline{text}{1.0.0.3:P2}, což je adresa, kterou
+klient 1 předá ostatním klientům). Pokud jsou na Relayed Adresu
 (\mintinline{text}{1.0.0.3:P2}) poslány pakety, budou TURN serverem přesměrovány
-na Mapped Adresu (adresu, ze které byla vytvořena alokace) -- router 1
-(\mintinline{text}{1.0.0.1:P1}), který následně přepošle pakety na klienta 1 na
-základě mapování, které bylo vytvořeno při vytváření
+na Mapped Adresu (adresu, ze které byla vytvořena alokace) --
+\mintinline{text}{1.0.0.1:P1} (tedy router 1). Ten následně přepošle pakety na
+klienta 1 na základě mapování, které bylo vytvořeno při vytváření
 alokace~\cite{WebRTCForTheCurious}.
 
 Nyní musí klient 2 poslat TURN serveru STUN Binding Request a klientovi 1 sdělit

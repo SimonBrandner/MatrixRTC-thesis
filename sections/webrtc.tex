@@ -361,24 +361,23 @@ využívá externích klíčů vygenerovaných DTLS k šifrování RTP paketů
 
 \textit{Signalling} je zásadní součást WebRTC. Jedná se o proces při kterém si
 klienti vyměňují pomocí tzv. \textit{signalling serveru} ICE kandidáty a
-informace o tom, jaká média a data plánují posílat, jaké kodeky\footnote{Kodek
-je hardware či software, který se využívá pro zakódování, či rozkódování médii
+informace o tom, jaká data plánují posílat, jaké kodeky\footnote{Kodek je
+hardware či software, který se využívá pro zakódování, či rozkódování médii
 \cite{Britannica-Codec,TechTarget-Codec}.} podporují atp. Zprávy, které si
 klienti pomocí signalling serveru vyměňují, se nazývají \textit{session
 descriptions}, jsou ve formátu, který je definován protokolem zvaným
 \textit{Session Description Protocol} (\textit{SDP}) (místo \textit{session
-description} se někdy píše jen \textit{SDP}) \cite{WebRTCForTheCurious}.
-Signalling server není nijak standardizován, jedinou podmínkou je výměna SDP,
-což vede k tomu, že aplikace často nejsou mezi sebou kompatibilní
+description} se někdy píše jen \textit{SDP})~\cite{WebRTCForTheCurious}.
+Signalling server není nijak standardizován, jedinou podmínkou je, že realizuje
+výměnu SDP. To vede k tomu, že aplikace často nejsou mezi sebou kompatibilní
 \cite{MDN-Web-SignalingAndVideoCalling}.
 
 Chce-li klient 1 volat klienta 2, vygeneruje tzv. \textit{session description
 offer} (\textit{SDP offer}), kterou pomocí signalling serveru přepošle klientovi
 2. Chce-li klient 2 hovor přijmout, vygeneruje tzv. \textit{session description
-answer} (\textit{SDP answer}), kterou naopak přepošle klientovi 1. Poté, co
-dojde k výměně session descriptions, klienti budou nejspíše schopní vytvořit P2P
-spojení. Tento proces se nazývá
-\textit{negotiation}
+answer} (\textit{SDP answer}), kterou naopak přepošle klientovi~1. Poté, co
+dojde k výměně session descriptions, se protokol ICE pokusí vybrat vhodný pár
+kandidátů. Tento proces se nazývá \textit{negotiation}
 \cite{WebRTCForTheCurious,MozillaBlog-PerfectNegotiation}.
 
 Dojde-li během hovoru ke změnám spojení (změní se stopy, které klienti posílají,
@@ -387,13 +386,14 @@ se proces výměny session descriptions opakuje
 \cite{MozillaBlog-PerfectNegotiation}.
 
 SDP se skládá z \textit{párů klíč-hodnota} (\textit{key-value pairs}). Každý pár
-má formát \mintinline{text}{<klíč>=<hodnota>}. SDP může stejný klíč obsahovat
-několikrát. Záleží na pořadí jednotlivých řádků -- SDP začíná obecnými
-informacemi o spojení, které jsou následovány jednotlivými média-sekcemi, které
-popisují obousměrného stopy \cite{WebRTCForTheCurious}. Je-li hodnota
-nedefinovaná, používá se znak \mintinline{text}{-} \cite{IETF-RFC8866}. SDP
-podporuje několik klíčů, WebRTC využívá následující
-\cite{WebRTCForTheCurious,IETF-RFC8866}:
+má následující formát: \mintinline{text}{<klíč>=<hodnota>}. SDP může stejný klíč
+obsahovat několikrát. \cite{WebRTCForTheCurious}. Je-li hodnota nedefinovaná,
+používá se znak \mintinline{text}{-} \cite{IETF-RFC8866}. Záleží na pořadí
+jednotlivých řádků -- SDP začíná obecnými informacemi o spojení, které jsou
+následovány jednotlivými média-sekcemi. Média-sekce popisuje jednu odchozí stopu
+a jednu příchozí stopu (obě stopy nemusí být nutně aktivní), které musí být
+stejného typu (audio, anebo video). SDP podporuje několik klíčů, WebRTC využívá
+následující \cite{WebRTCForTheCurious,IETF-RFC8866}:
 
 \begin{itemize}
 	\item \mintinline{text}{v} -- značí verzi, která je vždy \mintinline{text}{0}
@@ -474,7 +474,7 @@ WebRTC \cite{WebRTCForTheCurious,IETF-RFC8866,IETF-RFC5888,IETF-RFC8841}:
 	      každou stopu, což ale není doporučeno
 	\item \mintinline{text}{a=sendrecv}, \mintinline{text}{a=sendonly},
 	      \mintinline{text}{a=recvonly} a \mintinline{text}{a=inactive} --
-	      značí, směr dat dané média sekce; oba klienti by se měli shodnout na
+	      značí, směr dat dané média-sekce; oba klienti by se měli shodnout na
 	      směru dat, obsahuje-li tedy SDP offer \mintinline{text}{a=sendonly},
 	      SDP answer by měla obsahovat \mintinline{text}{a=recvonly} pro danou
 	      média-sekci
@@ -542,11 +542,11 @@ přijímání i posílání audio stopy Formát je dynamický a z
 jedná o kodek Opus. Můžeme si rovněž povšimnout specifikace ID streamu a stopy.
 
 Druhá sekce je \mintinline{text}{video}, její \mintinline{text}{mid} je
-\mintinline{text}{1} a její směr je \mintinline{text}{sendonly}, klient je tedy
-ochotný používat tuto média-sekci pro posílání videa. Formát je opět dynamický,
+\mintinline{text}{1} a její směr je \mintinline{text}{sendonly}, klient tedy
+může používat tuto média-sekci pro posílání videa. Formát je opět dynamický,
 z \mintinline{text}{a=rtpmap} lze vidět, že číslo \mintinline{text}{96} značí,
 že se jedná o kodek VP8. Je také vidět, že stopa patří do stejného streamu jako
-stopa v první media sekci.
+stopa v první média-sekci.
 
 Třetí sekce je \mintinline{text}{application} a popisuje datový kanál. Její
 \mintinline{text}{mid} je \mintinline{text}{2}. Protokol SCTP využívá port

@@ -1,3 +1,3 @@
-#!/usr/bin/sh
+#!bash
 
 detex matrixRTC.tex | wc -w

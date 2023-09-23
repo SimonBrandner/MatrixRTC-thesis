@@ -262,13 +262,14 @@ Vzhledem k tomu, že alokace jsou časově omezeny, klient může poslat
 \textit{Interactive Connectivity Establishment} (\textit{ICE}) je protokol,
 který najde všechny páry adres a portů, které je možné využít pro spojení dvou
 klientů. Tyto páry se nazývají \textit{páry kandidátů}. Může se jednat o
-privátní adresy, veřejné adresy, či Relayed Adresy. Klienti komunikují pomocí
+privátní adresy v rámci podsítě routeru, Mapped Adresy (získané ze STUN
+serveru), či Relayed Adresy (získané z TURN serveru). Klienti komunikují pomocí
 \textit{ICE ping paketů}, které umožňují ověřit funkčnost spojení
 \cite{WebRTCForTheCurious}.
 
-ICE klient je buď \textit{controlling}, nebo \textit{controlled} -- klient,
-který je controlling, je ten, který vybere vhodný pár kandidátů; obvykle je
-controlling klient ten, který zahájil spojování~\cite{WebRTCForTheCurious}.
+ICE klient je buď \textit{controlling}, nebo \textit{controlled}. Controlling
+klient je ten, který vybere vhodný pár kandidátů. Obvykle je controlling klient
+ten, který zahájil spojování~\cite{WebRTCForTheCurious}.
 
 Nabízí-li každá strana 2 kandidáty, existují pak 4 páry kandidátů. Klienti
 využijí ICE ping pakety, aby ověřili, které páry jsou funkční. Ty páry, u

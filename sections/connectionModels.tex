@@ -8,20 +8,20 @@ technologii pro skupinové volání -- hovory, které mají více než dva úča
 \subsection{Full-mesh}
 
 \begin{figure}[h]
-	\centering
-	\begin{tikzpicture}[every node/.style={draw,circle}]
-		\foreach \i in {1,...,5} {
-				\node (\i) at ({(90-360/5*(\i-1))}:2) {\i};
-			}
-		\foreach \i in {1,...,4} {
-				\foreach \j in {\the\numexpr\i+1,...,5} {
-						\draw[red,->] (\i) edge[bend right=5] (\j);
-						\draw[blue,->] (\j) edge[bend right=5] (\i);
-					}
-			}
-	\end{tikzpicture}
-	\caption{Full-mesh}
-	\label{fullMeshFig}
+    \centering
+    \begin{tikzpicture}[every node/.style={draw,circle}]
+        \foreach \i in {1,...,5} {
+                \node (\i) at ({(90-360/5*(\i-1))}:2) {\i};
+            }
+        \foreach \i in {1,...,4} {
+                \foreach \j in {\the\numexpr\i+1,...,5} {
+                        \draw[red,->] (\i) edge[bend right=5] (\j);
+                        \draw[blue,->] (\j) edge[bend right=5] (\i);
+                    }
+            }
+    \end{tikzpicture}
+    \caption{Full-mesh}
+    \label{fullMeshFig}
 \end{figure}
 
 Prvním způsobem je tzv. spojení \textit{full-mesh}, v rámci kterého každý klient
@@ -81,20 +81,20 @@ klientům. Existují zde dva hlavní přístupy
 \subsubsection{Multipoint Control Unit}
 
 \begin{figure}[h]
-	\centering
-	\begin{tikzpicture}[every node/.style={draw,circle}]
-		\node (MCU) at (0,0) {MCU};
+    \centering
+    \begin{tikzpicture}[every node/.style={draw,circle}]
+        \node (MCU) at (0,0) {MCU};
 
-		\foreach \i in {1,...,5} {
-				\node (\i) at ({90-360/5*(\i-1)}:2) {\i};
-			}
-		\foreach \i in {1,...,5} {
-				\draw[red,->] (\i) edge[bend right=5] (MCU);
-				\draw[blue,->] (MCU) edge[bend right=5] (\i);
-			}
-	\end{tikzpicture}
-	\caption{Multipoint Control Unit}
-	\label{mcu}
+        \foreach \i in {1,...,5} {
+                \node (\i) at ({90-360/5*(\i-1)}:2) {\i};
+            }
+        \foreach \i in {1,...,5} {
+                \draw[red,->] (\i) edge[bend right=5] (MCU);
+                \draw[blue,->] (MCU) edge[bend right=5] (\i);
+            }
+    \end{tikzpicture}
+    \caption{Multipoint Control Unit}
+    \label{mcu}
 \end{figure}
 
 První možností je tzv. \textit{Multipoint Control Unit} (dále \textit{MCU}),
@@ -122,22 +122,22 @@ E2EE~\cite{ITSecurityKnowHow-E2EGainsANewMeaning}.
 \subsubsection{Selective Forwarding Unit}
 
 \begin{figure}[h]
-	\centering
-	\begin{tikzpicture}[every node/.style={draw,circle}]
-		\node (SFU) at (0,0) {SFU};
+    \centering
+    \begin{tikzpicture}[every node/.style={draw,circle}]
+        \node (SFU) at (0,0) {SFU};
 
-		\foreach \i in {1,...,5} {
-				\node (\i) at ({90-360/5*(\i-1)}:2) {\i};
-			}
-		\foreach \i in {1,...,5} {
-				\draw[red,->] (\i) edge[bend right=5] (SFU);
-				\foreach \j in {1,...,4} {
-						\draw[blue,->] (SFU) edge[bend right=5*\j] (\i);
-					}
-			}
-	\end{tikzpicture}
-	\caption{Selective Control Unit}
-	\label{sfu}
+        \foreach \i in {1,...,5} {
+                \node (\i) at ({90-360/5*(\i-1)}:2) {\i};
+            }
+        \foreach \i in {1,...,5} {
+                \draw[red,->] (\i) edge[bend right=5] (SFU);
+                \foreach \j in {1,...,4} {
+                        \draw[blue,->] (SFU) edge[bend right=5*\j] (\i);
+                    }
+            }
+    \end{tikzpicture}
+    \caption{Selective Control Unit}
+    \label{sfu}
 \end{figure}
 
 Druhou možností je tzv. \textit{Selective Forwarding Unit} (dále \textit{SFU}),
@@ -153,34 +153,34 @@ samostatně, takže si uživatel může zvolit, co bude sledovat
 \textit{federaci} (více v částech \ref{matrix} a \ref{matrixRTC}).
 
 \begin{figure}[h]
-	\centering
-	\begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
-		\foreach \i in {1,...,3} {
-				\node[draw,minimum size=24mm] (\i) at (-5, 6-3*\i) {\i};
-			}
+    \centering
+    \begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
+        \foreach \i in {1,...,3} {
+                \node[draw,minimum size=24mm] (\i) at (-5, 6-3*\i) {\i};
+            }
 
-		\node[draw,minimum height=9cm] (SFU) at (0,0) {SFU};
+        \node[draw,minimum height=9cm] (SFU) at (0,0) {SFU};
 
-		\foreach \i in {4,...,5} {
-				\node[draw,minimum size=24mm] (\i) at (5, 13.5-3*\i) {\i};
-			}
+        \foreach \i in {4,...,5} {
+                \node[draw,minimum size=24mm] (\i) at (5, 13.5-3*\i) {\i};
+            }
 
-		\foreach \i in {1,...,3}{
-				\foreach \j in {0,...,2} {
-						\FPeval{\result}{round(720/(2^(\j)):0)}
+        \foreach \i in {1,...,3}{
+                \foreach \j in {0,...,2} {
+                        \FPeval{\result}{round(720/(2^(\j)):0)}
 
-						\draw[red,->] ([yshift=(0.75*\j-0.75)*1cm]\i.east) -- ([yshift=(((6-3*\i)-(1-\j*1))*1cm)]SFU.west) node[midway, anchor=south]
-						{{\result}p};
-					}
-			}
+                        \draw[red,->] ([yshift=(0.75*\j-0.75)*1cm]\i.east) -- ([yshift=(((6-3*\i)-(1-\j*1))*1cm)]SFU.west) node[midway, anchor=south]
+                        {{\result}p};
+                    }
+            }
 
-		\draw[blue,->] ([yshift=1.5cm]SFU.east) -- (4.west) node[midway, anchor=south] {720p};
-		\foreach \j in {1,...,3} {
-				\draw[blue,->] ([yshift=(0.5-\j)*1cm]SFU.east) -- ([yshift=(1.5-0.75*\j)*1cm]5.west) node[midway, anchor=south] {180p};
-			}
-	\end{tikzpicture}
-	\caption{Simulcast}
-	\label{simulcast}
+        \draw[blue,->] ([yshift=1.5cm]SFU.east) -- (4.west) node[midway, anchor=south] {720p};
+        \foreach \j in {1,...,3} {
+                \draw[blue,->] ([yshift=(0.5-\j)*1cm]SFU.east) -- ([yshift=(1.5-0.75*\j)*1cm]5.west) node[midway, anchor=south] {180p};
+            }
+    \end{tikzpicture}
+    \caption{Simulcast}
+    \label{simulcast}
 \end{figure}
 
 Oproti MCU sice vyžaduje větší download ze strany klientů, neboť přijímají

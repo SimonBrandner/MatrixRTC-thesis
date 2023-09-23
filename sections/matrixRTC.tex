@@ -9,9 +9,9 @@ Kvůli tomu existuje několik MSCs, které navrhují změny specifikace pro při
 nových funkcí. MSC2746 přidává podporu pro renegotiation, pozastavování hovorů,
 upgrady hovorů, restartování ICE, lepší podpora pro více zařízení a
 DTMF\footnote{
-	\textit{Dual-Tone Multi-Frequency} (\textit{DTMF}) je systém, ve kterém má
-	každá číslice přiřazenou dvojici tónů. Tyto tóny se pak používají pro
-	komunikaci mezi zařízeními \cite{DSTNY-DTMF}.
+    \textit{Dual-Tone Multi-Frequency} (\textit{DTMF}) je systém, ve kterém má
+    každá číslice přiřazenou dvojici tónů. Tyto tóny se pak používají pro
+    komunikaci mezi zařízeními \cite{DSTNY-DTMF}.
 } \cite{GitHub-MSC2746}. MSC3077 přidává podporu pro hovory s více streamy
 (např. sdílení obrazovek) \cite{GitHub-MSC3077}. MSC3291 pak specifikuje sdílení
 metadat o streamech (např. zda je audio či video ztlumené)
@@ -48,7 +48,7 @@ obsahuje \mintinline{text}{sdp} (SDP offer posílajícího klienta) a
 \cite{MatrixORG-Spec,GitHub-MSC2746}.
 
 \begin{figure}[H]
-	\begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
 {
 	"type": "m.call.invite",
 	"content": {
@@ -76,7 +76,7 @@ Pokud se uživatel rozhodne hovor přijmout, jeho klient by měl poslat
 \cite{MatrixORG-Spec,GitHub-MSC2746}.
 
 \begin{figure}[H]
-	\begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
 {
 	"type": "m.call.answer",
 	"content": {
@@ -101,7 +101,7 @@ konvertovat do JSON pomocí \mintinline{typescript}{RTCIceCandidate::toJSON()}
 \cite{MDN-Web-RTCIceCandidate-ToJSON}.
 
 \begin{figure}[H]
-	\begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
 {
 	"type": "m.call.candidates",
 	"content": {
@@ -124,7 +124,7 @@ Pokud se uživatel rozhodne hovor odmítnout, jeho klient by měl poslat
 \mintinline{text}{m.call.reject} \cite{GitHub-MSC2746}.
 
 \begin{figure}[H]
-	\begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
 {
 	"type": "m.call.reject",
 	"content": {
@@ -143,7 +143,7 @@ nebo answer) a \mintinline{text}{type} (\mintinline{text}{"offer"} nebo
 \mintinline{text}{"answer"}) \cite{GitHub-MSC2746}.
 
 \begin{figure}[H]
-	\begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
 {
 	"type": "m.call.negotiate",
 	"content": {
@@ -164,24 +164,24 @@ Je-li hovor ukončen, klient by měl poslat událost s typem
 \mintinline{text}{m.call.hangup}, jehož \mintinline{text}{content} obsahuje
 \mintinline{text}{reason}, která nabývá několika hodnot \cite{GitHub-MSC2746}:
 \begin{itemize}
-	\itemsep0em
-	\item \mintinline{text}{user_hangup} -- uživatel ukončil hovor
-	\item \mintinline{text}{invite_timeout} -- druhá strana neodpověděla včas
-	\item \mintinline{text}{ice_failed} -- ICE negotiation selhala
-	\item \mintinline{text}{ice_timeout} -- spojení selhalo poté, co už byla
-	      přeposlána nějaká data
-	\item \mintinline{text}{user_media_failed} -- klientovi se nepodařilo získat
-	      přístup ke streamu z příslušného zařízení
-	\item \mintinline{text}{user_busy} -- primárně pro přemostěné PSTN\footnote{
-		      \textit{Public Switched Telephone Network} (\textit{PSTN}) je
-		      běžná veřejná telefonní síť \cite{Nextiva-PSTN}.
-	      } hovory,
-	      kde druhá strana může být nedostupná, protože už s někým telefonuje
-	\item \mintinline{text}{unknown_error} -- došlo k neznámé chybě
+    \itemsep0em
+    \item \mintinline{text}{user_hangup} -- uživatel ukončil hovor
+    \item \mintinline{text}{invite_timeout} -- druhá strana neodpověděla včas
+    \item \mintinline{text}{ice_failed} -- ICE negotiation selhala
+    \item \mintinline{text}{ice_timeout} -- spojení selhalo poté, co už byla
+          přeposlána nějaká data
+    \item \mintinline{text}{user_media_failed} -- klientovi se nepodařilo získat
+          přístup ke streamu z příslušného zařízení
+    \item \mintinline{text}{user_busy} -- primárně pro přemostěné PSTN\footnote{
+              \textit{Public Switched Telephone Network} (\textit{PSTN}) je
+              běžná veřejná telefonní síť \cite{Nextiva-PSTN}.
+          } hovory,
+          kde druhá strana může být nedostupná, protože už s někým telefonuje
+    \item \mintinline{text}{unknown_error} -- došlo k neznámé chybě
 \end{itemize}
 
 \begin{figure}[H]
-	\begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
 {
 	"type": "m.call.hangup",
 	"content": {
@@ -200,18 +200,18 @@ Pro vytvoření skupinového hovoru se využívá \mintinline{text}{m.call} stat
 událost, jejíž \mintinline{text}{content} obsahuje několik polí
 \cite{GitHub-MSC3401}:
 \begin{itemize}
-	\itemsep0em
-	\item \mintinline{text}{m.intent} -- může nabývat několika hodnot
-	      \mintinline{text}{m.room} (otevře-li uživatel danou místnost, hovor by měl být
-	      jejím hlavním obsahem -- podobně jako Discord voice a video channels), \mintinline{text}{m.prompt} (uživatel by měl být
-	      upozorněn, že hovor probíhá), \mintinline{text}{m.ring} (klient uživatele by
-	      měl začít vyzvánět)
-	\item \mintinline{text}{m.type} -- může být \mintinline{text}{m.voice}, nebo \mintinline{text}{m.video}
-	\item \mintinline{text}{m.name} -- libovolný název pro hovor
+    \itemsep0em
+    \item \mintinline{text}{m.intent} -- může nabývat několika hodnot
+          \mintinline{text}{m.room} (otevře-li uživatel danou místnost, hovor by měl být
+          jejím hlavním obsahem -- podobně jako Discord voice a video channels), \mintinline{text}{m.prompt} (uživatel by měl být
+          upozorněn, že hovor probíhá), \mintinline{text}{m.ring} (klient uživatele by
+          měl začít vyzvánět)
+    \item \mintinline{text}{m.type} -- může být \mintinline{text}{m.voice}, nebo \mintinline{text}{m.video}
+    \item \mintinline{text}{m.name} -- libovolný název pro hovor
 \end{itemize}
 
 \begin{figure}[H]
-	\begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
 {
 	"type": "m.call",
 	"state_key": "cvsiu2893",
@@ -237,7 +237,7 @@ formátu jako události popsané v části \ref{dmCalls} \cite{GitHub-MSC3401}.
 % ale `m.call.member' event umožňuje se účastnit hovorů více.
 
 \begin{figure}[H]
-	\begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
 {
 	"type": "m.call",
 	"state_key": "@user:server.org",
@@ -302,38 +302,38 @@ klient Hydrogen a Third Room (viz \ref{thirdroom}) \cite{GitHub-Hydrogen}.
 \subsection{Foci}\label{foci}
 
 \begin{figure}[H]
-	\centering
-	\begin{tikzpicture}[every node/.style={draw,circle}]
-		\foreach \i in {1,...,3} {
-				\node (focus\i) at ({90-360/3*(\i-1)}:1.25) {Focus \i};
-				\node[minimum size=2.5cm] (server\i) at ({90-360/3*(\i-1)}:3.75)
-				{Server \i};
+    \centering
+    \begin{tikzpicture}[every node/.style={draw,circle}]
+        \foreach \i in {1,...,3} {
+                \node (focus\i) at ({90-360/3*(\i-1)}:1.25) {Focus \i};
+                \node[minimum size=2.5cm] (server\i) at ({90-360/3*(\i-1)}:3.75)
+                {Server \i};
 
-				\draw[red] (server\i) -- (focus\i);
-			}
+                \draw[red] (server\i) -- (focus\i);
+            }
 
-		\foreach \i in {1,...,3} {
-				\node (client\i) at ({120-360/3*(\i-1)}:5) {Klient {\the\numexpr((\i-1)*2+1)}};
+        \foreach \i in {1,...,3} {
+                \node (client\i) at ({120-360/3*(\i-1)}:5) {Klient {\the\numexpr((\i-1)*2+1)}};
 
-				\draw[red] (server\i) -- (client\i);
-				\draw[blue] (focus\i) edge[bend left=10] (client\i);
-			}
-		\foreach \i in {1,...,3} {
-				\node (client{3+\i}) at ({60-360/3*(\i-1)}:5) {Klient {\the\numexpr((\i-1)*2+2)}};
+                \draw[red] (server\i) -- (client\i);
+                \draw[blue] (focus\i) edge[bend left=10] (client\i);
+            }
+        \foreach \i in {1,...,3} {
+                \node (client{3+\i}) at ({60-360/3*(\i-1)}:5) {Klient {\the\numexpr((\i-1)*2+2)}};
 
-				\draw[red] (server\i) -- (client{3+\i});
-				\draw[blue] (focus\i) edge[bend right=10] (client{3+\i});
-			}
+                \draw[red] (server\i) -- (client{3+\i});
+                \draw[blue] (focus\i) edge[bend right=10] (client{3+\i});
+            }
 
-		\foreach \i in {1,...,2} {
-				\foreach \j in {\the\numexpr\i+1,...,3} {
-						\draw[green] (server\i) -- (server\j);
-						\draw[blue] (focus\i) -- (focus\j);
-					}
-			}
-	\end{tikzpicture}
-	\caption{Federace Matrix foci}
-	\label{federatedFoci}
+        \foreach \i in {1,...,2} {
+                \foreach \j in {\the\numexpr\i+1,...,3} {
+                        \draw[green] (server\i) -- (server\j);
+                        \draw[blue] (focus\i) -- (focus\j);
+                    }
+            }
+    \end{tikzpicture}
+    \caption{Federace Matrix foci}
+    \label{federatedFoci}
 \end{figure}
 
 \href{https://github.com/matrix-org/matrix-spec-proposals/pull/3898}{MSC3898}
@@ -347,34 +347,34 @@ popisuje celý proces výběru a připojování k danému focusu~\cite{GitHub-MS
 My si situaci vysvětlíme na příkladu.
 
 \begin{figure}[H]
-	\centering
-	\begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
-		\node[draw] (serverPrague) at (-3,-3) {Server v Praze};
-		\node[draw] (serverLondon) at (3,1) {Server v Londýně};
+    \centering
+    \begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
+        \node[draw] (serverPrague) at (-3,-3) {Server v Praze};
+        \node[draw] (serverLondon) at (3,1) {Server v Londýně};
 
-		\node[draw] (focusPrague) at (-3,1) {Focus v Praze};
-		\node[draw] (focusLondon) at (0,3) {Focus v Londýně};
+        \node[draw] (focusPrague) at (-3,1) {Focus v Praze};
+        \node[draw] (focusLondon) at (0,3) {Focus v Londýně};
 
-		\node[draw] (clientAlice) at (-5,-1) {Klient Alice};
-		\node[draw] (clientBob) at (1,-2) {Klient Boba};
-		\node[draw] (clientCharlie) at (5,3) {Klient Charlieho};
+        \node[draw] (clientAlice) at (-5,-1) {Klient Alice};
+        \node[draw] (clientBob) at (1,-2) {Klient Boba};
+        \node[draw] (clientCharlie) at (5,3) {Klient Charlieho};
 
-		\draw[blue, <->] (serverPrague) -- (focusPrague);
-		\draw[blue, <->] (serverLondon) -- (focusLondon);
+        \draw[blue, <->] (serverPrague) -- (focusPrague);
+        \draw[blue, <->] (serverLondon) -- (focusLondon);
 
-		\draw[green, <->] (serverPrague) -- (serverLondon);
+        \draw[green, <->] (serverPrague) -- (serverLondon);
 
-		\draw[orange, <->] (clientAlice) -- (focusPrague);
-		\draw[blue, <->] (clientAlice) -- (serverPrague);
+        \draw[orange, <->] (clientAlice) -- (focusPrague);
+        \draw[blue, <->] (clientAlice) -- (serverPrague);
 
-		\draw[orange, <->] (clientBob) -- (focusPrague);
-		\draw[blue, <->] (clientBob) -- (serverPrague);
+        \draw[orange, <->] (clientBob) -- (focusPrague);
+        \draw[blue, <->] (clientBob) -- (serverPrague);
 
-		\draw[red, <->] (clientCharlie) -- (focusPrague);
-		\draw[blue, <->] (clientCharlie) -- (serverLondon);
-	\end{tikzpicture}
-	\caption{Federace Matrix foci: Charlie se připojuje do hovoru}
-	\label{focusSelection1}
+        \draw[red, <->] (clientCharlie) -- (focusPrague);
+        \draw[blue, <->] (clientCharlie) -- (serverLondon);
+    \end{tikzpicture}
+    \caption{Federace Matrix foci: Charlie se připojuje do hovoru}
+    \label{focusSelection1}
 \end{figure}
 
 Na obrázku \ref{focusSelection1} můžeme vidět situaci, kde máme dva Matrix
@@ -388,39 +388,39 @@ rovnou na ten pražský, neboť je aktuálně jediný účastník hovoru z
 Londýna~\cite{GitHub-MSC3898}.
 
 \begin{figure}[H]
-	\centering
-	\begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
-		\node[draw] (serverPrague) at (-3,-3) {Server v Praze};
-		\node[draw] (serverLondon) at (3,1) {Server v Londýně};
+    \centering
+    \begin{tikzpicture}[every node/.style={rectangle, rounded corners=2mm}]
+        \node[draw] (serverPrague) at (-3,-3) {Server v Praze};
+        \node[draw] (serverLondon) at (3,1) {Server v Londýně};
 
-		\node[draw] (focusPrague) at (-3,1) {Focus v Praze};
-		\node[draw] (focusLondon) at (0,3) {Focus v Londýně};
+        \node[draw] (focusPrague) at (-3,1) {Focus v Praze};
+        \node[draw] (focusLondon) at (0,3) {Focus v Londýně};
 
-		\node[draw] (clientAlice) at (-5,-1) {Klient Alice};
-		\node[draw] (clientBob) at (1,-2) {Klient Boba};
-		\node[draw] (clientCharlie) at (5,3) {Klient Charlieho};
-		\node[draw] (clientDave) at (2,-1) {Klient Dava};
+        \node[draw] (clientAlice) at (-5,-1) {Klient Alice};
+        \node[draw] (clientBob) at (1,-2) {Klient Boba};
+        \node[draw] (clientCharlie) at (5,3) {Klient Charlieho};
+        \node[draw] (clientDave) at (2,-1) {Klient Dava};
 
-		\draw[blue, <->] (serverPrague) -- (focusPrague);
-		\draw[blue, <->] (serverLondon) -- (focusLondon);
+        \draw[blue, <->] (serverPrague) -- (focusPrague);
+        \draw[blue, <->] (serverLondon) -- (focusLondon);
 
-		\draw[green, <->] (serverPrague) -- (serverLondon);
-		\draw[red, <->] (focusPrague) -- (focusLondon);
+        \draw[green, <->] (serverPrague) -- (serverLondon);
+        \draw[red, <->] (focusPrague) -- (focusLondon);
 
-		\draw[orange, <->] (clientAlice) -- (focusPrague);
-		\draw[blue, <->] (clientAlice) -- (serverPrague);
+        \draw[orange, <->] (clientAlice) -- (focusPrague);
+        \draw[blue, <->] (clientAlice) -- (serverPrague);
 
-		\draw[orange, <->] (clientBob) -- (focusPrague);
-		\draw[blue, <->] (clientBob) -- (serverPrague);
+        \draw[orange, <->] (clientBob) -- (focusPrague);
+        \draw[blue, <->] (clientBob) -- (serverPrague);
 
-		\draw[red, <->] (clientCharlie) -- (focusLondon);
-		\draw[blue, <->] (clientCharlie) -- (serverLondon);
+        \draw[red, <->] (clientCharlie) -- (focusLondon);
+        \draw[blue, <->] (clientCharlie) -- (serverLondon);
 
-		\draw[red, <->] (clientDave) -- (focusLondon);
-		\draw[blue, <->] (clientDave) -- (serverLondon);
-	\end{tikzpicture}
-	\caption{Federace Matrix foci: Dave se připojuje do hovoru}
-	\label{focusSelection2}
+        \draw[red, <->] (clientDave) -- (focusLondon);
+        \draw[blue, <->] (clientDave) -- (serverLondon);
+    \end{tikzpicture}
+    \caption{Federace Matrix foci: Dave se připojuje do hovoru}
+    \label{focusSelection2}
 \end{figure}
 
 Na obrázku \ref{focusSelection2} vidíme, že se do hovoru připojil uživatel Dave,

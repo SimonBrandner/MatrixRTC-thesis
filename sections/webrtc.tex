@@ -292,7 +292,7 @@ Přestože postupný přechod na IPv6 je nevyhnutelný, je nepravděpodobné, ž
 technologie jako NAT zmizely. Je tak smysluplné předpokládat, že technologie
 jako ICE a STUN rovněž zůstanou relevantní \cite{Quora-WillIPv6KillSTUNAndICE}.
 
-\subsection{Posílání médií}
+\subsection{Přenos audio a videa}
 
 WebRTC umožňuje posílat neomezené množství audio a video stop, které buď mohou
 být nezávislé, nebo mohou být součástí streamu. Typickým příkladem je uživatel,
@@ -304,15 +304,15 @@ popsáno v části \ref{connectionModels} \cite{WebRTCForTheCurious}.
 \subsubsection{RTP}\label{rtp}
 
 \textit{Real-time Transport Protocol} (\textit{RTP}) je protokol, který se
-využívá pro přenos médií. RTP umožňuje posílání několik streamů (ve WebRTC je
-RTP stream jedna stopa) přes jedno peer-spojení. RTP zároveň dává vývojáři
-informace o časování a pořadí paketů, je ale nezávislé na kodeku
+využívá pro přenos audia a videa. RTP umožňuje posílání několika streamů (ve
+WebRTC je RTP stream jedna stopa) přes jedno peer-spojení. RTP zároveň dává
+vývojáři informace o časování a pořadí paketů, je ale nezávislé na kodeku
 \cite{WebRTCForTheCurious}.
 
 \subsubsection{RTCP}\label{rtcp}
 
 \textit{RTP Control Protocol} (\textit{RTCP}) je protokol, který umožňuje
-přeposílání metadat o RTP spojení. Obvykle se jedná o metadata jako je např.
+přeposílání metadat o RTP spojení. Obvykle se jedná o metadata, jako je např.
 ztráta paketů \cite{WebRTCForTheCurious}.
 
 \subsection{Posílání dat -- SCTP}\label{sctp}

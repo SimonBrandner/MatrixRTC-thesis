@@ -1,23 +1,23 @@
 \section{Matrix}\label{matrix}
 
 \begin{figure}[h]
-	\centering
-	\begin{tikzpicture}[every node/.style={draw,circle}]
-		\foreach \i in {1,...,3} {
-				\node[minimum size=2.5cm] (server\i) at ({90-360/3*(\i-1)}:2) {Server \i};
-				\node (client\i) at ({90-360/3*(\i-1)}:5) {Klient \i};
+    \centering
+    \begin{tikzpicture}[every node/.style={draw,circle}]
+        \foreach \i in {1,...,3} {
+                \node[minimum size=2.5cm] (server\i) at ({90-360/3*(\i-1)}:2) {Server \i};
+                \node (client\i) at ({90-360/3*(\i-1)}:5) {Klient \i};
 
-				\draw[red] (server\i) -- (client\i);
-			}
+                \draw[red] (server\i) -- (client\i);
+            }
 
-		\foreach \i in {1,...,2} {
-				\foreach \j in {\the\numexpr\i+1,...,3} {
-						\draw[blue] (server\i) -- (server\j);
-					}
-			}
-	\end{tikzpicture}
-	\caption{Matrix federace}
-	\label{federation}
+        \foreach \i in {1,...,2} {
+                \foreach \j in {\the\numexpr\i+1,...,3} {
+                        \draw[blue] (server\i) -- (server\j);
+                    }
+            }
+    \end{tikzpicture}
+    \caption{Matrix federace}
+    \label{federation}
 \end{figure}
 
 Protokol Matrix je otevřený standard pro bezpečnou, decentralizovanou komunikaci
@@ -30,8 +30,8 @@ email umožňuje klientům jednoho serveru komunikovat s klienty serveru druhéh
 
 Je spravován neziskovou organizací jménem Matrix.org Foundation a jeho
 referenční implementace používají permisivní\footnote{Licence, která nevyžaduje
-od odvozených děl, aby využívali stejnou licenci
-\cite{MUNI-FI-VerejneLicenceVCR}.} licenci Apache \cite{MatrixORG-Homepage}.
+    od odvozených děl, aby využívali stejnou licenci
+    \cite{MUNI-FI-VerejneLicenceVCR}.} licenci Apache \cite{MatrixORG-Homepage}.
 
 \subsection{Specifikace a její změny}
 
@@ -44,17 +44,17 @@ Vzhledem k tomu, že protokol je otevřený a umožňuje všem navrhovat změny,
 existuje proces proces pro návrh a schvalování těchto změn. Chce-li někdo
 navrhnout změnu protokolu, může napsat tzv. \textit{MSC} (Matrix Spec Change)
 návrh. Jedná se o pull request\footnote{
-	Pull request je způsob pro návrhu změn
-	zdrojového kódu, diskuzi o nich a případné následné přijmutí těchto změn
-	\cite{GitHub-PullRequests}.
+    Pull request je způsob pro návrhu změn
+    zdrojového kódu, diskuzi o nich a případné následné přijmutí těchto změn
+    \cite{GitHub-PullRequests}.
 }
 navrhující úpravu repositáře
 \href{https://github.com/matrix-org/matrix-spec-proposals}{matrix-spec-proposals}.
 Tento pull request obsahuje text formátovaný pomocí
 \href{https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax}{GitHub-flavored Markdownu}\footnote{
-	Markdown je jednoduchý mark-up jazyk pro formátování textu
-	\cite{JohnGruber-Markdown}. GitHub-flavored Markdown je pak Markdown, který
-	používá GitHub \cite{GitHub-Markdown}.
+    Markdown je jednoduchý mark-up jazyk pro formátování textu
+    \cite{JohnGruber-Markdown}. GitHub-flavored Markdown je pak Markdown, který
+    používá GitHub \cite{GitHub-Markdown}.
 } a popisuje problém, který se MSC snaží vyřešit, možnosti řešení a výhody a
 nevýhody daných přístupů k řešení \cite{MatrixORG-MSCs}.
 
@@ -129,8 +129,8 @@ volání (více v části \ref{matrixRTC}).
 \subsection{Klienti}
 
 V tento moment existují pravděpodobně stovky Matrix SDKs\footnote{
-	\textit{Software Development Kit} je skupina nástrojů určená pro zjednodušení
-	vývoj na dané platformě \cite{RedHat-WhatIsAnSDK}.
+    \textit{Software Development Kit} je skupina nástrojů určená pro zjednodušení
+    vývoj na dané platformě \cite{RedHat-WhatIsAnSDK}.
 } a klientů, z nichž je většina vyvíjena komunitou. Mezi ty známé patří např.
 Element~\cite{Element-Homepage}, Hydrogen \cite{GitHub-Hydrogen}, Nheko
 \cite{GitHub-Nheko}, FluffyChat \cite{FluffyChat-Homepage} či Cinny
@@ -144,17 +144,17 @@ Cinny, který je specifický svým uživatelským rozhraním inspirovaným Disco
 \cite{Cinny-Homepage,GitHub-Cinny}. Jedná se o SDK, které je jednou z
 referenčních implementací protokolu Matrix \cite{GitHub-MatrixJSSDK}. Desktopová
 verze Elementu je pak Electron\footnote{
-	Electron je framework pro vytváření desktopových aplikací pomocí webových
-	technologií \cite{ElectronJS-Homepage}.
+    Electron je framework pro vytváření desktopových aplikací pomocí webových
+    technologií \cite{ElectronJS-Homepage}.
 } wrapper jeho webové verze \cite{GitHub-ElementDesktop}. Hydrogen je rovněž
 webová aplikace, používající své vlastní SDK, které je z části v TypeScriptu a
 z části v JavaScriptu, toto SDK ale využívají i jiní klienti (viz
 \ref{thirdroom}). Hydrogen má za cíl vyžadovat co nejnižší požadavky na hardware a
 měl by běžet i~v~prohlížečích, jako je Internet Explorer\footnote{
-	Internet Explorer je jeden z nejvíce nenáviděných internetových prohlížečů,
-	jedním z důvodů je, že nepodporuje mnoho moderní funkcí, ale mnoho vývojářů je s
-	ním přesto nuceno pracovat
-	\cite{ZealousSites-WhyDoWebDevelopersHateInternetExplorer}.
+    Internet Explorer je jeden z nejvíce nenáviděných internetových prohlížečů,
+    jedním z důvodů je, že nepodporuje mnoho moderní funkcí, ale mnoho vývojářů je s
+    ním přesto nuceno pracovat
+    \cite{ZealousSites-WhyDoWebDevelopersHateInternetExplorer}.
 } \cite{GitHub-Hydrogen}.
 
 Android a iOS verze Elementu využívají každá své vlastní SDK (v Kotlinu a
@@ -213,4 +213,4 @@ umožnily \cite{GitHub-MSC3414}. Zároveň se pracuje na integraci protokolu
 \textit{Messaging Layer Security} (dále \textit{MLS}), který má fungovat lépe v
 místnostech s velkým množstvím zařízení. MLS je ale třeba rozšířit tak, aby
 podporovalo federované systémy, rozšíření se pak nazývá \textit{Decentralized
-	Message Layer Security} \cite{AreWeMLSYet}.
+    Message Layer Security} \cite{AreWeMLSYet}.

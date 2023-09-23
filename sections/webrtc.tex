@@ -260,12 +260,10 @@ Vzhledem k tomu, že alokace jsou časově omezeny, klient může poslat
 \subsubsection{ICE}\label{ice}
 
 \textit{Interactive Connectivity Establishment} (\textit{ICE}) je protokol,
-který najde všechny možné způsoby, jak spojit dva dané klienty, a následně jeden
-z nich vybere \cite{WebRTCForTheCurious}.
-
-Páry adres a portů, které je možné využít pro spojení dvou klientů, se nazývají
-\textit{páry kandidátů}. Může se jednat o privátní adresy, veřejné adresy, či
-Relayed Adresy. Klienti komunikují pomocí \textit{ICE ping paketů}
+který najde všechny páry adres a portů, které je možné využít pro spojení dvou
+klientů. Tyto páry se nazývají \textit{páry kandidátů}. Může se jednat o
+privátní adresy, veřejné adresy, či Relayed Adresy. Klienti komunikují pomocí
+\textit{ICE ping paketů}, které umožňují ověřit funkčnost spojení
 \cite{WebRTCForTheCurious}.
 
 ICE klient je buď \textit{controlling}, nebo \textit{controlled} -- klient,

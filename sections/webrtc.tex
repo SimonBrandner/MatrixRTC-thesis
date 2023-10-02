@@ -2,18 +2,18 @@
 
 Tato část práce vychází převážně z knihy
 \href{https://webrtcforthecurious.com/}{WebRTC For The Curious: Go beyond the
-	APIs} \cite{WebRTCForTheCurious}.
+    APIs} \cite{WebRTCForTheCurious}.
 
 \textit{Web Real-Time Communication} (\textit{WebRTC}) je protokol, který
 umožňuje vytvoření bezpečného obousměrného \textit{peer-to-peer}
 (\textit{P2P})\footnote{Peer-to-peer spojení dvou počítačů je takové spojení,
-kde k výměně dat není třeba žádný server \cite{MerriamWebster-PeerToPeer}.}
+    kde k výměně dat není třeba žádný server \cite{MerriamWebster-PeerToPeer}.}
 spojení mezi dvěma klienty pro přeposílání audia, videa a libovolných dat v
 reálném čase. Toto spojení je \textit{end-to-end šifrováno}
 (E2EE)\footnote{End-to-end šifrování je metoda, kde třetí strany nemůžou číst
-data, neboť klíče mají jen koncové strany. Příkladem je mnoho aplikací pro chat,
-ve kterých server nemůže číst zprávy uživatelů, neboť klíče mají jen klienti
-daných uživatelé \cite{IBM-EndToEndEncryption}.}, což zaručuje, že žádná třetí
+    data, neboť klíče mají jen koncové strany. Příkladem je mnoho aplikací pro chat,
+    ve kterých server nemůže číst zprávy uživatelů, neboť klíče mají jen klienti
+    daných uživatelé \cite{IBM-EndToEndEncryption}.}, což zaručuje, že žádná třetí
 strana nemůže přeposílaná data rozšifrovat \cite{WebRTCForTheCurious}.
 
 WebRTC spojení je složeno ze \textit{stop} (\textit{tracks}) a datových kanálů
@@ -43,7 +43,7 @@ menší zpoždění. Vývojář se zároveň nemusí starat o žádné servery
 \cite{WebRTCForTheCurious}.
 
 Pro vytvoření spojení se používá protokolu \textit{Interactive Connectivity
-Establishment} (\textit{ICE}). Protokol ICE slouží k nalezení nejlepšího
+    Establishment} (\textit{ICE}). Protokol ICE slouží k nalezení nejlepšího
 způsobu, jak vytvořit spojení mezi dvěma klienty. Každý klient zveřejní své tzv.
 \textit{ICE kandidáty}, což jsou v podstatě IP adresy a porty, na kterých je
 klient dostižitelný (více v části \ref{ice})~\cite{WebRTCForTheCurious}. V této
@@ -53,34 +53,34 @@ informace o kandidátech je rozebráno v sekci \ref{signalling}.
 \subsubsection{NAT}\label{nat}
 
 \begin{figure}[H]
-	\centering
-	\begin{tikzpicture}
-		\node[draw] (client3) at (0,3.75) {\textbf{Klient 3}\\PR: 192.168.0.1};
-		\node[draw] (router2) at (0,1.75) {
-			\textbf{Router 2}\\
-			PU: 1.0.0.2\\
-			PR: 192.168.0.254
-		};
-		
-		\node[draw] (internet) at (0,0) {\textbf{Internet}};
-		
-		\node[draw] (router1) at (0,-1.75) {
-			\textbf{Router 1}\\
-			PU: 1.0.0.1\\
-			PR: 192.168.0.254
-		};
-		\node[draw] (client1) at (-4,-1.75) {\textbf{Klient 1}\\PR: 192.168.0.1};
-		\node[draw] (client2) at (4,-1.75) {\textbf{Klient 2}\\PR: 192.168.0.2};
+    \centering
+    \begin{tikzpicture}
+        \node[draw] (client3) at (0,3.75) {\textbf{Klient 3}\\PR: 192.168.0.1};
+        \node[draw] (router2) at (0,1.75) {
+            \textbf{Router 2}\\
+            PU: 1.0.0.2\\
+            PR: 192.168.0.254
+        };
 
-		\draw[<->] (client1) -- (router1);
-		\draw[<->] (client2) -- (router1);
-		\draw[<->] (router1) -- (internet);
+        \node[draw] (internet) at (0,0) {\textbf{Internet}};
 
-		\draw[<->] (internet) -- (router2);
-		\draw[<->] (router2) -- (client3);
-	\end{tikzpicture}
-	\caption{NAT (\publicPrivateIP)}
-	\label{natFig}
+        \node[draw] (router1) at (0,-1.75) {
+            \textbf{Router 1}\\
+            PU: 1.0.0.1\\
+            PR: 192.168.0.254
+        };
+        \node[draw] (client1) at (-4,-1.75) {\textbf{Klient 1}\\PR: 192.168.0.1};
+        \node[draw] (client2) at (4,-1.75) {\textbf{Klient 2}\\PR: 192.168.0.2};
+
+        \draw[<->] (client1) -- (router1);
+        \draw[<->] (client2) -- (router1);
+        \draw[<->] (router1) -- (internet);
+
+        \draw[<->] (internet) -- (router2);
+        \draw[<->] (router2) -- (client3);
+    \end{tikzpicture}
+    \caption{NAT (\publicPrivateIP)}
+    \label{natFig}
 \end{figure}
 
 Na obrázku \ref{natFig} můžeme vidět situaci, ve které by bylo snadné pro
@@ -91,7 +91,7 @@ adres routerů. Ty ale klienti nemusí znát. Zároveň je nutné, aby router
 věděl, na jaký z klientů paket přeposlat \cite{WebRTCForTheCurious}.
 
 Routery využívají k řešení této situace metodu \textit{Network Address
-Translation} (\textit{NAT}). NAT umožňuje vytvořit mapování mezi veřejnou IP
+    Translation} (\textit{NAT}). NAT umožňuje vytvořit mapování mezi veřejnou IP
 adresou\footnote{Pro zjednodušení předpokládáme statické veřejné IP adresy.} a
 portem a privátní IP adresou a portem v podsíti routeru
 \cite{WebRTCForTheCurious}.
@@ -117,42 +117,42 @@ pošle paket na \mintinline{text}{1.0.0.1:P} (port \mintinline{text}{P} na
 routeru~1), router 1 rozpozná dle portu, že má paket zpět přeposlat na
 \mintinline{text}{192.168.0.1:80} (klienta 1, který posláním svého paketu
 mapování vytvořil). Toto mapování může ale v budoucnosti zaniknout\footnote{Jak
-dlouho je mapování funkční závisí na mnoha faktorech. Např. pokud je použit
-protokol TCP, mapování se ruší explicitně.}. Tento typ mapování je nejčastější
+    dlouho je mapování funkční závisí na mnoha faktorech. Např. pokud je použit
+    protokol TCP, mapování se ruší explicitně.}. Tento typ mapování je nejčastější
 pro běžná zařízení \cite{WebRTCForTheCurious}.
 
 \subsubsection{STUN}
 
 \begin{figure}[H]
-	\centering
-	\begin{tikzpicture}
-		\node[draw] (stunServer) at (0,1.5) {\textbf{STUN server}\\PU: 1.0.0.3};
+    \centering
+    \begin{tikzpicture}
+        \node[draw] (stunServer) at (0,1.5) {\textbf{STUN server}\\PU: 1.0.0.3};
 
-		\node[draw] (internet) at (0,0) {\textbf{Internet}};
+        \node[draw] (internet) at (0,0) {\textbf{Internet}};
 
-		\node[draw] (router1) at (-3,-1.75) {
-			\textbf{Router 1}\\
-			PR: 192.168.0.254\\
-			PU: 1.0.0.1
-		};
-		\node[draw] (client2) at (3,-4) {\textbf{Klient 2}\\PR: 192.168.0.2};
+        \node[draw] (router1) at (-3,-1.75) {
+            \textbf{Router 1}\\
+            PR: 192.168.0.254\\
+            PU: 1.0.0.1
+        };
+        \node[draw] (client2) at (3,-4) {\textbf{Klient 2}\\PR: 192.168.0.2};
 
-		\node[draw] (router2) at (3,-1.75) {
-			\textbf{Router 2}\\
-			PR: 192.168.0.254\\
-			PU: 1.0.0.2
-		};
-		\node[draw] (client1) at (-3,-4) {\textbf{Klient 1}\\PR: 192.168.0.1};
+        \node[draw] (router2) at (3,-1.75) {
+            \textbf{Router 2}\\
+            PR: 192.168.0.254\\
+            PU: 1.0.0.2
+        };
+        \node[draw] (client1) at (-3,-4) {\textbf{Klient 1}\\PR: 192.168.0.1};
 
-		\draw[<->] (client1) -- (router1);
-		\draw[<->] (router1) -- (internet);
-		\draw[<-] (internet) -- (router2);
-		\draw[<-] (router2) -- (client2);
+        \draw[<->] (client1) -- (router1);
+        \draw[<->] (router1) -- (internet);
+        \draw[<-] (internet) -- (router2);
+        \draw[<-] (router2) -- (client2);
 
-		\draw[<->] (internet) -- (stunServer);
-	\end{tikzpicture}
-	\caption{STUN (\publicPrivateIP)}
-	\label{stun}
+        \draw[<->] (internet) -- (stunServer);
+    \end{tikzpicture}
+    \caption{STUN (\publicPrivateIP)}
+    \label{stun}
 \end{figure}
 
 NAT sice umožňuje vytvořit mapování mezi veřejnou IP adresou a portem a IP
@@ -163,11 +163,11 @@ forwarding, neví ani, jaký port budu využit pro přeposíláním paketů.
 nám umožňuje tato omezení překonat \cite{WebRTCForTheCurious}.
 
 V síti, která je vidět na obrázku \ref{stun}, klient 1 pošle \textit{STUN
-Binding Request} na \mintinline{text}{1.0.0.3} (na STUN server, který má známou
+    Binding Request} na \mintinline{text}{1.0.0.3} (na STUN server, který má známou
 statickou veřejnou IP adresu). Router 1 využije metody NAT pro vytvoření
 mapování na určitém portu \mintinline{text}{P}. STUN server vidí, že paket
 přišel z adresy \mintinline{text}{1.0.0.1:P}, tuto informací pomocí \textit{STUN
-Binding Response} pošle zpět na \mintinline{text}{1.0.0.1:P} (router 1). Protože
+    Binding Response} pošle zpět na \mintinline{text}{1.0.0.1:P} (router 1). Protože
 bylo na routeru 1 vytvořeno mapování, router 1 ví, že pokud přijde paket na port
 \mintinline{text}{P}, má jej přeposlat na IP adresu
 \mintinline{text}{192.168.0.1} (klientovi 1), ten poté ze STUN Binding Response
@@ -179,41 +179,41 @@ Bohužel Mapped Address vůbec nemusí být užitečná, pokud je použito NAT m
 typu \textit{Address Dependent}, což znamená, že router 1 přijímá na daném
 mapování pakety pouze z IP adresy \mintinline{text}{1.0.0.1} (ze STUN
 serveru)\footnote{Address Dependent mapování lze často také nalézt pod pojmem
-\textit{Symmetric} NAT. Tento pojem je ale nepřesný, neboť reálné NAT často
-nelze snadno klasifikovat do kategorií \cite{IETF-RFC4787}.}. STUN naštěstí
+    \textit{Symmetric} NAT. Tento pojem je ale nepřesný, neboť reálné NAT často
+    nelze snadno klasifikovat do kategorií \cite{IETF-RFC4787}.}. STUN naštěstí
 umožňuje zjištění typu NAT mapování, takže klient předem ví, jestli ho bude
 možné kontaktovat \cite{WebRTCForTheCurious}.
 
 \subsubsection{TURN}
 
 \begin{figure}[H]
-	\centering
-	\begin{tikzpicture}
-		\node[draw] (turnServer) at (0,1.5) {\textbf{TURN server}\\PU: 1.0.0.3};
-		\node[draw] (internet) at (0,0) {\textbf{Internet}};
+    \centering
+    \begin{tikzpicture}
+        \node[draw] (turnServer) at (0,1.5) {\textbf{TURN server}\\PU: 1.0.0.3};
+        \node[draw] (internet) at (0,0) {\textbf{Internet}};
 
-		\node[draw] (router1) at (-3,-1.75) {
-			\textbf{Router 1}\\
-			PR: 192.168.0.254\\
-			PU: 1.0.0.1
-		};
-		\node[draw] (client1) at (-3,-4) {\textbf{Klient 1}\\PR: 192.168.0.1};
+        \node[draw] (router1) at (-3,-1.75) {
+            \textbf{Router 1}\\
+            PR: 192.168.0.254\\
+            PU: 1.0.0.1
+        };
+        \node[draw] (client1) at (-3,-4) {\textbf{Klient 1}\\PR: 192.168.0.1};
 
-		\node[draw] (router2) at (3,-1.75) {
-			\textbf{Router 2}\\
-			PR: 192.168.0.254\\
-			PR: 1.0.0.2
-		};
-		\node[draw] (client2) at (3,-4) {\textbf{Klient 2}\\PR: 192.168.0.2};
+        \node[draw] (router2) at (3,-1.75) {
+            \textbf{Router 2}\\
+            PR: 192.168.0.254\\
+            PR: 1.0.0.2
+        };
+        \node[draw] (client2) at (3,-4) {\textbf{Klient 2}\\PR: 192.168.0.2};
 
-		\draw[<->] (client1) -- (router1);
-		\draw[<->] (router1) -- (internet);
-		\draw[<->] (turnServer) -- (internet);
-		\draw[<->] (internet) -- (router2);
-		\draw[<->] (router2) -- (client2);
-	\end{tikzpicture}
-	\caption{TURN (\publicPrivateIP)}
-	\label{turn}
+        \draw[<->] (client1) -- (router1);
+        \draw[<->] (router1) -- (internet);
+        \draw[<->] (turnServer) -- (internet);
+        \draw[<->] (internet) -- (router2);
+        \draw[<->] (router2) -- (client2);
+    \end{tikzpicture}
+    \caption{TURN (\publicPrivateIP)}
+    \label{turn}
 \end{figure}
 
 \textit{Traversal Using Relays around NAT} (\textit{TURN}) je metoda, která
@@ -231,7 +231,7 @@ protokol (může být UDP nebo TCP) a port~\cite{WebRTCForTheCurious}.
 Podaří-li se alokaci vytvořit, odpověď TURN serveru obsahuje podobně jako u STUN
 Mapped Address (v našem případě \mintinline{text}{1.0.0.1:P1}),
 \textit{Lifetime} (což je doba, po kterou bude alokace aktivní), \textit{Relayed
-Address} (v našem případě \mintinline{text}{1.0.0.3:P2}, což je adresa, kterou
+    Address} (v našem případě \mintinline{text}{1.0.0.3:P2}, což je adresa, kterou
 klient 1 předá ostatním klientům). Pokud jsou na Relayed Adresu
 (\mintinline{text}{1.0.0.3:P2}) poslány pakety, budou TURN serverem přesměrovány
 na Mapped Adresu (adresu, ze které byla vytvořena alokace) --
@@ -276,7 +276,7 @@ kterých došlo k výměně dat, jsou pak označeny za \textit{validní kandidá
 Controlling klient následně vybere jeden z validních párů a označí ho za
 \textit{nominovaný pár}. Klienti se pak znovu pokusí o obousměrnou komunikaci
 pomocí tohoto páru, a je-li úspěšná, stává se z daného párů \textit{vybraný pár
-	kandidátů} \cite{WebRTCForTheCurious}.
+    kandidátů} \cite{WebRTCForTheCurious}.
 
 Dojde-li po vytvoření spojení k potížím (např. vyprší NAT mapování nebo selže
 TURN server), celý proces začne znovu \cite{WebRTCForTheCurious}.
@@ -318,7 +318,7 @@ ztráta paketů \cite{WebRTCForTheCurious}.
 
 \textit{Stream Control Transmission Protocol} (\textit{SCTP}) je protokol, který
 umožňuje přeposílání libovolných dat pomocí WebRTC. WebRTC \textit{datové
-kanály} (\textit{data channels}) jsou jeho abstrakcí. Každé WebRTC spojení může
+    kanály} (\textit{data channels}) jsou jeho abstrakcí. Každé WebRTC spojení může
 obsahovat neomezeně datových kanálů (podobně jako je to u RTP streamů)
 \cite{WebRTCForTheCurious}.
 
@@ -344,37 +344,37 @@ využívá externích klíčů vygenerovaných DTLS k šifrování RTP paketů
 \subsection{Signalling}\label{signalling}
 
 \begin{figure}[H]
-	\centering
-	\begin{tikzpicture}
-		\node[draw] (server) at (0,0) {Signalling server};
-		\node[draw] (client1) at (-5, 0) {Klient 1};
-		\node[draw] (client2) at (5, 0) {Klient 2};
+    \centering
+    \begin{tikzpicture}
+        \node[draw] (server) at (0,0) {Signalling server};
+        \node[draw] (client1) at (-5, 0) {Klient 1};
+        \node[draw] (client2) at (5, 0) {Klient 2};
 
-		\draw[red, <->] (server) -- (client1);
-		\draw[red, <->] (server) -- (client2);
-		\draw[blue, <->] (client1) edge[bend left=30] (client2);
-	\end{tikzpicture}
-	\caption{Signalling}
-	\label{signallingServer}
+        \draw[red, <->] (server) -- (client1);
+        \draw[red, <->] (server) -- (client2);
+        \draw[blue, <->] (client1) edge[bend left=30] (client2);
+    \end{tikzpicture}
+    \caption{Signalling}
+    \label{signallingServer}
 \end{figure}
 
 \textit{Signalling} je zásadní součást WebRTC. Jedná se o proces při kterém si
 klienti vyměňují pomocí tzv. \textit{signalling serveru} ICE kandidáty a
 informace o tom, jaká data plánují posílat, jaké kodeky\footnote{Kodek je
-hardware či software, který se využívá pro zakódování, či rozkódování médii
-\cite{Britannica-Codec,TechTarget-Codec}.} podporují atp. Zprávy, které si
+    hardware či software, který se využívá pro zakódování, či rozkódování médii
+    \cite{Britannica-Codec,TechTarget-Codec}.} podporují atp. Zprávy, které si
 klienti pomocí signalling serveru vyměňují, se nazývají \textit{session
-descriptions}, jsou ve formátu, který je definován protokolem zvaným
+    descriptions}, jsou ve formátu, který je definován protokolem zvaným
 \textit{Session Description Protocol} (\textit{SDP}) (místo \textit{session
-description} se někdy píše jen \textit{SDP})~\cite{WebRTCForTheCurious}.
+    description} se někdy píše jen \textit{SDP})~\cite{WebRTCForTheCurious}.
 Signalling server není nijak standardizován, jedinou podmínkou je, že realizuje
 výměnu SDP. To vede k tomu, že aplikace často nejsou mezi sebou kompatibilní
 \cite{MDN-Web-SignalingAndVideoCalling}.
 
 Chce-li klient 1 volat klienta 2, vygeneruje tzv. \textit{session description
-offer} (\textit{SDP offer}), kterou pomocí signalling serveru přepošle klientovi
+    offer} (\textit{SDP offer}), kterou pomocí signalling serveru přepošle klientovi
 2. Chce-li klient 2 hovor přijmout, vygeneruje tzv. \textit{session description
-answer} (\textit{SDP answer}), kterou naopak přepošle klientovi~1. Poté, co
+    answer} (\textit{SDP answer}), kterou naopak přepošle klientovi~1. Poté, co
 dojde k výměně session descriptions, se protokol ICE pokusí vybrat vhodný pár
 kandidátů. Tento proces se nazývá \textit{negotiation}
 \cite{WebRTCForTheCurious,MozillaBlog-PerfectNegotiation}.
@@ -395,108 +395,108 @@ stejného typu (audio, anebo video). SDP podporuje několik klíčů, WebRTC vyu
 následující \cite{WebRTCForTheCurious,IETF-RFC8866}:
 
 \begin{itemize}
-	\item \mintinline{text}{v} -- značí verzi, která je vždy \mintinline{text}{0}
-	\item \mintinline{text}{o} -- popisuje tvůrce spojení, slouží jako jeho
-	      unikátní identifikátor, skládá se z:
-	      \begin{itemize}
-		      \item \mintinline{text}{username} -- ID uživatele, který zahájil spojení
-		      \item \mintinline{text}{sess-id} -- unikátní číslo, které
-		            identifikuje spojení
-		      \item \mintinline{text}{sess-version} -- verze session
-		            description, která by se měla po každé změně zvýšit
-		      \item \mintinline{text}{nettype} -- typ sítě, je vždy
-		            \mintinline{text}{IN} (internet)
-		      \item \mintinline{text}{addrtype} -- typ adresy, je buď
-		            \mintinline{text}{IP4}, nebo \mintinline{text}{IP6}
-		      \item \mintinline{text}{unicast-address} -- IP adresa tvůrce spojení
-	      \end{itemize}
-	\item \mintinline{text}{s} -- název session, SDP nesmí obsahovat více než
-	      jeden klíč \mintinline{text}{s}
-	\item \mintinline{text}{c} -- informace o spojení, pro WebRTC není klíč
-	      \mintinline{text}{c} příliš zásadní, neboť se pro spojování využívá
-	      protokolu ICE (více v části \ref{connecting}), skládá se z:
-	      \begin{itemize}
-		      \item \mintinline{text}{nettype} -- typ sítě, je vždy
-		            \mintinline{text}{IN} (internet)
-		      \item \mintinline{text}{addrtype} -- typ adresy, je buď
-		            \mintinline{text}{IP4}, nebo \mintinline{text}{IP6}
-		      \item \mintinline{text}{connection-address} -- IP adresa využita
-		            ke spojení
-	      \end{itemize}
-	\item klíč \mintinline{text}{t} -- čas, kdy spojení začíná a končí, skládá
-	      se z:
-	      \begin{itemize}
-		      \item \mintinline{text}{start-time} -- čas, kdy spojení začne; pokud je
-		            \mintinline{text}{0}, spojení je permanentní
-		      \item \mintinline{text}{stop-time} -- čas, kdy spojení skončí; pokud je
-		            \mintinline{text}{0}, doba spojení není omezena
-	      \end{itemize}
-	\item \mintinline{text}{a} -- atribut, jeho formát je
-	      \mintinline{text}{a=<jméno>:<hodnota>}; SDP může obsahovat několik
-	      klíčů \mintinline{text}{a}, ať už pro celé spojení, nebo pro
-	      specifickou média-sekci
-	\item \mintinline{text}{m} -- popis médií, skládá se z:
-	      \begin{itemize}
-		      \item \mintinline{text}{media} -- typ média, je buď
-		            \mintinline{text}{audio}, \mintinline{text}{video},
-		            \mintinline{text}{application}, \mintinline{text}{text},
-		            nebo \mintinline{text}{message}
-		      \item \mintinline{text}{port} -- port, který je využit k posílání
-		            dat
-		      \item \mintinline{text}{proto} -- protokol, hodnoty mohou být:
-		            \begin{itemize}
-			            \item \mintinline{text}{udp} -- data jsou posílána přímo
-			                  přes protokol UDP
-			            \item \mintinline{text}{RTP/AVP} -- data jsou posílána
-			                  pomocí protokolu RTP (více v části \ref{rtp}) s
-			                  profilem pro audio a video
-			            \item \mintinline{text}{RTP/SAVP} -- data jsou posílána
-			                  pomocí protokolu SRTP (více v části \ref{srtp})
-			            \item \mintinline{text}{RTP/SAVPF} -- data jsou posílána
-			                  pomocí protokolu SRTP s podporou pro RTCP (více v
-			                  části \ref{rtcp})
-		            \end{itemize}
-		      \item \mintinline{text}{fmt} -- seznam čísel, která určují
-		            podporované formáty dat; čísla od \mintinline{text}{0} do
-		            \mintinline{text}{95} referují ke specifickým formátům; u
-		            čísel od \mintinline{text}{96} do \mintinline{text}{127} se
-		            využívá \mintinline{text}{a=rtpmap:<fmt> <codec>} pro
-		            specifikaci kodeku
-	      \end{itemize}
+    \item \mintinline{text}{v} -- značí verzi, která je vždy \mintinline{text}{0}
+    \item \mintinline{text}{o} -- popisuje tvůrce spojení, slouží jako jeho
+          unikátní identifikátor, skládá se z:
+          \begin{itemize}
+              \item \mintinline{text}{username} -- ID uživatele, který zahájil spojení
+              \item \mintinline{text}{sess-id} -- unikátní číslo, které
+                    identifikuje spojení
+              \item \mintinline{text}{sess-version} -- verze session
+                    description, která by se měla po každé změně zvýšit
+              \item \mintinline{text}{nettype} -- typ sítě, je vždy
+                    \mintinline{text}{IN} (internet)
+              \item \mintinline{text}{addrtype} -- typ adresy, je buď
+                    \mintinline{text}{IP4}, nebo \mintinline{text}{IP6}
+              \item \mintinline{text}{unicast-address} -- IP adresa tvůrce spojení
+          \end{itemize}
+    \item \mintinline{text}{s} -- název session, SDP nesmí obsahovat více než
+          jeden klíč \mintinline{text}{s}
+    \item \mintinline{text}{c} -- informace o spojení, pro WebRTC není klíč
+          \mintinline{text}{c} příliš zásadní, neboť se pro spojování využívá
+          protokolu ICE (více v části \ref{connecting}), skládá se z:
+          \begin{itemize}
+              \item \mintinline{text}{nettype} -- typ sítě, je vždy
+                    \mintinline{text}{IN} (internet)
+              \item \mintinline{text}{addrtype} -- typ adresy, je buď
+                    \mintinline{text}{IP4}, nebo \mintinline{text}{IP6}
+              \item \mintinline{text}{connection-address} -- IP adresa využita
+                    ke spojení
+          \end{itemize}
+    \item klíč \mintinline{text}{t} -- čas, kdy spojení začíná a končí, skládá
+          se z:
+          \begin{itemize}
+              \item \mintinline{text}{start-time} -- čas, kdy spojení začne; pokud je
+                    \mintinline{text}{0}, spojení je permanentní
+              \item \mintinline{text}{stop-time} -- čas, kdy spojení skončí; pokud je
+                    \mintinline{text}{0}, doba spojení není omezena
+          \end{itemize}
+    \item \mintinline{text}{a} -- atribut, jeho formát je
+          \mintinline{text}{a=<jméno>:<hodnota>}; SDP může obsahovat několik
+          klíčů \mintinline{text}{a}, ať už pro celé spojení, nebo pro
+          specifickou média-sekci
+    \item \mintinline{text}{m} -- popis médií, skládá se z:
+          \begin{itemize}
+              \item \mintinline{text}{media} -- typ média, je buď
+                    \mintinline{text}{audio}, \mintinline{text}{video},
+                    \mintinline{text}{application}, \mintinline{text}{text},
+                    nebo \mintinline{text}{message}
+              \item \mintinline{text}{port} -- port, který je využit k posílání
+                    dat
+              \item \mintinline{text}{proto} -- protokol, hodnoty mohou být:
+                    \begin{itemize}
+                        \item \mintinline{text}{udp} -- data jsou posílána přímo
+                              přes protokol UDP
+                        \item \mintinline{text}{RTP/AVP} -- data jsou posílána
+                              pomocí protokolu RTP (více v části \ref{rtp}) s
+                              profilem pro audio a video
+                        \item \mintinline{text}{RTP/SAVP} -- data jsou posílána
+                              pomocí protokolu SRTP (více v části \ref{srtp})
+                        \item \mintinline{text}{RTP/SAVPF} -- data jsou posílána
+                              pomocí protokolu SRTP s podporou pro RTCP (více v
+                              části \ref{rtcp})
+                    \end{itemize}
+              \item \mintinline{text}{fmt} -- seznam čísel, která určují
+                    podporované formáty dat; čísla od \mintinline{text}{0} do
+                    \mintinline{text}{95} referují ke specifickým formátům; u
+                    čísel od \mintinline{text}{96} do \mintinline{text}{127} se
+                    využívá \mintinline{text}{a=rtpmap:<fmt> <codec>} pro
+                    specifikaci kodeku
+          \end{itemize}
 \end{itemize}
 
 SDP podporuje několik různých atributů, ty následující jsou zásadní pro fungování
 WebRTC \cite{WebRTCForTheCurious,IETF-RFC8866,IETF-RFC5888,IETF-RFC8841}:
 \begin{itemize}
-	\item \mintinline{text}{a=group:BUNDLE} značí, že přes jedno peer spojení
-	      posíláme více stop; některé implementace vytváří jedno peer spojení na
-	      každou stopu, což ale není doporučeno
-	\item \mintinline{text}{a=sendrecv}, \mintinline{text}{a=sendonly},
-	      \mintinline{text}{a=recvonly} a \mintinline{text}{a=inactive} --
-	      značí, směr dat dané média-sekce; oba klienti by se měli shodnout na
-	      směru dat, obsahuje-li tedy SDP offer \mintinline{text}{a=sendonly},
-	      SDP answer by měla obsahovat \mintinline{text}{a=recvonly} pro danou
-	      média-sekci
-	\item \mintinline{text}{a=mid} -- číslo média-sekce
-	\item \mintinline{text}{a=msid} -- ID stopy a streamu, má formát
-	      \mintinline{text}{<ID streamu> <ID stopy>}
-	\item \mintinline{text}{a=rtpmap} -- zmíněno v předchozím odstavci
-	\item \mintinline{text}{a=sctp-port} -- port používaný protokolem SCTP (více
-	      v části \ref{sctp})
-	\item \mintinline{text}{a=max-message-size} -- maximální velikost zprávy v
-	      bytech
+    \item \mintinline{text}{a=group:BUNDLE} značí, že přes jedno peer spojení
+          posíláme více stop; některé implementace vytváří jedno peer spojení na
+          každou stopu, což ale není doporučeno
+    \item \mintinline{text}{a=sendrecv}, \mintinline{text}{a=sendonly},
+          \mintinline{text}{a=recvonly} a \mintinline{text}{a=inactive} --
+          značí, směr dat dané média-sekce; oba klienti by se měli shodnout na
+          směru dat, obsahuje-li tedy SDP offer \mintinline{text}{a=sendonly},
+          SDP answer by měla obsahovat \mintinline{text}{a=recvonly} pro danou
+          média-sekci
+    \item \mintinline{text}{a=mid} -- číslo média-sekce
+    \item \mintinline{text}{a=msid} -- ID stopy a streamu, má formát
+          \mintinline{text}{<ID streamu> <ID stopy>}
+    \item \mintinline{text}{a=rtpmap} -- zmíněno v předchozím odstavci
+    \item \mintinline{text}{a=sctp-port} -- port používaný protokolem SCTP (více
+          v části \ref{sctp})
+    \item \mintinline{text}{a=max-message-size} -- maximální velikost zprávy v
+          bytech
 \end{itemize}
 
 SDP zároveň podporuje několik atributů, které se využívají pro nastavení ICE a
 výměnu ICE kandidátů \cite{WebRTCForTheCurious,IETF-RFC8839}:
 \begin{itemize}
-	\item \mintinline{text}{a=ice-ufrag} -- uživatelské jméno, používáno pro
-	ověření integrity
-	\item \mintinline{text}{a=ice-pwd} -- heslo, používáno pro ověření integrity
-	\item \mintinline{text}{a=ice-options} -- specifikuje rozšíření, které
-	klient podporuje
-	\item \mintinline{text}{a=candidate} -- je na úrovni média-sekce a
-	specifikuje informace o daném ICE kandidátu
+    \item \mintinline{text}{a=ice-ufrag} -- uživatelské jméno, používáno pro
+          ověření integrity
+    \item \mintinline{text}{a=ice-pwd} -- heslo, používáno pro ověření integrity
+    \item \mintinline{text}{a=ice-options} -- specifikuje rozšíření, které
+          klient podporuje
+    \item \mintinline{text}{a=candidate} -- je na úrovni média-sekce a
+          specifikuje informace o daném ICE kandidátu
 \end{itemize}
 
 \begin{minted}[breaklines,fontsize=\footnotesize]{text}

@@ -103,16 +103,16 @@ namapování předem definovaného portu na privátní IP adresu a port v podsit
 routeru. Router 2 by mohl mít vytvořené takové mapování, že přijde-li paket na
 adresu \mintinline{text}{1.0.0.2:80} (tedy na port \mintinline{text}{80} na
 routeru 2), router 2 ho přesměruje na adresu \mintinline{text}{192.168.0.1:90}
-(port \mintinline{text}{90} na klientovi 3). Pošle-li klient 3 paket na
-\mintinline{text}{192.168.0.254:90}, bude přeposlán routerem přes port
-\mintinline{text}{80} (příjemce bude tedy vidět \mintinline{text}{1.0.0.2:80}
-jako zdrojovou adresu). Toto mapování je vhodné pro případy, kdy chceme, aby
-dané zařízení za routerem bylo dostižitelné na IP adrese routeru na pevně daném
-portu \cite{G2-WhatIsPortForwarding}.
+(port \mintinline{text}{90} na klientovi 3). Pošle-li klient 3 paket mimo podsíť
+routeru 2, bude přeposlán routerem přes port \mintinline{text}{80} (příjemce
+bude tedy vidět \mintinline{text}{1.0.0.2:80} jako zdrojovou adresu). Toto
+mapování je vhodné pro případy, kdy chceme, aby dané zařízení za routerem bylo
+dostižitelné na IP adrese routeru na pevně daném portu
+\cite{G2-WhatIsPortForwarding}.
 
 Mapování ale nemusí být pevné a může existovat jen dočasně. Pošle-li klient 1
-paket na \mintinline{text}{192.168.0.254:80} (port \mintinline{text}{80} na
-routeru 2), vybere router 1 nějaký port \mintinline{text}{P}, vytvoří mapování a
+paket na \mintinline{text}{1.0.0.2:80} (port \mintinline{text}{80} na routeru
+2), vybere router 1 nějaký port \mintinline{text}{P}, vytvoří mapování a
 přepošle paket z tohoto portu (příjemce bude tedy vidět
 \mintinline{text}{1.0.0.1:P} jako zdrojovou adresu). Když následně klient 3
 pošle paket na \mintinline{text}{1.0.0.1:P} (port \mintinline{text}{P} na

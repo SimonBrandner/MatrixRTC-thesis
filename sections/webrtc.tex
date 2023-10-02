@@ -85,18 +85,18 @@ informace o kandidátech je rozebráno v sekci \ref{signalling}.
     \label{natFig}
 \end{figure}
 
-Na obrázku \ref{natFig} můžeme vidět situaci, ve které by bylo snadné pro
-klienta 1 poslat paket klientovi 2, neboť jsou na stejné síti. Ale pokud by
-klient 3 chtěl poslat paket klientovi za routerem 2, situace by už byla
-složitější, neboť klienti jsou na jiných sítích a je nutné využít veřejných IP
-adres routerů. Ty ale klienti nemusí znát. Zároveň je nutné, aby router
-věděl, na jaký z klientů paket přeposlat \cite{WebRTCForTheCurious}.
+Kvůli nedostatku IPv4 adres router je nutno reprezentovat několik zařízení v
+podsíti routeru jedou veřejnou IP adresou \cite{Medium-NATWHyWeNeedIt}. Využívá
+se k tomu metody \textit{Network Address Translation} (\textit{NAT}), která
+vytváří mapování mezi veřejnou IP adresou\footnote{Pro zjednodušení
+    předpokládáme statické veřejné IP adresy.} a portem a privátní IP adresou a
+portem v podsíti routeru \cite{WebRTCForTheCurious}.
 
-Routery využívají k řešení této situace metodu \textit{Network Address
-    Translation} (\textit{NAT}). NAT umožňuje vytvořit mapování mezi veřejnou IP
-adresou\footnote{Pro zjednodušení předpokládáme statické veřejné IP adresy.} a
-portem a privátní IP adresou a portem v podsíti routeru
-\cite{WebRTCForTheCurious}.
+Na obrázku \ref{natFig} vidíme situaci, ve které je snadné pro klienta 1 poslat
+paket klientovi 2, neboť jsou ve stejné podsíti. Ale pokud by klient 3 chtěl
+poslat paket klientovi za routerem~2, je nutné využít veřejných IP adres
+routerů. Ty ale klienti nemusí znát. Zároveň je nutné, aby router věděl, na jaký
+z klientů paket přeposlat \cite{WebRTCForTheCurious}.
 
 Jednou z možností mapování je \textit{port forwarding}, jde o statické
 namapování předem definovaného portu na privátní IP adresu a port v podsiti

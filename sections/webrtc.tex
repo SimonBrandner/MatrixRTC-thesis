@@ -85,12 +85,12 @@ informace o kandidátech je rozebráno v sekci \ref{signalling}.
     \label{natFig}
 \end{figure}
 
-Kvůli nedostatku IPv4 adres router je nutno reprezentovat několik zařízení v
-podsíti routeru jedou veřejnou IP adresou \cite{Medium-NATWHyWeNeedIt}. Využívá
-se k tomu metody \textit{Network Address Translation} (\textit{NAT}), která
-vytváří mapování mezi veřejnou IP adresou\footnote{Pro zjednodušení
-    předpokládáme statické veřejné IP adresy.} a portem a privátní IP adresou a
-portem v podsíti routeru \cite{WebRTCForTheCurious}.
+Kvůli nedostatku IPv4 adres je nutno reprezentovat několik zařízení v podsíti
+routeru jednou veřejnou IP adresou \cite{Medium-NATWHyWeNeedIt}. Využívá se k
+tomu metody \textit{Network Address Translation} (\textit{NAT}), která vytváří
+mapování mezi veřejnou IP adresou\footnote{Pro zjednodušení předpokládáme
+    statické veřejné IP adresy.} a portem a privátní IP adresou a portem v podsíti
+routeru \cite{WebRTCForTheCurious}.
 
 Na obrázku \ref{natFig} vidíme situaci, ve které je snadné pro klienta 1 poslat
 paket klientovi 2, neboť jsou ve stejné podsíti. Ale pokud by klient 3 chtěl

@@ -1,1 +1,40 @@
 \section{Závěr}
+
+Cílem této práce bylo rozebrat poměrně nezmapovanou oblast -- fungování VoIP
+aplikací a fungování protokolu Matrix. Dalším cílem bylo vytvořit nový návrh
+doplnění specifikace protokolu Matrix a implementovat break-out rooms do Matrix
+JavaScript SDK a aplikace Element Call.
+
+Na prvních několika stránkách textu jsme rozebrali fungování protokolu WebRTC,
+který je základem mnoha VoIP aplikací. Ukázali jsme si, z jakých dílčích
+protokolů se tento protokol skládá, a vysvětlili jsme si, jak fungují.
+
+V další části práce jsme si ukázali, jak se využívá protokol WebRTC pro
+skupinové volání -- rozebrali jsme různé modely propojení více uživatelů a
+jejich výhody a nevýhody.
+
+V následující části jsme si stručně představili některé jiné existující VoIP
+technologie jako Jitsi a Zoom.
+
+Poté jsme rozebrali, jak funguje protokol Matrix. Vysvětlili jsme, jak funguje
+jeho otevřená specifikace a jakým způsobem se vyvíjí. Následně jsme si prošli
+jednotlivá primitiva, ze kterých je protokol Matrix složený. Podívali jsme se na
+několik implementací klientů a homeserverů. Také jsme vysvětlili, jak fungují
+přemostění a end-to-end šifrování.
+
+Následně jsme probrali protokol MatrixRTC (část protokolu Matrix zaměřená na
+VoIP), jeho využití Matrix primitiv a samotné fungování hovorů mezi dvěma a více
+uživateli. Prošli jsme též implementace klientských SDK. V neposlední řadě jsme
+si ukázali koncept foci a jejich fungování.
+
+V praktické části práce jsme navrhli doplnění protokolu Matrix o funkci
+break-out rooms, která zatím není jeho součástí, a následně tento návrh
+implementovali do Matrix JavaScript SDK a aplikace Element Call.
+
+V poslední části práce jsme na potenciální využití MatrixRTC mimo VoIP aplikace
+a obecný vývoj v oblasti protokolu Matrix a VoIP aplikací.
+
+Implementace break-out rooms je plně funkční, ale před dalšími kroky musí být
+samozřejmě řádně otestována. Následně bude možné, aby změny Matrix JavaScript
+SDK a Element Call byly přijaty. Na poli protokolu Matrix  by dalším krokem bylo
+posunutí návrhu změny specifikace do fáze FCP.

@@ -32,6 +32,15 @@
 % Using 1.5 is UGLY
 \renewcommand{\baselinestretch}{1,15}
 
+% We want \listoffigures to be a section
+\makeatletter
+\renewcommand\listoffigures{
+    \section{\listfigurename}
+      \@mkboth{\MakeUppercase\listfigurename}%
+              {\MakeUppercase\listfigurename}%
+    \@starttoc{lof}
+    }
+\makeatother
 
 \def\publicPrivateIP{PU -- veřejná IP adresa, PR -- privátní IP adresa}
 
@@ -58,5 +67,8 @@
 \include{sections/conclusion}
 
 \printbibliography[heading=bibnumbered, title={Reference}]
+\newpage
+
+\listoffigures
 
 \end{document}

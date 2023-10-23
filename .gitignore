@@ -11,5 +11,6 @@
 *.blg
 *.pdf
 *.toc
+*.lof
 *blx.bib
 _minted*

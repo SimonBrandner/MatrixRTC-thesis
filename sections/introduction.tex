@@ -5,39 +5,39 @@
 \uv{L} a \uv{O}. Student UCLA Charley Kline se totiž snažil napsat zprávu
 \uv{LOGIN}, ale systém po zadání dvou znaků zhroutil. Přibližně po hodině se mu
 konečně podařilo poslat celé slovo
-\cite{PBS-SimpleHelloFirstMessageOverARPANET}. Trvalo to jen dva roky, než Ray
+\parencite{PBS-SimpleHelloFirstMessageOverARPANET}. Trvalo to jen dva roky, než Ray
 Tomlinson poslal první e-mail, který zněl \uv{something like QWERTYUIOP}
-\cite{YahooFinance-SimpleHelloFirstMessageOverARPANET}.
+\parencite{YahooFinance-SimpleHelloFirstMessageOverARPANET}.
 
 V roce 1974 byl proveden první tzv. \textit{voice over internet protocol} (dále
 \textit{VoIP}) hovor po ARPANETu
-\cite{DigiFone-WhatYouMightNotKnowAboutTheHistoryOfVoIP}. V roce 1989 v CERNu
+\parencite{DigiFone-WhatYouMightNotKnowAboutTheHistoryOfVoIP}. V roce 1989 v CERNu
 britský vědec Tim Berners-Lee stvořil \textit{World Wide Web} (dále
-\textit{WWW}) \cite{CERN-TheBirthOfTheWeb}. O dva roky později vznikla první
+\textit{WWW}) \parencite{CERN-TheBirthOfTheWeb}. O dva roky později vznikla první
 VoIP aplikace \textit{Speak Freely}
-\cite{DigiFone-WhatYouMightNotKnowAboutTheHistoryOfVoIP} a po dalších dvou
+\parencite{DigiFone-WhatYouMightNotKnowAboutTheHistoryOfVoIP} a po dalších dvou
 letech se objevila první webkamera, která snímala konvici na kávu v počítačové
-laboratoři na University of Cambridge \cite{BBC-FirstWebcamMadeCoffeePotFamous}.
+laboratoři na University of Cambridge \parencite{BBC-FirstWebcamMadeCoffeePotFamous}.
 
 29. srpna 2003 byla vydaná první verze aplikace \textit{Skype}
-\cite{ArsTechnica-TheStrangeStoryOfSkype} a sloveso \uv{sky\-povat} se během
+\parencite{ArsTechnica-TheStrangeStoryOfSkype} a sloveso \uv{sky\-povat} se během
 dalších let běžnou součástí slovníku mnoha lidí. Často je používáno prakticky
 jako synonymum pro VoIP hovory a jeho běžnost užívání ukazuje na to, že VoIP
 aplikace se staly běžnou součástí našich životů.
 
 Využití VoIP aplikací zaznamenalo další \uv{boom} v době pandemie covidu-19, kdy
 bylo mnoho lidí nucena pracovat z domova, a tak se tyto nástroje staly
-nepostradatelnými \cite{OnSIP-VoIPStatsTrendsCovidImpact}.
+nepostradatelnými \parencite{OnSIP-VoIPStatsTrendsCovidImpact}.
 
 Dnes většina VoIP aplikací, jako je např. Microsoft Teams, Discord, Google Meet,
 Jitsi Meet atp., využívá protokolu \textit{WebRTC} (\textit{RTC} je zkratka pro
 \textit{Real Time Communication}), který se stal standardem pro komunikaci na
-internetu v reálném čase \cite{LevelUp-WhatPowerMeetAndTeams,
+internetu v reálném čase \parencite{LevelUp-WhatPowerMeetAndTeams,
     Discord-HowDoesItHandleMillionsOfUsers, Jitsi-Projects, WebRTCORG-Homepage}.
 Těmito aplikacemi se budeme zabývat v části \ref{webRTC}. Výše uvedený software
 oproti prvním VoIP aplikacím (jako byla Speak Freely) přinesl mnoho zlepšení,
 mimo jiné např. umožňujE skupinové hovory až tisíců uživatelů
-\cite{MicrosoftLearn-MSTeamsLimitsAndSpecs}. To, jak je toho docíleno, shrneme v
+\parencite{MicrosoftLearn-MSTeamsLimitsAndSpecs}. To, jak je toho docíleno, shrneme v
 části \ref{connectionModels}. A samotným aplikacím se pak budeme věnovat
 v~části~\ref{voipTech}.
 
@@ -47,21 +47,21 @@ komunikaci, umožňují tzv. \textit{federaci}. V tomto kontextu federace znamen
 že jednotlivé e-mail servery spolu mohou komunikovat, a je tedy možné poslat
 e-mail od jednoho e-mailového poskytovatele k druhému (např. uživatelé Gmailu a
 Seznamu si spolu mohou bez jakýchkoliv potíží vyměňovat e-maily)
-\cite{MatrixORG-FAQ}. Podobně na tom byly kdysi i aplikace Yahoo! Messenger a
-MSN Messenger \cite{BetaNews-MSYahooToLinkIMNets}, ale o většině dnešních
+\parencite{MatrixORG-FAQ}. Podobně na tom byly kdysi i aplikace Yahoo! Messenger a
+MSN Messenger \parencite{BetaNews-MSYahooToLinkIMNets}, ale o většině dnešních
 aplikací určených pro chat to samé říct nemůžeme. Dnes už asi nikoho nenapadne,
 že by si uživatel Messengeru mohl vyměňovat zprávy s uživateli What's App
-\cite{9To5Mac-InteroperabilityNightmareAndDream}.
+\parencite{9To5Mac-InteroperabilityNightmareAndDream}.
 
-Existují ale protokoly jako \textit{ActivityPub} \cite{W3ORG-ActivityPub},
-\textit{XMPP} \cite{XMPPORG-Homepage} a \textit{Matrix}
-\cite{MatrixORG-Homepage} (více v části \ref{matrix}), jejichž účelem je situaci
+Existují ale protokoly jako \textit{ActivityPub} \parencite{W3ORG-ActivityPub},
+\textit{XMPP} \parencite{XMPPORG-Homepage} a \textit{Matrix}
+\parencite{MatrixORG-Homepage} (více v části \ref{matrix}), jejichž účelem je situaci
 změnit. Právě protokol Matrix bude dalším tématem, kterým se budeme zabývat,
 jelikož kromě běžných funkcí pro chat také umožňuje VoIP hovory pomocí WebRTC
-(více v části \ref{matrixRTC}) \cite{MatrixORG-Homepage,MatrixORG-Spec}.
+(více v části \ref{matrixRTC}) \parencite{MatrixORG-Homepage,MatrixORG-Spec}.
 
 Přestože protokol Matrix podporuje VoIP hovory, je tato část protokolu stále
-ve vývoji~\cite{GitHub-MSC3401,GitHub-MSC3898} a chybí jí některé funkce, jako
+ve vývoji~\parencite{GitHub-MSC3401,GitHub-MSC3898} a chybí jí některé funkce, jako
 jsou např. break-out rooms. V částí \ref{breakoutRooms} se pokusíme navrhnout,
 jak do protokolu tuto funkci přidat a následně ji i implementujeme.
 

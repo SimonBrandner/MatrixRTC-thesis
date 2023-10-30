@@ -2,37 +2,37 @@
 
 Tato část práce vychází převážně z knihy
 \href{https://webrtcforthecurious.com/}{WebRTC For The Curious: Go beyond the
-    APIs} \cite{WebRTCForTheCurious}.
+    APIs} \parencite{WebRTCForTheCurious}.
 
 \textit{Web Real-Time Communication} (\textit{WebRTC}) je protokol, který
 umožňuje vytvoření bezpečného obousměrného spojení mezi dvěma klienty pro
 přeposílání audia, videa a libovolných dat v reálném čase. Toto spojení může být
 \textit{peer-to-peer} (\textit{P2P})\footnote{Peer-to-peer spojení dvou počítačů
     je takové spojení, kde k výměně dat není třeba žádný server
-    \cite{MerriamWebster-PeerToPeer}.}, ale data mohou být i přeposílaná přes
+    \parencite{MerriamWebster-PeerToPeer}.}, ale data mohou být i přeposílaná přes
 server, jak je popsáno v části \ref{connecting}. Využívá se koncové šifrování,
 anglicky \textit{end-to-end encryption} (E2EE)\footnote{End-to-end encryption je
     metoda, kde třetí strany nemůžou číst data, neboť klíče mají jen koncové strany.
     Příkladem je mnoho aplikací pro chat, ve kterých server nemůže číst zprávy
     uživatelů, neboť klíče mají jen klienti daných uživatelé
-    \cite{IBM-EndToEndEncryption}.}, což zaručuje, že server nemůže číst data, pokud
-jsou přes něj přeposílaná~\cite{WebRTCForTheCurious}.
+    \parencite{IBM-EndToEndEncryption}.}, což zaručuje, že server nemůže číst data, pokud
+jsou přes něj přeposílaná~\parencite{WebRTCForTheCurious}.
 
 WebRTC spojení je složeno ze \textit{stop} (\textit{tracks}) a datových kanálů
 (\textit{data channels}). Stopa může být buď audio, či video
-\cite{MDN-WebRTC-MediaStreamTrack}, tyto stopy mohou být přiřazeny do tzv.
+\parencite{MDN-WebRTC-MediaStreamTrack}, tyto stopy mohou být přiřazeny do tzv.
 \textit{streamů} (stream je často složen ze dvou stop -- např. audia z mikrofonu
-a videa z kamery)~\cite{MDN-WebRTC-MediaStream}. Datové kanály se pak používají
-k přenosu libovolných dat \cite{WebRTCORG-GettingStarted-DataChannels}.
+a videa z kamery)~\parencite{MDN-WebRTC-MediaStream}. Datové kanály se pak používají
+k přenosu libovolných dat \parencite{WebRTCORG-GettingStarted-DataChannels}.
 
 \textit{Application Programming Interface} (\textit{API}) protokolu WebRTC je
 specifikováno jen v~JavaScriptu. Existují však i implementace WebRTC
-(např.~\href{https://github.com/pion/webrtc}{Pion}~\cite{GitHub-Pion-WebRTC} či
-\href{https://github.com/webrtc-rs/webrtc}{WebRTC.rs}~\cite{GitHub-WebRTCRS-WebRTC})
-v jiných jazycích \cite{WebRTCForTheCurious}.
+(např.~\href{https://github.com/pion/webrtc}{Pion}~\parencite{GitHub-Pion-WebRTC} či
+\href{https://github.com/webrtc-rs/webrtc}{WebRTC.rs}~\parencite{GitHub-WebRTCRS-WebRTC})
+v jiných jazycích \parencite{WebRTCForTheCurious}.
 
 Protokol WebRTC se skládá z mnoha komponentů a využívá ke svému fungování mnoha
-jiných protokolů \cite{WebRTCForTheCurious}. V této části si jednotlivé
+jiných protokolů \parencite{WebRTCForTheCurious}. V této části si jednotlivé
 komponenty rozebereme a popíšeme, k čemu slouží.
 
 \subsection{Spojování}\label{connecting}
@@ -42,13 +42,13 @@ fixovanou známou IP adresu, již může klient využít pro komunikaci. Ve WebR
 tomu ale tak není, neboť protokol je P2P. Oba klienti jsou tedy zodpovědní za
 vytvoření obousměrného spojení, což může být složité. Má to ale své vyhody jako
 menší zpoždění. Vývojář se zároveň nemusí starat o žádné servery
-\cite{WebRTCForTheCurious}.
+\parencite{WebRTCForTheCurious}.
 
 Pro vytvoření spojení se používá protokolu \textit{Interactive Connectivity
     Establishment} (\textit{ICE}). Protokol ICE slouží k nalezení nejlepšího
 způsobu, jak vytvořit spojení mezi dvěma klienty. Každý klient zveřejní své tzv.
 \textit{ICE kandidáty}, což jsou v podstatě IP adresy a porty, na kterých je
-klient dostižitelný (více v části \ref{ice})~\cite{WebRTCForTheCurious}. V této
+klient dostižitelný (více v části \ref{ice})~\parencite{WebRTCForTheCurious}. V této
 části se zabýváme jen samotným výběrem těchto kandidátů; jak si klienti předají
 informace o kandidátech je rozebráno v sekci \ref{signalling}.
 
@@ -86,17 +86,17 @@ informace o kandidátech je rozebráno v sekci \ref{signalling}.
 \end{figure}
 
 Kvůli nedostatku IPv4 adres je nutno reprezentovat několik zařízení v podsíti
-routeru jednou veřejnou IP adresou \cite{Medium-NATWHyWeNeedIt}. Využívá se k
+routeru jednou veřejnou IP adresou \parencite{Medium-NATWHyWeNeedIt}. Využívá se k
 tomu metody \textit{Network Address Translation} (\textit{NAT}), která vytváří
 mapování mezi veřejnou IP adresou\footnote{Pro zjednodušení předpokládáme
     statické veřejné IP adresy.} a portem a privátní IP adresou a portem v podsíti
-routeru \cite{WebRTCForTheCurious}.
+routeru \parencite{WebRTCForTheCurious}.
 
 Na obrázku \ref{natFig} vidíme situaci, ve které je snadné pro klienta 1 poslat
 paket klientovi 2, neboť jsou ve stejné podsíti. Ale pokud by klient 3 chtěl
 poslat paket klientovi za routerem~2, je nutné využít veřejných IP adres
 routerů. Ty ale klienti nemusí znát. Zároveň je nutné, aby router věděl, na jaký
-z klientů paket přeposlat \cite{WebRTCForTheCurious}.
+z klientů paket přeposlat \parencite{WebRTCForTheCurious}.
 
 Jednou z možností mapování je \textit{port forwarding}, jde o statické
 namapování předem definovaného portu na privátní IP adresu a port v podsiti
@@ -108,7 +108,7 @@ routeru 2, bude přeposlán routerem přes port \mintinline{text}{80} (příjemc
 bude tedy vidět \mintinline{text}{1.0.0.2:80} jako zdrojovou adresu). Toto
 mapování je vhodné pro případy, kdy chceme, aby dané zařízení za routerem bylo
 dostižitelné na IP adrese routeru na pevně daném portu
-\cite{G2-WhatIsPortForwarding}.
+\parencite{G2-WhatIsPortForwarding}.
 
 Mapování ale nemusí být pevné a může existovat jen dočasně. Pošle-li klient 1
 paket na \mintinline{text}{1.0.0.2:80} (port \mintinline{text}{80} na routeru
@@ -121,7 +121,7 @@ routeru~1), router 1 rozpozná dle portu, že má paket zpět přeposlat na
 mapování vytvořil). Toto mapování může ale v budoucnosti zaniknout\footnote{Jak
     dlouho je mapování funkční závisí na mnoha faktorech. Např. pokud je použit
     protokol TCP, mapování se ruší explicitně.}. Tento typ mapování je nejčastější
-pro běžná zařízení \cite{WebRTCForTheCurious}.
+pro běžná zařízení \parencite{WebRTCForTheCurious}.
 
 \subsubsection{STUN}
 
@@ -162,7 +162,7 @@ adresou a portem v podsíti, ale klienti v podsíti neví, jaká je veřejná IP
 adresa routeru (obzvlášť pokud je dynamická), a pokud není použit port
 forwarding, neví ani, jaký port budu využit pro přeposíláním paketů.
 \textit{Session Traversal Utilities for NAT} (\textit{STUN}) je protokol, který
-nám umožňuje tato omezení překonat \cite{WebRTCForTheCurious}.
+nám umožňuje tato omezení překonat \parencite{WebRTCForTheCurious}.
 
 V síti, která je vidět na obrázku \ref{stun}, klient 1 pošle \textit{STUN
     Binding Request} na \mintinline{text}{1.0.0.3} (na STUN server, který má známou
@@ -175,16 +175,16 @@ bylo na routeru 1 vytvořeno mapování, router 1 ví, že pokud přijde paket n
 \mintinline{text}{192.168.0.1} (klientovi 1), ten poté ze STUN Binding Response
 může vyčíst, jaká je jeho veřejná IP adresa (někdy také \textit{Mapped Address}
 či \textit{Server Reflexive Candidate}). V~podstatě se jedná o automatické
-dynamické port forwardování~\cite{WebRTCForTheCurious}.
+dynamické port forwardování~\parencite{WebRTCForTheCurious}.
 
 Bohužel Mapped Address vůbec nemusí být užitečná, pokud je použito NAT mapování
 typu \textit{Address Dependent}, což znamená, že router 1 přijímá na daném
 mapování pakety pouze z IP adresy \mintinline{text}{1.0.0.1} (ze STUN
 serveru)\footnote{Address Dependent mapování lze často také nalézt pod pojmem
     \textit{Symmetric} NAT. Tento pojem je ale nepřesný, neboť reálné NAT často
-    nelze snadno klasifikovat do kategorií \cite{IETF-RFC4787}.}. STUN naštěstí
+    nelze snadno klasifikovat do kategorií \parencite{IETF-RFC4787}.}. STUN naštěstí
 umožňuje zjištění typu NAT mapování, takže klient předem ví, jestli ho bude
-možné kontaktovat \cite{WebRTCForTheCurious}.
+možné kontaktovat \parencite{WebRTCForTheCurious}.
 
 \subsubsection{TURN}
 
@@ -222,13 +222,13 @@ možné kontaktovat \cite{WebRTCForTheCurious}.
 umožňuje vytvořit spojení i v případě, že je NAT mapování Address Dependent, či
 pokud je klient za jinak restriktivním firewallem. TURN lze také využít,
 přeje-li si klient, aby druhý klient neznal jeho IP adresu
-\cite{WebRTCForTheCurious}.
+\parencite{WebRTCForTheCurious}.
 
 TURN server funguje jako proxy (prostředník), přes které jsou přeposílána data.
 Přeje-li si klient 1 na obrázku \ref{turn} využít TURN server, musí nejdříve
 vytvořit tzv. \textit{alokaci}, která je následně využita k přeposílání dat. Aby
 alokaci klient 1 vytvořil, musí serveru poskytnout uživatelské jméno, heslo,
-protokol (může být UDP nebo TCP) a port~\cite{WebRTCForTheCurious}.
+protokol (může být UDP nebo TCP) a port~\parencite{WebRTCForTheCurious}.
 
 Podaří-li se alokaci vytvořit, odpověď TURN serveru obsahuje podobně jako u STUN
 Mapped Address (v našem případě \mintinline{text}{1.0.0.1:P1}),
@@ -239,24 +239,24 @@ klient 1 předá ostatním klientům). Pokud jsou na Relayed Adresu
 na Mapped Adresu (adresu, ze které byla vytvořena alokace) --
 \mintinline{text}{1.0.0.1:P1} (tedy router 1). Ten následně přepošle pakety na
 klienta 1 na základě mapování, které bylo vytvořeno při vytváření
-alokace~\cite{WebRTCForTheCurious}.
+alokace~\parencite{WebRTCForTheCurious}.
 
 Nyní musí klient 2 poslat TURN serveru STUN Binding Request a klientovi 1 sdělit
 svou veřejnou adresu. Klient 1 pak může klientovi 2 povolit, aby na danou alokaci
-posílal pakety \cite{WebRTCForTheCurious}.
+posílal pakety \parencite{WebRTCForTheCurious}.
 
 Klient 1 může posílat na TURN server \textit{Send Indication}, která obsahuje
-data, které se mají přeposlat klientovi 2 \cite{WebRTCForTheCurious}.
+data, které se mají přeposlat klientovi 2 \parencite{WebRTCForTheCurious}.
 
 Posílá-li se velké množství paketů, může být nevýhodné, aby každý z nich
 obsahoval IP adresu a port. Je tedy možné vytvořit tzv. \textit{kanál}
 (\textit{Channel}), mající své \textit{ID kanálu} (\textit{Channel ID}). Klient
 pak kanál používá v paketech místo IP adresy a portu. Paket je poté na TURN
-serveru upraven a IP adresa a port dodány \cite{WebRTCForTheCurious}.
+serveru upraven a IP adresa a port dodány \parencite{WebRTCForTheCurious}.
 
 Vzhledem k tomu, že alokace jsou časově omezeny, klient může poslat
 \textit{Refresh} request, který by měl prodloužit lifetime dané alokace
-\cite{WebRTCForTheCurious}.
+\parencite{WebRTCForTheCurious}.
 
 \subsubsection{ICE}\label{ice}
 
@@ -266,11 +266,11 @@ klientů. Tyto páry se nazývají \textit{páry kandidátů}. Může se jednat 
 privátní adresy v rámci podsítě routeru, Mapped Adresy (získané ze STUN
 serveru), či Relayed Adresy (získané z TURN serveru). Klienti komunikují pomocí
 \textit{ICE ping paketů}, které umožňují ověřit funkčnost spojení
-\cite{WebRTCForTheCurious}.
+\parencite{WebRTCForTheCurious}.
 
 ICE klient je buď \textit{controlling}, nebo \textit{controlled}. Controlling
 klient je ten, který vybere vhodný pár kandidátů. Obvykle je controlling klient
-ten, který zahájil spojování~\cite{WebRTCForTheCurious}.
+ten, který zahájil spojování~\parencite{WebRTCForTheCurious}.
 
 Nabízí-li každá strana 2 kandidáty, existují pak 4 páry kandidátů. Klienti
 využijí ICE ping pakety, aby ověřili, které páry jsou funkční. Ty páry, u
@@ -278,20 +278,20 @@ kterých došlo k výměně dat, jsou pak označeny za \textit{validní kandidá
 Controlling klient následně vybere jeden z validních párů a označí ho za
 \textit{nominovaný pár}. Klienti se pak znovu pokusí o obousměrnou komunikaci
 pomocí tohoto páru, a je-li úspěšná, stává se z daného párů \textit{vybraný pár
-    kandidátů} \cite{WebRTCForTheCurious}.
+    kandidátů} \parencite{WebRTCForTheCurious}.
 
 Dojde-li po vytvoření spojení k potížím (např. vyprší NAT mapování nebo selže
-TURN server), celý proces začne znovu \cite{WebRTCForTheCurious}.
+TURN server), celý proces začne znovu \parencite{WebRTCForTheCurious}.
 
 \subsubsection{Způsobí přechod na IPv6 zánik ICE a STUN?}
 
 NAT původně vzniklo jako způsob řešení nedostatku IPv4 adres, ale za léta svého
 vývoje se jejich význam rozšířil, neboť zároveň poskytují jednu z vrstev
-zabezpečení \cite{Quora-WillIPv6KillSTUNAndICE}.
+zabezpečení \parencite{Quora-WillIPv6KillSTUNAndICE}.
 
 Přestože postupný přechod na IPv6 je nevyhnutelný, je nepravděpodobné, že by
 technologie jako NAT zmizely. Je tak smysluplné předpokládat, že technologie
-jako ICE a STUN rovněž zůstanou relevantní \cite{Quora-WillIPv6KillSTUNAndICE}.
+jako ICE a STUN rovněž zůstanou relevantní \parencite{Quora-WillIPv6KillSTUNAndICE}.
 
 \subsection{Přenos audio a videa}
 
@@ -300,7 +300,7 @@ být nezávislé, nebo mohou být součástí streamu. Typickým příkladem je 
 který v jednom streamu posílá audio stopu ze svého mikrofonu a video stopu ze
 své kamery a v druhém streamu audio stopu a video stopu ze svého počítače.
 Dalším příkladem je server, který přeposílá streamy jiných uživatelů, jak je
-popsáno v části \ref{connectionModels} \cite{WebRTCForTheCurious}.
+popsáno v části \ref{connectionModels} \parencite{WebRTCForTheCurious}.
 
 \subsubsection{RTP}\label{rtp}
 
@@ -308,13 +308,13 @@ popsáno v části \ref{connectionModels} \cite{WebRTCForTheCurious}.
 využívá pro přenos audia a videa. RTP umožňuje posílání několika streamů (ve
 WebRTC je RTP stream jedna stopa) přes jedno peer-spojení. RTP zároveň dává
 vývojáři informace o časování a pořadí paketů, je ale nezávislé na kodeku
-\cite{WebRTCForTheCurious}.
+\parencite{WebRTCForTheCurious}.
 
 \subsubsection{RTCP}\label{rtcp}
 
 \textit{RTP Control Protocol} (\textit{RTCP}) je protokol, který umožňuje
 přeposílání metadat o RTP spojení. Obvykle se jedná o metadata, jako je např.
-ztráta paketů \cite{WebRTCForTheCurious}.
+ztráta paketů \parencite{WebRTCForTheCurious}.
 
 \subsection{Posílání dat}\label{sctp}
 
@@ -322,12 +322,12 @@ ztráta paketů \cite{WebRTCForTheCurious}.
 umožňuje přeposílání libovolných dat pomocí WebRTC. WebRTC \textit{datové
     kanály} (\textit{data channels}) jsou jeho abstrakcí. Každé WebRTC spojení může
 obsahovat neomezeně datových kanálů (podobně jako je to u RTP streamů)
-\cite{WebRTCForTheCurious}.
+\parencite{WebRTCForTheCurious}.
 
 \subsection{Šifrování}
 
 Všechna data přeposílána v rámci WebRTC spojení jsou E2EE
-\cite{WebRTCForTheCurious}, což je zajištěno pomocí dvou protokolů, které si
+\parencite{WebRTCForTheCurious}, což je zajištěno pomocí dvou protokolů, které si
 popíšeme níže.
 
 \subsubsection{DTLS}
@@ -335,13 +335,13 @@ popíšeme níže.
 \textit{Datagram Transport Layer Security} (\textit{DTLS}) je protokol, jenž
 generuje klíče pro šifrování dat, která jsou posílána přes protokol UDP. Je
 podobný protokolu TLS, který se využívá k šifrování dat přeposílaných TCP
-\cite{WebRTCForTheCurious}.
+\parencite{WebRTCForTheCurious}.
 
 \subsubsection{SRTP}\label{srtp}
 
 \textit{Secure Real-time Transport Protocol} (\textit{SRTP}) je protokol, který
 využívá externích klíčů vygenerovaných DTLS k šifrování RTP paketů
-\cite{WebRTCForTheCurious}.
+\parencite{WebRTCForTheCurious}.
 
 \subsection{Signalling}\label{signalling}
 
@@ -364,14 +364,14 @@ využívá externích klíčů vygenerovaných DTLS k šifrování RTP paketů
 klienti vyměňují pomocí tzv. \textit{signalling serveru} ICE kandidáty a
 informace o tom, jaká data plánují posílat, jaké kodeky\footnote{Kodek je
     hardware či software, který se využívá pro zakódování, či rozkódování médii
-    \cite{Britannica-Codec,TechTarget-Codec}.} podporují atp. Zprávy, které si
+    \parencite{Britannica-Codec,TechTarget-Codec}.} podporují atp. Zprávy, které si
 klienti pomocí signalling serveru vyměňují, se nazývají \textit{session
     descriptions}, jsou ve formátu, který je definován protokolem zvaným
 \textit{Session Description Protocol} (\textit{SDP}) (místo \textit{session
-    description} se někdy píše jen \textit{SDP})~\cite{WebRTCForTheCurious}.
+    description} se někdy píše jen \textit{SDP})~\parencite{WebRTCForTheCurious}.
 Signalling server není nijak standardizován, jedinou podmínkou je, že realizuje
 výměnu SDP. To vede k tomu, že aplikace často nejsou mezi sebou kompatibilní
-\cite{MDN-Web-SignalingAndVideoCalling}.
+\parencite{MDN-Web-SignalingAndVideoCalling}.
 
 Chce-li klient 1 volat klienta 2, vygeneruje tzv. \textit{session description
     offer} (\textit{SDP offer}), kterou pomocí signalling serveru přepošle klientovi
@@ -379,22 +379,22 @@ Chce-li klient 1 volat klienta 2, vygeneruje tzv. \textit{session description
     answer} (\textit{SDP answer}), kterou naopak přepošle klientovi~1. Poté, co
 dojde k výměně session descriptions, se protokol ICE pokusí vybrat vhodný pár
 kandidátů. Tento proces se nazývá \textit{negotiation}
-\cite{WebRTCForTheCurious,MozillaBlog-PerfectNegotiation}.
+\parencite{WebRTCForTheCurious,MozillaBlog-PerfectNegotiation}.
 
 Dojde-li během hovoru ke změnám spojení (změní se stopy, které klienti posílají,
 či se změní pozice klienta na síti), proběhne tzv. \textit{renegotiation}, kdy
 se proces výměny session descriptions opakuje
-\cite{MozillaBlog-PerfectNegotiation}.
+\parencite{MozillaBlog-PerfectNegotiation}.
 
 SDP se skládá z \textit{párů klíč-hodnota} (\textit{key-value pairs}). Každý pár
 má následující formát: \mintinline{text}{<klíč>=<hodnota>}. SDP může stejný klíč
-obsahovat několikrát. \cite{WebRTCForTheCurious}. Je-li hodnota nedefinovaná,
-používá se znak \mintinline{text}{-} \cite{IETF-RFC8866}. Záleží na pořadí
+obsahovat několikrát. \parencite{WebRTCForTheCurious}. Je-li hodnota nedefinovaná,
+používá se znak \mintinline{text}{-} \parencite{IETF-RFC8866}. Záleží na pořadí
 jednotlivých řádků -- SDP začíná obecnými informacemi o spojení, které jsou
 následovány jednotlivými média-sekcemi. Média-sekce popisuje jednu odchozí stopu
 a jednu příchozí stopu (obě stopy nemusí být nutně aktivní), které musí být
 stejného typu (audio, anebo video). SDP podporuje několik klíčů, WebRTC využívá
-následující \cite{WebRTCForTheCurious,IETF-RFC8866}:
+následující \parencite{WebRTCForTheCurious,IETF-RFC8866}:
 
 \begin{itemize}
     \item \mintinline{text}{v} -- značí verzi, která je vždy \mintinline{text}{0}
@@ -468,7 +468,7 @@ následující \cite{WebRTCForTheCurious,IETF-RFC8866}:
 \end{itemize}
 
 SDP podporuje několik různých atributů, ty následující jsou zásadní pro fungování
-WebRTC \cite{WebRTCForTheCurious,IETF-RFC8866,IETF-RFC5888,IETF-RFC8841}:
+WebRTC \parencite{WebRTCForTheCurious,IETF-RFC8866,IETF-RFC5888,IETF-RFC8841}:
 \begin{itemize}
     \item \mintinline{text}{a=group:BUNDLE} značí, že přes jedno peer spojení
           posíláme více stop; některé implementace vytváří jedno peer spojení na
@@ -490,7 +490,7 @@ WebRTC \cite{WebRTCForTheCurious,IETF-RFC8866,IETF-RFC5888,IETF-RFC8841}:
 \end{itemize}
 
 SDP zároveň podporuje několik atributů, které se využívají pro nastavení ICE a
-výměnu ICE kandidátů \cite{WebRTCForTheCurious,IETF-RFC8839}:
+výměnu ICE kandidátů \parencite{WebRTCForTheCurious,IETF-RFC8839}:
 \begin{itemize}
     \item \mintinline{text}{a=ice-ufrag} -- uživatelské jméno, používáno pro
           ověření integrity

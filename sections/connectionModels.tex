@@ -1,7 +1,7 @@
 \section{Skupinové volání pomocí WebRTC}\label{connectionModels}
 
 Jak bylo zmíněno v části \ref{webRTC}, protokol WebRTC funguje na P2P bázi
-\cite{WebRTCORG-PeerConnections}. To přináší otázku, zda a jak využít tuto
+\parencite{WebRTCORG-PeerConnections}. To přináší otázku, zda a jak využít tuto
 technologii pro skupinové volání -- hovory, které mají více než dva účastníky. K
 řešení tohoto problému existuje několik přístupů, které si následně rozebereme.
 
@@ -31,7 +31,7 @@ komunikuje s každým dalším klientem, jak je zobrazeno na obrázku
 backendu pracovali, a zároveň není nutné vkládat finanční prostředky do jeho
 provozu. Nehrozí ani, že při selhání backendu by se uživatelé klientů nemohli
 spojit. Tento přístup má ale bohužel také mnoho nevýhod
-\cite{HalOpenScience-SFUs}.
+\parencite{HalOpenScience-SFUs}.
 
 První může být složitější vytvoření samotného spojení dvou klientů --
 v~klasickém P2P modelu obvykle dochází k tomu, že jeden uživatel volá druhého,
@@ -45,12 +45,12 @@ situaci, kdy se klienti snaží kontaktovat navzájem ve stejný okamžik. Obvyk
 každý klient vygeneruje náhodné číslo, které je poté v případě, že dochází ke
 \textit{glare} situaci, porovnáno s číslem druhého klienta a klient s větším či
 menším číslem (záleží na implementaci) je pak vybrán jako volající
-\cite{MagnusWesterlund-GlareInWebRTC}. Někdy také dochází k lexikografickému
+\parencite{MagnusWesterlund-GlareInWebRTC}. Někdy také dochází k lexikografickému
 porovnání identifikátorů klientů pro zvolení klienta, který bude kontaktovat
-toho druhého \cite{GitHub-MSC3401}.
+toho druhého \parencite{GitHub-MSC3401}.
 
 Full-mesh spojení má také nevýhodu v tom ohledu, že může častěji docházet k tzv.
-\textit{split-brains} \cite{StephenHaddock-SplitBrainAvoidance}. Protože je
+\textit{split-brains} \parencite{StephenHaddock-SplitBrainAvoidance}. Protože je
 každý klient spojen s každým dalším klientem, je spojení velmi náchylné k
 chybám, hrozí tedy, že jeden z klientů budu přijímat streamy jen od určité
 podskupiny klientů, zatímco jiný klient bude přijímat stream od jiné podskupiny
@@ -62,12 +62,12 @@ klientů, které nejdříve rozšifruje a poté rozkóduje. Zároveň posílá v
 RTP streamy ostatním klientům, ty musí naopak zakódovat a následně zašifrovat.
 Při vyšším počtu klientů v hovoru je pak třeba, aby všichni klienti běželi na
 dostatečně silném hardwaru
-\cite{BBC-FirstWebcamMadeCoffeePotFamous,Red5Pro-WebRTCScalingApproaches}.
+\parencite{BBC-FirstWebcamMadeCoffeePotFamous,Red5Pro-WebRTCScalingApproaches}.
 
 Další bariérou je internetové přípojení -- většina klientů totiž nemá dostatečně
 rychlou síť, aby mohli posílat RTP streamy všem uživatelům, a tak je realisticky
 možné pomocí full-mesh spojení provádět jen hovory v nižších počtech klientů
-(obvykle je maximum 5 - 8 klientů) \cite{BlogGeek-WebRTCP2PMesh}.
+(obvykle je maximum 5 - 8 klientů) \parencite{BlogGeek-WebRTCP2PMesh}.
 
 \subsection{Servery -- foci}
 
@@ -76,7 +76,7 @@ případě bude každý klient posílat své RTP streamy serveru, ze kterého se
 stává tzv. \textit{focus} (bod, ve kterém jsou jednotlivé streamy soustředěny;
 množné číslo je \textit{foci}). Tento focus poté streamy přeposílá ostatním
 klientům. Existují zde dva hlavní přístupy
-\cite{Red5Pro-WebRTCScalingApproaches}, které si níže rozebereme.
+\parencite{Red5Pro-WebRTCScalingApproaches}, které si níže rozebereme.
 
 \subsubsection{Multipoint Control Unit}
 
@@ -102,22 +102,22 @@ tento server přijímá streamy jednotlivých klientů a následně je transkód
 mixuje do jednoho, který pak zpět posílá všem uživatelům (viz obrázek č.
 \ref{mcu}). Hlavní výhodou tohoto přístupu je, že klient nemusí mít vysokou
 rychlost stahování dat, neboť přijímá jen jeden stream. Má ale relativně dost
-nevýhod \cite{Red5Pro-WebRTCScalingApproaches}.
+nevýhod \parencite{Red5Pro-WebRTCScalingApproaches}.
 
 První z nich je, že streamy jsou mixované do jednoho streamu, který je pak pro
 všechny klienty stejný, neumožňuje tedy uživatelům klientů, aby si vybrali,
 který stream budou sledovat atp.
-\cite{Red5Pro-WebRTCScalingApproaches}.
+\parencite{Red5Pro-WebRTCScalingApproaches}.
 
 Zároveň proces transkódování a mixování je poměrně náročný na výkon, příslušný
 server tedy potřebuje silný hardware. Tento proces je také mírně časově náročný,
 což znamená, že uživatelé vidí a slyší věci s mírným
-zpožděním~\cite{Red5Pro-WebRTCScalingApproaches}.
+zpožděním~\parencite{Red5Pro-WebRTCScalingApproaches}.
 
 Poslední nevýhodou, kterou zmíníme, je to, že pro transkódování a mixování
 streamů je nutné, aby je server nejdříve rozšifroval. To znamená, že z principu
 není možné, aby komunikace mezi klienty byla
-E2EE~\cite{ITSecurityKnowHow-E2EGainsANewMeaning}.
+E2EE~\parencite{ITSecurityKnowHow-E2EGainsANewMeaning}.
 
 \subsubsection{Selective Forwarding Unit}
 
@@ -142,14 +142,14 @@ E2EE~\cite{ITSecurityKnowHow-E2EGainsANewMeaning}.
 
 Druhou možností je tzv. \textit{Selective Forwarding Unit} (dále \textit{SFU}),
 tento server přijímá streamy jednotlivých klientů a následně podskupinu těchto
-streamů přeposílá ostatním klientům \cite{HalOpenScience-SFUs}, jak je vidět na
+streamů přeposílá ostatním klientům \parencite{HalOpenScience-SFUs}, jak je vidět na
 obrázku č. \ref{sfu}.
 
 Toto řešení má několik výhod -- umožňuje E2EE, neboť nepotřebuje streamy
-transkódovat a mixovat \cite{WebRTCHacks-TrueE2EE}. Z tohoto důvodu také nemá
+transkódovat a mixovat \parencite{WebRTCHacks-TrueE2EE}. Z tohoto důvodu také nemá
 takové požadavky na hardware, jednotlivé streamy jsou klientům posílány
 samostatně, takže si uživatel může zvolit, co bude sledovat
-\cite{Red5Pro-WebRTCScalingApproaches}. Zároveň tento model umožňuje tzv.
+\parencite{Red5Pro-WebRTCScalingApproaches}. Zároveň tento model umožňuje tzv.
 \textit{federaci} (více v částech \ref{matrix} a \ref{matrixRTC}).
 
 \begin{figure}[h]
@@ -194,4 +194,4 @@ rozlišení bude video zobrazeno na koncovém klientovi -- např. jestli má už
 jedno video velkém rozlišení a ostatní jsou malá, nebo či má všechny videa
 zobrazena ve stejném rozlišení bez toho, aby nějaké bylo zvětšené. Dalším
 faktorem při výběru je spojení s jednotlivým klienty a jeho kvalita
-\cite{LiveKit-SimulcastIntroduction}.
+\parencite{LiveKit-SimulcastIntroduction}.

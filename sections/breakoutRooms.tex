@@ -2,9 +2,9 @@
 
 Break-out rooms (dále break-out místnosti) je funkce mnoha konferenčních
 aplikací umožňující rozdělení velké konference do několika menších hovorů
-\cite{Zoom-EnablingMeetingBreakoutRooms,Microsoft-UseBreakoutRoomsInMSTeamsMeetings}.
+\parencite{Zoom-EnablingMeetingBreakoutRooms,Microsoft-UseBreakoutRoomsInMSTeamsMeetings}.
 Tato funkce sehrála důležitou roli např. ve školství během pandemie Covidu-19
-\cite{AhmedKhalid-TheImpactOfUtilizingBreakoutRooms,Agustina-ZoomBreakoutRoomsForStudents}
+\parencite{AhmedKhalid-TheImpactOfUtilizingBreakoutRooms,Agustina-ZoomBreakoutRoomsForStudents}
 a zůstává nadále relevantní.
 
 Praktickou částí této ročníkové práce je implementace break-out místností do
@@ -18,7 +18,7 @@ Pro reprezentaci jednotlivých break-out místností využijeme již existujíc�
 Matrix primitivum -- místnost, každé break-out místnosti bude tedy odpovídat
 jedna Matrix místnost. Pro informování ostatních uživatelů o existenci daných
 break-out místností též využijme existující Matrix primitivum -- state události
-\cite{GitHub-MSC3985}.
+\parencite{GitHub-MSC3985}.
 
 \begin{figure}[H]
     \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
@@ -48,26 +48,26 @@ místností (\mintinline{text}{!roomId1} a \mintinline{text}{!roomId2}) a hodnot
 obsahující informace o těchto místnostech. V informacích o místnosti najdeme
 pole \mintinline{text}{via}, což je výčet serverů, které je možno využít k
 připojení se k dané místnosti (ID místnosti nestačí pro připojení se k místnosti
-\cite{MatrixORG-Spec}). V těchto informacích můžeme též najít pole
+\parencite{MatrixORG-Spec}). V těchto informacích můžeme též najít pole
 \mintinline{text}{users}, což je výčet uživatelů, kterým je doporučeno se do
-dané místnosti připojit~\cite{GitHub-MSC3985}.
+dané místnosti připojit~\parencite{GitHub-MSC3985}.
 
 Dojde-li k přijetí této state událostí jiným klientem, měl by uživateli dát
 možnost se připojit do daných místností, zároveň by ve svém uživatelském rozhraní
-měl zobrazit, kteří uživatelé náleží kterým místnostem \cite{GitHub-MSC3985}.
+měl zobrazit, kteří uživatelé náleží kterým místnostem \parencite{GitHub-MSC3985}.
 
 Jelikož je nepraktické, aby v místnosti bylo víc událostí typu
 \mintinline{text}{m.breakout}, není to povoleno. Toho docílíme tím, že jako
 \mintinline{text}{state_key} budeme vždy využívat prázdný řetězec znaků (tedy
-\mintinline{text}{""}) \cite{GitHub-MSC3985} -- v Matrix místnosti vždy existuje
+\mintinline{text}{""}) \parencite{GitHub-MSC3985} -- v Matrix místnosti vždy existuje
 jen jedna validní state událost s danou dvojicí \mintinline{text}{type} a
-\mintinline{text}{state_key} \cite{MatrixORG-Spec}.
+\mintinline{text}{state_key} \parencite{MatrixORG-Spec}.
 
 Na GitHubu v repositáři
 \href{https://github.com/matrix-org/matrix-spec-proposals}{matrix-spec-proposals}
 můžeme najít pull request č. 3985 --
 \href{https://github.com/matrix-org/matrix-spec-proposals/pull/3985}{MSC3985},
-kde je návrh změny specifikace veřejně dostupný \cite{GitHub-MSC3985}.
+kde je návrh změny specifikace veřejně dostupný \parencite{GitHub-MSC3985}.
 
 \subsection{Samotná implementace}
 
@@ -77,15 +77,15 @@ provést změny ve dvou repositářích --
 JavaScript SDK -- více v části \ref{matrix-js-sdk}) a
 \href{https://github.com/vector-im/element-call/}{element-call} (samotná
 aplikace Element Call). Jak Element Call tak Matrix JavaScript SDK využívají
-programovací jazyk TypeScript \cite{GitHub-MatrixJSSDK, GitHub-ElementCall}, což
+programovací jazyk TypeScript \parencite{GitHub-MatrixJSSDK, GitHub-ElementCall}, což
 je nadstavba na JavaScriptu, která jej rozšiřuje o statické typování
-\cite{TypeScript-Homepage}.
+\parencite{TypeScript-Homepage}.
 
 \subsubsection{Matrix JavaScript SDK}
 
 Změny, o kterých bude v této části práce řeč, lze nalézt v
 \href{https://github.com/matrix-org/matrix-js-sdk/pull/3753/}{zde}
-\cite{GitHub-MatrixJSSDK-BreakoutRooms}.
+\parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 Prvním krokem bude přidání nové veřejné metody s názvem
 \mintinline{typescript}{createBreakoutRooms()} do třídy
@@ -101,11 +101,11 @@ v části \ref{breakoutRoomsMSC}). Metoda
 \mintinline{text}{m.breakout} následně odešle do místnosti s ID
 \mintinline{text}{parentRoomId} pomocí metody
 \mintinline{typescript}{this.sendStateEvent()}
-\cite{GitHub-MatrixJSSDK-BreakoutRooms}.
+\parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 Dále přidáme třídu \mintinline{typescript}{BreakoutRooms}, která umožňuje
 monitorovat break-out místnosti, na které odkazuje \mintinline{text}{m.breakout}
-state událost v dané Matrix místnosti \cite{GitHub-MatrixJSSDK-BreakoutRooms}.
+state událost v dané Matrix místnosti \parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 V konstruktoru třídy si uložíme instanci \mintinline{typescript}{room}, což je
 místnost, ve které budeme monitorovat změny události typu
@@ -118,12 +118,12 @@ docílíme toho, že bude-li \mintinline{typescript}{room} emitovat událost typ
 je získání aktuální Matrix state události typu \mintinline{text}{m.breakout}
 pomocí metody \mintinline{typescript}{this.getBreakoutEvent()} a její zpracování
 pomocí metody
-\mintinline{typescript}{this.parseBreakoutEvent()}~\cite{GitHub-MatrixJSSDK-BreakoutRooms}.
+\mintinline{typescript}{this.parseBreakoutEvent()}~\parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 Privátní metoda \mintinline{typescript}{getBreakoutEvent()} najde Matrix událost
 typu \mintinline{text}{m.breakout} v místnosti
 \mintinline{typescript}{this.room} a následně ji vrátí
-\cite{GitHub-MatrixJSSDK-BreakoutRooms}.
+\parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 Privátní metoda \mintinline{typescript}{parseBreakoutEvent()} překonvertuje
 \mintinline{text}{content} state události typu \mintinline{text}{m.breakout} na
@@ -133,7 +133,7 @@ Tento seznam je lépe zpracovatelný při dalším využití, neboť je obohacen
 metadata jako název místnosti, která nejsou obsažena v samotné
 \mintinline{text}{m.breakout} state události; toto shrnutí místnosti získáme
 pomocí metody \mintinline{typescript}{getRoomSummary()} na třídě
-\mintinline{typescript}{MatrixClient} \cite{GitHub-MatrixJSSDK-BreakoutRooms}.
+\mintinline{typescript}{MatrixClient} \parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 Privátní metoda \mintinline{typescript}{onEvent} je tzv. \textit{event handler},
 který je volán, pokud je emitována událost typu
@@ -145,12 +145,12 @@ tak je, využije k získání aktuálního seznamu break-out místností metod
 \mintinline{typescript}{this.getBreakoutEvent()} a
 \mintinline{typescript}{this.parseBreakoutEvent()}. Pokud došlo ke změně tohoto
 seznamu, je využita metoda \mintinline{typescript}{this.emit()} k emitování
-informací o změně~\cite{GitHub-MatrixJSSDK-BreakoutRooms}.
+informací o změně~\parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 Veřejná metoda \mintinline{typescript}{getCurrentBreakoutRooms()} pak už jen
 vrací kopii privátního seznamu
 \mintinline{typescript}{this.currentBreakoutRooms}, která může být následně
-využita jinde \cite{GitHub-MatrixJSSDK-BreakoutRooms}.
+využita jinde \parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 V konstruktoru třídy \mintinline{typescript}{Room}, kterou najdeme v souboru
 \mintinline{text}{/src/models/room.ts}, vytvoříme instanci třídy
@@ -164,29 +164,29 @@ její návratovou hodnotu. Díky re-emitování událostí pocházejících z
 \mintinline{typescript}{breakoutRooms} a metodě
 \mintinline{typescript}{getBreakoutRooms()} budou všichni s přístupem k instanci
 třídy \mintinline{typescript}{Room} mít přístupné i~informace o existujících
-break-out místnostech \cite{GitHub-MatrixJSSDK-BreakoutRooms}.
+break-out místnostech \parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 \subsubsection{Element Call}
 
 Změny, o kterých bude v této části práce řeč, lze nalézt v
 \href{https://github.com/vector-im/element-call/pull/1615/}{zde}
-\cite{GitHub-ElementCall-BreakoutRooms}.
+\parencite{GitHub-ElementCall-BreakoutRooms}.
 
 Většina změn aplikace Element Call je převážné úprava a doplnění uživatelského
 rozhraní o prvky sloužící k vytváření a využívaní break-out místností
-\cite{GitHub-ElementCall-BreakoutRooms}. Element Call pro práci s uživatelským
-rozhraním využívá knihovnu React \cite{GitHub-ElementCall}. Ta nám umožňuje
+\parencite{GitHub-ElementCall-BreakoutRooms}. Element Call pro práci s uživatelským
+rozhraním využívá knihovnu React \parencite{GitHub-ElementCall}. Ta nám umožňuje
 abstrahovat části práce s HTML a JavaScriptem pomocí tzv. komponentů (a jiných
 struktur jako jsou např. \textit{hooks}, či \textit{contexts}). Zjednodušeně
 řečeno, komponent je JavaScript funkce, jejíž návratová hodnota bude později
 překonvertována do HTML, které bude zobrazeno na stránce. Komponenty mohou mít
 vnitřní logiku a parametry, které ovlivní jejich návratovou
-hodnotu~\cite{React-Homepage}. (Samotné detaily změn uživatelského rozhraní zde
+hodnotu~\parencite{React-Homepage}. (Samotné detaily změn uživatelského rozhraní zde
 nebudeme rozebírat, neboť nejsou příliš relevantní k tématu protokolu Matrix
 atp.)
 
 Aplikace využívá koncové šifrování, které využívá jeden klíč, jenž je sdílený
-mezi uživateli pomocí URL \cite{GitHub-ElementCall-CompleteSPAE2EEWork}. Bude
+mezi uživateli pomocí URL \parencite{GitHub-ElementCall-CompleteSPAE2EEWork}. Bude
 tedy nutné přidat mechanismus na sdílení těchto klíčů. Využijeme k tomu
 to-device messages (více v části \ref{toDeviceMessages}). Komponent
 \mintinline{typescript}{BreakoutRoomModal} obsahuje funkci
@@ -200,4 +200,4 @@ Zároveň v kontextu jménem \mintinline{typescript}{ClientContext}, jenž najde
 souboru \mintinline{text}{src/ClientContext.tsx}, přidáme nový event handler s
 názvem \mintinline{typescript}{onToDevice()}, který budeme volat, přijde-li nová
 to-device message. Bude-li obsahovat informace o nových klíčích, uložíme je
-k~dalšímu použití \cite{GitHub-ElementCall-BreakoutRooms}.
+k~dalšímu použití \parencite{GitHub-ElementCall-BreakoutRooms}.

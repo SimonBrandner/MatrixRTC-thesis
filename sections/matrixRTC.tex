@@ -3,7 +3,7 @@
 Stabilní verze protokolu Matrix podporuje hlasové a video hovory mezi dvěma
 uživateli, ale pouze v základní podobě, která nepodporuje skupinové volání,
 pozastavování hovorů, renegotiation, algoritmy pro glare resolution,
-atp.~\cite{MatrixORG-Spec}.
+atp.~\parencite{MatrixORG-Spec}.
 
 Kvůli tomu existuje několik MSCs, které navrhují změny specifikace pro přidání
 nových funkcí. MSC2746 přidává podporu pro renegotiation, pozastavování hovorů,
@@ -11,15 +11,15 @@ upgrady hovorů, restartování ICE, lepší podpora pro více zařízení a
 DTMF\footnote{
     \textit{Dual-Tone Multi-Frequency} (\textit{DTMF}) je systém, ve kterém má
     každá číslice přiřazenou dvojici tónů. Tyto tóny se pak používají pro
-    komunikaci mezi zařízeními \cite{DSTNY-DTMF}.
-} \cite{GitHub-MSC2746}. MSC3077 přidává podporu pro hovory s více streamy
-(např. sdílení obrazovek) \cite{GitHub-MSC3077}. MSC3291 pak specifikuje sdílení
+    komunikaci mezi zařízeními \parencite{DSTNY-DTMF}.
+} \parencite{GitHub-MSC2746}. MSC3077 přidává podporu pro hovory s více streamy
+(např. sdílení obrazovek) \parencite{GitHub-MSC3077}. MSC3291 pak specifikuje sdílení
 metadat o streamech (např. zda je audio či video ztlumené)
-\cite{GitHub-MSC3291}.
+\parencite{GitHub-MSC3291}.
 
-MSC3401 přidává podporu pro skupinové full-mesh hovory \cite{GitHub-MSC3401}.
+MSC3401 přidává podporu pro skupinové full-mesh hovory \parencite{GitHub-MSC3401}.
 MSC3898 pak přidává podporu pro foci (množné číslo od od \textit{focus})
-\cite{GitHub-MSC3898}.
+\parencite{GitHub-MSC3898}.
 
 \subsection{Využití Matrix primitiv}
 
@@ -30,7 +30,7 @@ primitivech. V této části probereme, jak se jednotlivé primitiva využívaj�
 
 Hovory mezi dvěma uživateli (stabilní specifikace, MSC2746, MSC3077, MSC3291)
 využívají message událostí
-\cite{MatrixORG-Spec,GitHub-MSC2746,GitHub-MSC3077,GitHub-MSC3291}.
+\parencite{MatrixORG-Spec,GitHub-MSC2746,GitHub-MSC3077,GitHub-MSC3291}.
 
 Typy všech VoIP události mají předponu \mintinline{text}{m.call.} a jejich
 \mintinline{text}{content} obsahuje \mintinline{text}{call_id} (unikátní
@@ -39,13 +39,13 @@ identifikátor pro účastníka hovoru; může být \mintinline{text}{device_id}
 \mintinline{text}{version} (verze VoIP specifikace; měla by být
 \mintinline{text}{"1"}) a \mintinline{text}{lifetime} (čas v
 \unit{\milli\second}, po který je událost validní)
-\cite{MatrixORG-Spec,GitHub-MSC2746}.
+\parencite{MatrixORG-Spec,GitHub-MSC2746}.
 
 Pro zahájení hovoru se využívá událost s typem \mintinline{text}{m.call.invite}.
 Její \mintinline{text}{content} obsahuje \mintinline{text}{offer}, která
 obsahuje \mintinline{text}{sdp} (SDP offer posílajícího klienta) a
 \mintinline{text}{type} (který by měl vždy být \mintinline{text}{"offer"})
-\cite{MatrixORG-Spec,GitHub-MSC2746}.
+\parencite{MatrixORG-Spec,GitHub-MSC2746}.
 
 \begin{figure}[H]
     \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
@@ -67,13 +67,13 @@ obsahuje \mintinline{text}{sdp} (SDP offer posílajícího klienta) a
 
 Poté, co druhý klient přijme tuto zprávu, by měl poslat na základě rozhodnutí
 uživatele buď \mintinline{text}{m.call.answer}, nebo
-\mintinline{text}{m.call.reject} \cite{MatrixORG-Spec,GitHub-MSC2746}.
+\mintinline{text}{m.call.reject} \parencite{MatrixORG-Spec,GitHub-MSC2746}.
 
 Pokud se uživatel rozhodne hovor přijmout, jeho klient by měl poslat
 \mintinline{text}{m.call.answer}, jejíž \mintinline{text}{content} obsahuje
 \mintinline{text}{answer}, která obsahuje \mintinline{text}{sdp} (SDP answer) a
 \mintinline{text}{type} (který by měl vždy být \mintinline{text}{answer})
-\cite{MatrixORG-Spec,GitHub-MSC2746}.
+\parencite{MatrixORG-Spec,GitHub-MSC2746}.
 
 \begin{figure}[H]
     \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
@@ -96,9 +96,9 @@ Pokud se uživatel rozhodne hovor přijmout, jeho klient by měl poslat
 Pro předání další ICE kandidátů druhému klientovi je použita událost s~typem
 \mintinline{text}{m.call.candidates}, která obsahuje
 \mintinline{text}{candidates}, což je seznam ICE kandidátů
-\cite{MatrixORG-Spec}. Například JavaScript API pro WebRTC umožňuje kandidáty
+\parencite{MatrixORG-Spec}. Například JavaScript API pro WebRTC umožňuje kandidáty
 konvertovat do JSON pomocí \mintinline{typescript}{RTCIceCandidate::toJSON()}
-\cite{MDN-Web-RTCIceCandidate-ToJSON}.
+\parencite{MDN-Web-RTCIceCandidate-ToJSON}.
 
 \begin{figure}[H]
     \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
@@ -121,7 +121,7 @@ konvertovat do JSON pomocí \mintinline{typescript}{RTCIceCandidate::toJSON()}
 \end{figure}
 
 Pokud se uživatel rozhodne hovor odmítnout, jeho klient by měl poslat
-\mintinline{text}{m.call.reject} \cite{GitHub-MSC2746}.
+\mintinline{text}{m.call.reject} \parencite{GitHub-MSC2746}.
 
 \begin{figure}[H]
     \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
@@ -140,7 +140,7 @@ Je-li při hovoru třeba provést renegotiation, klient by měl poslat s typem
 \mintinline{text}{m.call.negotiate}, jejíž \mintinline{text}{content} by měl
 obsahovat \mintinline{text}{description} s \mintinline{text}{sdp} (SDP offer
 nebo answer) a \mintinline{text}{type} (\mintinline{text}{"offer"} nebo
-\mintinline{text}{"answer"}) \cite{GitHub-MSC2746}.
+\mintinline{text}{"answer"}) \parencite{GitHub-MSC2746}.
 
 \begin{figure}[H]
     \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
@@ -162,7 +162,7 @@ nebo answer) a \mintinline{text}{type} (\mintinline{text}{"offer"} nebo
 
 Je-li hovor ukončen, klient by měl poslat událost s typem
 \mintinline{text}{m.call.hangup}, jehož \mintinline{text}{content} obsahuje
-\mintinline{text}{reason}, která nabývá několika hodnot \cite{GitHub-MSC2746}:
+\mintinline{text}{reason}, která nabývá několika hodnot \parencite{GitHub-MSC2746}:
 \begin{itemize}
     \itemsep0em
     \item \mintinline{text}{user_hangup} -- uživatel ukončil hovor
@@ -174,7 +174,7 @@ Je-li hovor ukončen, klient by měl poslat událost s typem
           přístup ke streamu z příslušného zařízení
     \item \mintinline{text}{user_busy} -- primárně pro přemostěné PSTN\footnote{
               \textit{Public Switched Telephone Network} (\textit{PSTN}) je
-              běžná veřejná telefonní síť \cite{Nextiva-PSTN}.
+              běžná veřejná telefonní síť \parencite{Nextiva-PSTN}.
           } hovory,
           kde druhá strana může být nedostupná, protože už s někým telefonuje
     \item \mintinline{text}{unknown_error} -- došlo k neznámé chybě
@@ -198,7 +198,7 @@ Je-li hovor ukončen, klient by měl poslat událost s typem
 
 Pro vytvoření skupinového hovoru se využívá \mintinline{text}{m.call} state
 událost, jejíž \mintinline{text}{content} obsahuje několik polí
-\cite{GitHub-MSC3401}:
+\parencite{GitHub-MSC3401}:
 \begin{itemize}
     \itemsep0em
     \item \mintinline{text}{m.intent} -- může nabývat několika hodnot
@@ -226,12 +226,12 @@ událost, jejíž \mintinline{text}{content} obsahuje několik polí
 
 Chce-li se uživatel připojit do hovoru, pošle \mintinline{text}{m.call.member}
 state událost, jejíž \mintinline{text}{content} obsahuje informace o tom, které
-zařízení se účastní jakého hovoru \cite{GitHub-MSC3401}. Neobsahuje-li událost
+zařízení se účastní jakého hovoru \parencite{GitHub-MSC3401}. Neobsahuje-li událost
 \mintinline{text}{m.foci.} nebo se hovoru účastní jen dva klienti, dojde ke
 spojení full-mesh; chování pokud událost tento klíč obsahuje a v hovoru je více
-klientů je popsáno v části \ref{foci} \cite{GitHub-MSC3898}. Následně se mezi
+klientů je popsáno v části \ref{foci} \parencite{GitHub-MSC3898}. Následně se mezi
 jednotlivými zařízeními využívá to-device messages, které jsou ve stejném
-formátu jako události popsané v části \ref{dmCalls} \cite{GitHub-MSC3401}.
+formátu jako události popsané v části \ref{dmCalls} \parencite{GitHub-MSC3401}.
 
 % MSC3401 dělá velice zvláštní věc, kdy nařizuje max. jeden hovor na místnost,
 % ale `m.call.member' event umožňuje se účastnit hovorů více.
@@ -286,18 +286,18 @@ které si popíšeme v následující sekci.
 nejvýraznější implementací MatrixRTC s podporou nejvíce funkcí. Podporuje
 renegotiation, pozastavování hovorů, upgrady hovorů, restartování ICE, více
 zařízení, DTMF, více streamů, sdílení metadat o streamech a skupinové hovory
-\cite{GitHub-MatrixJSSDK}. Zároveň se na experimentálním větvi pracuje na
-podpoře MSC3898 \cite{GitHub-MatrixJSSDK-MSC3898}.
+\parencite{GitHub-MatrixJSSDK}. Zároveň se na experimentálním větvi pracuje na
+podpoře MSC3898 \parencite{GitHub-MatrixJSSDK-MSC3898}.
 
 Element toto SDK využívá na hovory mezi dvěma uživateli a Element Call na
 skupinové hovory
-\cite{GitHub-ElementCall,GitHub-ElementWeb,GitHub-MatrixReactSDK}.
+\parencite{GitHub-ElementCall,GitHub-ElementWeb,GitHub-MatrixReactSDK}.
 
 \subsubsection{Hydrogen SDK}
 
 Další implementací je Hydrogen SDK, které je součástí klient
 \href{https://github.com/vector-im/hydrogen-web}{Hydrogen}. Využívá ho právě
-klient Hydrogen a Third Room (viz \ref{thirdroom}) \cite{GitHub-Hydrogen}.
+klient Hydrogen a Third Room (viz \ref{thirdroom}) \parencite{GitHub-Hydrogen}.
 
 \subsection{Foci}\label{foci}
 
@@ -340,10 +340,10 @@ klient Hydrogen a Third Room (viz \ref{thirdroom}) \cite{GitHub-Hydrogen}.
 podporuje tzv. \textit{federované foci}. Na obrázku \ref{federatedFoci} je
 vidět, kde jsou federované foci umístěné v Matrix topologii. Jedná se o WebRTC
 servery (může se jednat o SFU, MCU či jiný typ serveru), které jsou podobně jako
-samotné Matrix homeservery federovány \cite{GitHub-MSC3898}.
+samotné Matrix homeservery federovány \parencite{GitHub-MSC3898}.
 
 \href{https://github.com/matrix-org/matrix-spec-proposals/pull/3898}{MSC3898}
-popisuje celý proces výběru a připojování k danému focusu~\cite{GitHub-MSC3898}.
+popisuje celý proces výběru a připojování k danému focusu~\parencite{GitHub-MSC3898}.
 My si situaci vysvětlíme na příkladu.
 
 \begin{figure}[H]
@@ -385,7 +385,7 @@ a jsou připojeni k hovoru, který se aktuálně odehrává na pražském focusu
 Do situace ale vstupuje nový uživatel Charlie, který používá homeserver v
 Londýně. Přestože by mohl použít londýnský focus, nepoužije ho a připojí se
 rovnou na ten pražský, neboť je aktuálně jediný účastník hovoru z
-Londýna~\cite{GitHub-MSC3898}.
+Londýna~\parencite{GitHub-MSC3898}.
 
 \begin{figure}[H]
     \centering
@@ -426,10 +426,10 @@ Londýna~\cite{GitHub-MSC3898}.
 Na obrázku \ref{focusSelection2} vidíme, že se do hovoru připojil uživatel Dave,
 který je podobně jako Charlie v Londýně. Z důvodu, že už máme dva uživatele,
 kteří se nacházejí blíže londýnskému focusu, dojde k federaci obou foci
-\cite{GitHub-MSC3898}.
+\parencite{GitHub-MSC3898}.
 
 \subsubsection{Waterfall}
 
 \href{https://github.com/matrix-org/waterfall/}{Waterfall} je aktuálně jedinou
 implementací Matrix focusu. Je napsaná v jazyce Go pomocí knihovny Pion
-\cite{GitHub-Waterfall}.
+\parencite{GitHub-Waterfall}.

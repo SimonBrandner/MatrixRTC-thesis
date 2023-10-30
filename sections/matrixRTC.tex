@@ -136,9 +136,9 @@ Pokud se uživatel rozhodne hovor odmítnout, jeho klient by měl poslat
 	\end{minted}
 \end{figure}
 
-Je-li při hovoru třeba provést renegotiation, klient by měl poslat s typem
-\mintinline{text}{m.call.negotiate}, jejíž \mintinline{text}{content} by měl
-obsahovat \mintinline{text}{description} s \mintinline{text}{sdp} (SDP offer
+Je-li při hovoru třeba provést renegotiation, klient by měl poslat událost s
+typem \mintinline{text}{m.call.negotiate}, jejíž \mintinline{text}{content} by
+měl obsahovat \mintinline{text}{description} s \mintinline{text}{sdp} (SDP offer
 nebo answer) a \mintinline{text}{type} (\mintinline{text}{"offer"} nebo
 \mintinline{text}{"answer"}) \parencite{GitHub-MSC2746}.
 

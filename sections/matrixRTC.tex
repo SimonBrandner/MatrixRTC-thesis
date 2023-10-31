@@ -93,11 +93,12 @@ Pokud se uživatel rozhodne hovor přijmout, jeho klient by měl poslat
 	\end{minted}
 \end{figure}
 
-Pro předání další ICE kandidátů druhému klientovi je použita událost s~typem
+Pro předání dalších ICE kandidátů druhému klientovi je použita událost s~typem
 \mintinline{text}{m.call.candidates}, která obsahuje
 \mintinline{text}{candidates}, což je seznam ICE kandidátů
-\parencite{MatrixORG-Spec}. Například JavaScript API pro WebRTC umožňuje kandidáty
-konvertovat do JSON pomocí \mintinline{typescript}{RTCIceCandidate::toJSON()}
+\parencite{MatrixORG-Spec}. Například JavaScript API pro WebRTC umožňuje
+kandidáty konvertovat do JSON pomocí
+\mintinline{typescript}{RTCIceCandidate::toJSON()}
 \parencite{MDN-Web-RTCIceCandidate-ToJSON}.
 
 \begin{figure}[H]
@@ -224,14 +225,15 @@ událost, jejíž \mintinline{text}{content} obsahuje několik polí
 	\end{minted}
 \end{figure}
 
-Chce-li se uživatel připojit do hovoru, pošle \mintinline{text}{m.call.member}
-state událost, jejíž \mintinline{text}{content} obsahuje informace o tom, které
-zařízení se účastní jakého hovoru \parencite{GitHub-MSC3401}. Neobsahuje-li událost
-\mintinline{text}{m.foci.} nebo se hovoru účastní jen dva klienti, dojde ke
-spojení full-mesh; chování pokud událost tento klíč obsahuje a v hovoru je více
-klientů je popsáno v části \ref{foci} \parencite{GitHub-MSC3898}. Následně se mezi
-jednotlivými zařízeními využívá to-device messages, které jsou ve stejném
-formátu jako události popsané v části \ref{dmCalls} \parencite{GitHub-MSC3401}.
+Chce-li se uživatel připojit do hovoru, pošle state událost typu
+\mintinline{text}{m.call.member}, jejíž \mintinline{text}{content} obsahuje
+informace o tom, které zařízení se účastní jakého hovoru
+\parencite{GitHub-MSC3401}. Neobsahuje-li událost \mintinline{text}{m.foci.}
+nebo se hovoru účastní jen dva klienti, dojde ke spojení full-mesh; chování
+pokud událost tento klíč obsahuje a v hovoru je více klientů je popsáno v části
+\ref{foci} \parencite{GitHub-MSC3898}. Následně se mezi jednotlivými zařízeními
+využívá to-device messages, které jsou ve stejném formátu jako události popsané
+v části \ref{dmCalls} \parencite{GitHub-MSC3401}.
 
 % MSC3401 dělá velice zvláštní věc, kdy nařizuje max. jeden hovor na místnost,
 % ale `m.call.member' event umožňuje se účastnit hovorů více.

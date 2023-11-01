@@ -186,8 +186,8 @@ nebudeme rozebírat, neboť nejsou příliš relevantní k tématu protokolu Mat
 atp.)
 
 Aplikace využívá koncové šifrování, které využívá jeden klíč, jenž je sdílený
-mezi uživateli pomocí URL \parencite{GitHub-ElementCall-CompleteSPAE2EEWork}. Bude
-tedy nutné přidat mechanismus na sdílení těchto klíčů. Využijeme k tomu
+mezi uživateli pomocí URL \parencite{GitHub-ElementCall-CompleteSPAE2EEWork}.
+Bude tedy nutné přidat mechanismus na sdílení těchto klíčů. Využijeme k tomu
 to-device messages (více v části \ref{toDeviceMessages}). Komponent
 \mintinline{typescript}{BreakoutRoomModal} obsahuje funkci
 \mintinline{typescript}{onSubmit()}, která rozešle pomocí metody
@@ -196,8 +196,8 @@ místnostem ostatním klientům\footnote{Metodu
     \mintinline{typescript}{sendToDevice()} využíváme pouze pro demonstrační účely
     -- správně bychom měli využít metodu
     \mintinline{typescript}{encryptAndSendToDevices()}, aby data byla šifrovaná.}.
-Zároveň v kontextu jménem \mintinline{typescript}{ClientContext}, jenž najdeme v
-souboru \mintinline{text}{src/ClientContext.tsx}, přidáme nový event handler s
-názvem \mintinline{typescript}{onToDevice()}, který budeme volat, přijde-li nová
+Zároveň v kontextu \mintinline{typescript}{ClientContext}, jenž je v souboru
+\mintinline{text}{src/ClientContext.tsx}, přidáme nový event handler s názvem
+\mintinline{typescript}{onToDevice()}, který budeme volat, přijde-li nová
 to-device message. Bude-li obsahovat informace o nových klíčích, uložíme je
 k~dalšímu použití \parencite{GitHub-ElementCall-BreakoutRooms}.

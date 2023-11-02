@@ -23,11 +23,20 @@
 \usepackage{array}
 \usepackage{tikz}
 \usepackage{csquotes}
+\usepackage{afterpage}
 
 \usetikzlibrary{calc}
 \usemintedstyle{vs}
 \hypersetup{colorlinks=true, urlcolor=blue}
 \addbibresource{./references.bib}
+
+% We want an empty page for printing
+\newcommand\emptypage{
+    \null
+    \addtocounter{page}{-1}
+    \thispagestyle{empty}
+    \newpage
+    }
 
 % Using 1.5 is UGLY
 \renewcommand{\baselinestretch}{1,15}
@@ -49,11 +58,12 @@
 \begin{document}
 
 \include{sections/titlepage.tex}
+
+%\emptypage
+
 \include{sections/declaration.tex}
 \include{sections/acknowledgements.tex}
 \include{sections/annotationAndKeywords.tex}
-
-% Add empty page for printing
 
 \tableofcontents
 

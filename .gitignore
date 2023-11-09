@@ -12,5 +12,15 @@
 *.pdf
 *.toc
 *.lof
+*.ist
+*.gls
+*.gls-abr
+*.acn
+*.glo
+*.glo-abr
+*.glg
+*.glg-abr
+*.acr
+*.alg
 *blx.bib
 _minted*

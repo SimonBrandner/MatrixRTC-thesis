@@ -33,7 +33,7 @@ referenční implementace používají permisivní\footnote{Licence, která nevy
     od odvozených děl, aby využívali stejnou licenci
     \parencite{MUNI-FI-VerejneLicenceVCR}.} licenci Apache \parencite{MatrixORG-Homepage}.
 
-\subsection{Specifikace a její změny}
+\subsection{Specifikace a její změny}\label{spec}
 
 Jak \href{https://spec.matrix.org/latest/}{stabilní specifikace}, která je
 vydávána jednou za čtvrt roku, tak
@@ -42,37 +42,35 @@ dostupné a kdokoliv je může implementovat.
 
 Vzhledem k tomu, že protokol je otevřený a umožňuje všem navrhovat změny,
 existuje proces proces pro návrh a schvalování těchto změn. Chce-li někdo
-navrhnout změnu protokolu, může napsat tzv. \textit{MSC} (Matrix Spec Change)
-návrh. Jedná se o pull request\footnote{
-    Pull request je způsob pro návrhu změn
-    zdrojového kódu, diskuzi o nich a případné následné přijmutí těchto změn
-    \parencite{GitHub-PullRequests}.
-}
-navrhující úpravu repositáře
+navrhnout změnu protokolu, může napsat tzv. \gls{msc} návrh. Jedná se o pull
+request\footnote{ Pull request je způsob pro návrhu změn zdrojového kódu,
+    diskuzi o nich a případné následné přijmutí těchto změn
+    \parencite{GitHub-PullRequests}. } navrhující úpravu repositáře
 \href{https://github.com/matrix-org/matrix-spec-proposals}{matrix-spec-proposals}.
 Tento pull request obsahuje text formátovaný pomocí
-\href{https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax}{GitHub-flavored Markdownu}\footnote{
-    Markdown je jednoduchý mark-up jazyk pro formátování textu
+\href{https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax}{GitHub-flavored
+    Markdownu}\footnote{ Markdown je jednoduchý mark-up jazyk pro formátování textu
     \parencite{JohnGruber-Markdown}. GitHub-flavored Markdown je pak Markdown, který
-    používá GitHub \parencite{GitHub-Markdown}.
-} a popisuje problém, který se MSC snaží vyřešit, možnosti řešení a výhody a
-nevýhody daných přístupů k řešení \parencite{MatrixORG-MSCs}.
+    používá GitHub \parencite{GitHub-Markdown}. } a popisuje problém, který se
+\gls{msc} snaží vyřešit, možnosti řešení a výhody a nevýhody daných přístupů k
+řešení \parencite{MatrixORG-MSCs}.
 
 Poté, co je pull request vytvořen, nastává prostor pro to, aby komunita
-a~vývojáři MSC komentovali a aby se případné připomínky řešily. MSC obvykle také
-bude zkontrolováno členy \textit{Spec Core Týmu} (\textit{SCT}), který se o
-specifikaci stará. Pokud se MSC dostane do stavu, kdy nejsou vznášeny připomínky
-(a ty, co byly vznešené, byly vyřešeny), může člen SCT navrhnout spuštění tzv.
-\textit{Final Comment Period} (\textit{FCP}). Pro to, aby FCP začala, je třeba
-souhlas 75~\% SCT \parencite{MatrixORG-MSCs}.
+a~vývojáři \gls{msc} komentovali a aby se případné připomínky řešily.
+M\gls{msc}SC obvykle také bude zkontrolováno členy \gls{sct}, který se o
+specifikaci stará. Pokud se \gls{msc} dostane do stavu, kdy nejsou vznášeny
+připomínky (a ty, co byly vznešené, byly vyřešeny), může člen \gls{sct}
+navrhnout spuštění tzv. \gls{fcp}. Pro to, aby \gls{fcp} začala, je třeba
+souhlas 75~\% \gls{sct} \parencite{MatrixORG-MSCs}.
 
-Když FCP započne, je prostor 5 dnů na to, aby kdokoliv vznesl připomínky.
-Jsou-li vzneseny závažné připomínky, člen SCT může FCP zablokovat. Proběhne-li
-FCP do konce, je MSC schváleno a nastává čas pro samotnou změnu specifikace,
-jedná se obvykle další pull request, který vytvoří člen SCT a navrhuje změny
-repositáře \href{https://github.com/matrix-org/matrix-spec}{matrix-spec}. Když
-je tento pull request přijat, změna se stala součástí nestabilní verze
-specifikace a bude v další stabilní verzi \parencite{MatrixORG-MSCs}.
+Když \gls{fcp} započne, je prostor 5 dnů na to, aby kdokoliv vznesl připomínky.
+Jsou-li vzneseny závažné připomínky, člen \gls{sct} může \gls{fcp} zablokovat.
+Proběhne-li \gls{fcp} do konce, je \gls{msc} schváleno a nastává čas pro
+samotnou změnu specifikace, jedná se obvykle další pull request, který vytvoří
+člen \gls{sct} a navrhuje změny repositáře
+\href{https://github.com/matrix-org/matrix-spec}{matrix-spec}. Když je tento
+pull request přijat, změna se stala součástí nestabilní verze specifikace a bude
+v další stabilní verzi \parencite{MatrixORG-MSCs}.
 
 \subsection{Primitiva}
 
@@ -98,14 +96,14 @@ Zařízení mají hlavně význam pro šifrování -- viz část \ref{matrix-enc
 \subsubsection{Místnosti a události}
 
 Velice zásadním primitivem v protokolu Matrix je \textit{místnost}
-(\textit{room}). V základní podobě je Matrix místnost reprezentací místnosti
-pro chat, ale má mnoho jiných využití, neboť se více méně jedná o
-decentralizovanou databází pro JSON data. Místnost ani její obsah neexistuje na
-žádném jediném homeserveru -- každý homeserver má její kopii, kterou udržuje
-synchronizovanou s ostatními homeservery. Kromě místností pro chat, existují
-např. tzv. \textit{prostory} (\textit{spaces}), které odkazují na jiné
-místnosti, a tak umožňují vytvořit hierarchickou strukturu místností (analogií
-jsou např. týmy v aplikace MS Teams) \parencite{MatrixORG-Spec}.
+(\textit{room}). V základní podobě je Matrix místnost reprezentací místnosti pro
+chat, ale má mnoho jiných využití, neboť se více méně jedná o decentralizovanou
+databází pro JSON data. Místnost ani její obsah neexistuje na žádném jediném
+homeserveru -- každý homeserver má její kopii, kterou udržuje synchronizovanou s
+ostatními homeservery. Kromě místností pro chat, existují např. tzv.
+\textit{prostory} (\textit{spaces}), které odkazují na jiné místnosti, a tak
+umožňují vytvořit hierarchickou strukturu místností (analogií jsou např. týmy v
+aplikace MS Teams) \parencite{MatrixORG-Spec}.
 
 Místnost obsahuje tzv. \textit{události} (\textit{events}), které jsou obvykle
 výsledkem akce na straně klienta (např. poslání zprávy). Události se dělí na dva
@@ -114,10 +112,10 @@ zprávy a reakce, druhým typem jsou \textit{state události}, které reprezentu
 trvalé informace, jako je např. jméno místnosti, téma místnosti, členství v
 místnosti atp. \parencite{MatrixORG-Spec}.
 
-Vzhledem k tomu, že state události můžou být měněny více uživateli, existuje tzv.
-\textit{state resolution algorithm}, který umožňuje homeserverům se shodnout na
-obsahu state událostí, pokud došlo k tomu, že homeservery nebyly nějakou dobu ve
-spojení \parencite{MatrixORG-Spec}.
+Vzhledem k tomu, že state události můžou být měněny více uživateli, existuje
+tzv. \textit{state resolution algorithm}, který umožňuje homeserverům se
+shodnout na obsahu state událostí, pokud došlo k tomu, že homeservery nebyly
+nějakou dobu ve spojení \parencite{MatrixORG-Spec}.
 
 \subsubsection{To-device messages}\label{toDeviceMessages}
 
@@ -128,38 +126,35 @@ volání (více v části \ref{matrixRTC}).
 
 \subsection{Klienti}
 
-V tento moment existují pravděpodobně stovky Matrix SDKs\footnote{
-    \textit{Software Development Kit} je skupina nástrojů určená pro zjednodušení
-    vývoj na dané platformě \parencite{RedHat-WhatIsAnSDK}.
-} a klientů, z nichž je většina vyvíjena komunitou. Mezi ty známé patří např.
-Element~\parencite{Element-Homepage}, Hydrogen \parencite{GitHub-Hydrogen}, Nheko
-\parencite{GitHub-Nheko}, FluffyChat \parencite{FluffyChat-Homepage} či Cinny
-\parencite{Cinny-Homepage}.
+V tento moment existují pravděpodobně stovky Matrix \gls{sdk} a klientů, z nichž
+je většina vyvíjena komunitou. Mezi ty známé patří např.
+Element~\parencite{Element-Homepage}, Hydrogen \parencite{GitHub-Hydrogen},
+Nheko \parencite{GitHub-Nheko}, FluffyChat \parencite{FluffyChat-Homepage} či
+Cinny \parencite{Cinny-Homepage}.
 
-Element je všeobecný klient pro Matrix chat \parencite{Element-Homepage}, jeho webová
-verze používá SDK
+Element je všeobecný klient pro Matrix chat \parencite{Element-Homepage}, jeho
+webová verze používá \gls{sdk}
 \href{https://github.com/matrix-org/matrix-js-sdk/}{matrix-js-sdk}, které je
 napsané v TypeScriptu \parencite{GitHub-MatrixJSSDK}. Stejné SDK používá klient
 Cinny, který je specifický svým uživatelským rozhraním inspirovaným Discordem
 \parencite{Cinny-Homepage,GitHub-Cinny}. Jedná se o SDK, které je jednou z
-referenčních implementací protokolu Matrix \parencite{GitHub-MatrixJSSDK}. Desktopová
-verze Elementu je pak Electron\footnote{
-    Electron je framework pro vytváření desktopových aplikací pomocí webových
-    technologií \parencite{ElectronJS-Homepage}.
-} wrapper jeho webové verze \parencite{GitHub-ElementDesktop}. Hydrogen je rovněž
-webová aplikace, používající své vlastní SDK, které je z části v TypeScriptu a
-z části v JavaScriptu, toto SDK ale využívají i jiní klienti (viz
-\ref{thirdroom}). Hydrogen má za cíl vyžadovat co nejnižší požadavky na hardware a
-měl by běžet i~v~prohlížečích, jako je Internet Explorer\footnote{
-    Internet Explorer je jeden z nejvíce nenáviděných internetových prohlížečů,
-    jedním z důvodů je, že nepodporuje mnoho moderní funkcí, ale mnoho vývojářů je s
-    ním přesto nuceno pracovat
-    \parencite{ZealousSites-WhyDoWebDevelopersHateInternetExplorer}.
-} \parencite{GitHub-Hydrogen}.
+referenčních implementací protokolu Matrix \parencite{GitHub-MatrixJSSDK}.
+Desktopová verze Elementu je pak Electron\footnote{ Electron je framework pro
+    vytváření desktopových aplikací pomocí webových technologií
+    \parencite{ElectronJS-Homepage}. } wrapper jeho webové verze
+\parencite{GitHub-ElementDesktop}. Hydrogen je rovněž webová aplikace,
+používající své vlastní SDK, které je z části v TypeScriptu a z části v
+JavaScriptu, toto SDK ale využívají i jiní klienti (viz \ref{thirdroom}).
+Hydrogen má za cíl vyžadovat co nejnižší požadavky na hardware a měl by běžet
+i~v~prohlížečích, jako je Internet Explorer\footnote{ Internet Explorer je jeden
+    z nejvíce nenáviděných internetových prohlížečů, jedním z důvodů je, že
+    nepodporuje mnoho moderní funkcí, ale mnoho vývojářů je s ním přesto nuceno
+    pracovat \parencite{ZealousSites-WhyDoWebDevelopersHateInternetExplorer}. }
+\parencite{GitHub-Hydrogen}.
 
 Android a iOS verze Elementu využívají každá své vlastní SDK (v Kotlinu a
-Objective C) \parencite{GitHub-ElementAndroid,GitHub-ElementIOS}, probíhá však vývoj
-nástupců těchto aplikací jménem Element~X, které budou využívat
+Objective C) \parencite{GitHub-ElementAndroid,GitHub-ElementIOS}, probíhá však
+vývoj nástupců těchto aplikací jménem Element~X, které budou využívat
 \href{https://github.com/matrix-org/matrix-rust-sdk}{matrix-rust-sdk}
 \parencite{GitHub-ElementXAndroid,GitHub-ElementXIOS}.
 
@@ -167,8 +162,8 @@ Nheko je desktopový klient napsaný v jazyce C++ s pomocí knihovny Qt pro tvo�
 uživatelských rozhraní \parencite{GitHub-Nheko}.
 
 FluffyChat je klient zaměřený na jednoduchost používání, je napsaný v~jazyce
-Dart, a tak běží na operačních systémech Android a iOS, ale i na webu a
-desktopu \parencite{FluffyChat-Homepage,GitLab-FluffyChat}.
+Dart, a tak běží na operačních systémech Android a iOS, ale i na webu a desktopu
+\parencite{FluffyChat-Homepage,GitLab-FluffyChat}.
 
 \subsection{Homeservery}
 
@@ -177,9 +172,9 @@ Tři nejvýznamnější implementace homeserverů jsou
 jazyce Python, jedná se o historicky první a referenční implementaci homeserveru
 \parencite{GitHub-Synapse}. Druhou je
 \href{https://github.com/matrix-org/dendrite/}{Dendrite}, která je napsaná v
-jazyce Go a má být nástupce Synapse \parencite{GitHub-Dendrite}. Poslední implementací
-\href{https://github.com/timokoesters/conduit}{Conduit}, která je napsaná v
-jazyce Rust a je spravovaná komunitou \parencite{GitHub-Conduit}.
+jazyce Go a má být nástupce Synapse \parencite{GitHub-Dendrite}. Poslední
+implementací \href{https://github.com/timokoesters/conduit}{Conduit}, která je
+napsaná v jazyce Rust a je spravovaná komunitou \parencite{GitHub-Conduit}.
 
 Mezi další homeservery patří např.
 \href{https://github.com/matrix-construct/construct}{Construct} v jazyce C++
@@ -195,22 +190,21 @@ platforem (jako je např. Messenger či MS Teams) do protokolu Matrix
 
 \subsection{End-to-end šifrování}\label{matrix-encryption}
 
-Protokol Matrix podporuje E2EE -- message události v místnostech mohou být
-šifrované. Pro dosažení E2EE používá jak symetrické, tak asymetrické šifrování.
-Jednotlivé message události jsou zašifrovány pomocí symetrického šifrování AES.
-K přeposílání klíčů mezi zařízeními, které jsou v dané místnosti, se používají
-to-device messages šifrované pomocí asymetrické kryptografie nad
-eliptickými křivkami (využívají se především dvě knihovny --
-\href{https://gitlab.matrix.org/matrix-org/olm}{olm}, která je napsané v jazyce
-C \parencite{GitLab-Olm}, a
+Protokol MatMatrixrix podporuje \gls{e2ee} -- message události v místnostech
+mohou být šifrované. Pro dosažení \gls{e2ee} používá jak symetrické, tak
+asymetrické šifrování. Jednotlivé message události jsou zašifrovány pomocí
+symetrického šifrování \gls{aes}. K přeposílání klíčů mezi zařízeními, které
+jsou v dané místnosti, se používají to-device messages šifrované pomocí
+asymetrické kryptografie nad eliptickými křivkami (využívají se především dvě
+knihovny -- \href{https://gitlab.matrix.org/matrix-org/olm}{olm}, která je
+napsané v jazyce C \parencite{GitLab-Olm}, a
 \href{https://github.com/matrix-org/vodozemac}{vodozemac}, která je napsaná v
 jazyce Rust a je součástí
 \href{https://github.com/matrix-org/matrix-rust-sdk}{matrix-rust-sdk})
 \parencite{GitHub-MatrixRustSDK}.
 
-Aktuálně není možné šifrovat state události, ale existují MSCs, které by to
+Aktuálně není možné šifrovat state události, ale existují \gls{msc}, které by to
 umožnily \parencite{GitHub-MSC3414}. Zároveň se pracuje na integraci protokolu
-\textit{Messaging Layer Security} (dále \textit{MLS}), který má fungovat lépe v
-místnostech s velkým množstvím zařízení. MLS je ale třeba rozšířit tak, aby
-podporovalo federované systémy, rozšíření se pak nazývá \textit{Decentralized
-    Message Layer Security} \parencite{AreWeMLSYet}.
+\gls{mls}, který má fungovat lépe v místnostech s velkým množstvím zařízení.
+\gls{mls} je ale třeba rozšířit tak, aby podporovalo federované systémy,
+rozšíření se pak nazývá \gls{dmls} \parencite{AreWeMLSYet}.

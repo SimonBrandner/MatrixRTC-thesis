@@ -7,12 +7,7 @@
 \usepackage{siunitx}
 \usepackage[nomessages]{fp}
 \usepackage[numbib,notlof,notlot,nottoc]{tocbibind}
-\usepackage[
-    sorting=nty,
-    block=ragged,
-    style=iso-authoryear
-]{biblatex}
-
+\usepackage[sorting=nty, block=ragged, style=iso-authoryear]{biblatex}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{comment}
@@ -24,49 +19,22 @@
 \usepackage{tikz}
 \usepackage{csquotes}
 \usepackage{afterpage}
-
-\usetikzlibrary{calc}
-\usemintedstyle{vs}
-\hypersetup{colorlinks=true, urlcolor=blue}
-\addbibresource{./references.bib}
-
-% We want an empty page for printing
-\newcommand\emptypage{
-    \null
-    \addtocounter{page}{-1}
-    \thispagestyle{empty}
-    \newpage
-    }
-
-% Using 1.5 is UGLY
-\renewcommand{\baselinestretch}{1,15}
-
-% We want \listoffigures to be a section
-\makeatletter
-\renewcommand\listoffigures{
-    \section{\listfigurename}
-      \@mkboth{\MakeUppercase\listfigurename}%
-              {\MakeUppercase\listfigurename}%
-    \@starttoc{lof}
-    }
-\makeatother
+\usepackage[numberedsection, automake, acronyms, abbreviations, shortcuts, nopostdot, toc]{glossaries-extra}
 
 \def\publicPrivateIP{PU -- veřejná IP adresa, PR -- privátní IP adresa}
 
-\tikzset{every node/.style={rectangle, rounded corners=2mm, align=center}}
+\input{setup.tex}
+\input{commands.tex}
+\input{acronyms.tex}
 
 \begin{document}
 
 \include{sections/titlepage.tex}
-
 %\emptypage
-
 \include{sections/declaration.tex}
 \include{sections/acknowledgements.tex}
 \include{sections/annotationAndKeywords.tex}
-
-\tableofcontents
-
+\include{sections/tableOfContents.tex}
 \include{sections/introduction.tex}
 \include{sections/webrtc.tex}
 \include{sections/connectionModels.tex}
@@ -75,11 +43,9 @@
 \include{sections/matrixRTC.tex}
 \include{sections/breakoutRooms.tex}
 \include{sections/future.tex}
-\include{sections/conclusion}
-
-\printbibliography[heading=bibnumbered, title={Reference}]
-\newpage
-
-\listoffigures
+\include{sections/conclusion.tex}
+\include{sections/acronyms.tex}
+\include{sections/figures.tex}
+\include{sections/references.tex}
 
 \end{document}

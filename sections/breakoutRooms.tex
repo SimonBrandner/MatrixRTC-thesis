@@ -42,10 +42,10 @@ break-out místností též využijme existující Matrix primitivum -- state ud
 
 Pokud chce klient vytvořit např. 2 break-out místnosti, vytvoří dané Matrix
 místnosti a následně pošle state událost typu \mintinline{text}{m.breakout},
-jejíž příklad můžeme vidět výše. V poli \mintinline{text}{content} můžeme najít
+jejíž příklad můžeme vidět výše. V~poli \mintinline{text}{content} můžeme najít
 pole \mintinline{text}{m.breakout}, ve kterém klíče jsou ID Matrix break-out
 místností (\mintinline{text}{!roomId1} a \mintinline{text}{!roomId2}) a hodnoty
-obsahující informace o těchto místnostech. V informacích o místnosti najdeme
+obsahující informace o těchto místnostech. V~informacích o místnosti najdeme
 pole \mintinline{text}{via}, což je výčet serverů, které je možno využít k
 připojení se k dané místnosti (ID místnosti nestačí pro připojení se k místnosti
 \parencite{MatrixORG-Spec}). V těchto informacích můžeme též najít pole
@@ -53,15 +53,16 @@ připojení se k dané místnosti (ID místnosti nestačí pro připojení se k 
 dané místnosti připojit~\parencite{GitHub-MSC3985}.
 
 Dojde-li k přijetí této state událostí jiným klientem, měl by uživateli dát
-možnost se připojit do daných místností, zároveň by ve svém uživatelském rozhraní
-měl zobrazit, kteří uživatelé náleží kterým místnostem \parencite{GitHub-MSC3985}.
+možnost se připojit do daných místností, zároveň by ve svém uživatelském
+rozhraní měl zobrazit, kteří uživatelé náleží kterým místnostem
+\parencite{GitHub-MSC3985}.
 
 Jelikož je nepraktické, aby v místnosti bylo víc událostí typu
 \mintinline{text}{m.breakout}, není to povoleno. Toho docílíme tím, že jako
 \mintinline{text}{state_key} budeme vždy využívat prázdný řetězec znaků (tedy
-\mintinline{text}{""}) \parencite{GitHub-MSC3985} -- v Matrix místnosti vždy existuje
-jen jedna validní state událost s danou dvojicí \mintinline{text}{type} a
-\mintinline{text}{state_key} \parencite{MatrixORG-Spec}.
+\mintinline{text}{""}) \parencite{GitHub-MSC3985} -- v Matrix místnosti vždy
+existuje jen jedna validní state událost s danou dvojicí \mintinline{text}{type}
+a \mintinline{text}{state_key} \parencite{MatrixORG-Spec}.
 
 Na GitHubu v repositáři
 \href{https://github.com/matrix-org/matrix-spec-proposals}{matrix-spec-proposals}
@@ -77,9 +78,9 @@ provést změny ve dvou repositářích --
 JavaScript SDK -- více v části \ref{matrix-js-sdk}) a
 \href{https://github.com/vector-im/element-call/}{element-call} (samotná
 aplikace Element Call). Jak Element Call tak Matrix JavaScript SDK využívají
-programovací jazyk TypeScript \parencite{GitHub-MatrixJSSDK, GitHub-ElementCall}, což
-je nadstavba na JavaScriptu, která jej rozšiřuje o statické typování
-\parencite{TypeScript-Homepage}.
+programovací jazyk TypeScript \parencite{GitHub-MatrixJSSDK,
+    GitHub-ElementCall}, což je nadstavba na JavaScriptu, která jej rozšiřuje o
+statické typování \parencite{TypeScript-Homepage}.
 
 \subsubsection{Matrix JavaScript SDK}
 
@@ -105,7 +106,8 @@ v části \ref{breakoutRoomsMSC}). Metoda
 
 Dále přidáme třídu \mintinline{typescript}{BreakoutRooms}, která umožňuje
 monitorovat break-out místnosti, na které odkazuje \mintinline{text}{m.breakout}
-state událost v dané Matrix místnosti \parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
+state událost v dané Matrix místnosti
+\parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 V konstruktoru třídy si uložíme instanci \mintinline{typescript}{room}, což je
 místnost, ve které budeme monitorovat změny události typu
@@ -129,11 +131,12 @@ Privátní metoda \mintinline{typescript}{parseBreakoutEvent()} překonvertuje
 \mintinline{text}{content} state události typu \mintinline{text}{m.breakout} na
 seznam \mintinline{typescript}{BreakoutRoomWithSummary[]}, který následně vrátí.
 Tento seznam je lépe zpracovatelný při dalším využití, neboť je obohacen o tzv.
-\textit{shrnutí místnosti} (\textit{room summary}), jež obsahuje různá
-metadata jako název místnosti, která nejsou obsažena v samotné
+\textit{shrnutí místnosti} (\textit{room summary}), jež obsahuje různá metadata
+jako název místnosti, která nejsou obsažena v samotné
 \mintinline{text}{m.breakout} state události; toto shrnutí místnosti získáme
 pomocí metody \mintinline{typescript}{getRoomSummary()} na třídě
-\mintinline{typescript}{MatrixClient} \parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
+\mintinline{typescript}{MatrixClient}
+\parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 Privátní metoda \mintinline{typescript}{onEvent} je tzv. \textit{event handler},
 který je volán, pokud je emitována událost typu
@@ -172,18 +175,18 @@ Změny, o kterých bude v této části práce řeč, lze nalézt v
 \href{https://github.com/vector-im/element-call/pull/1615/}{zde}
 \parencite{GitHub-ElementCall-BreakoutRooms}.
 
-Většina změn aplikace Element Call je převážné úprava a doplnění uživatelského
+Většina změn v aplikaci Element Call je převážně úprava a doplnění uživatelského
 rozhraní o prvky sloužící k vytváření a využívaní break-out místností
-\parencite{GitHub-ElementCall-BreakoutRooms}. Element Call pro práci s uživatelským
-rozhraním využívá knihovnu React \parencite{GitHub-ElementCall}. Ta nám umožňuje
-abstrahovat části práce s HTML a JavaScriptem pomocí tzv. komponentů (a jiných
-struktur jako jsou např. \textit{hooks}, či \textit{contexts}). Zjednodušeně
-řečeno, komponent je JavaScript funkce, jejíž návratová hodnota bude později
-překonvertována do HTML, které bude zobrazeno na stránce. Komponenty mohou mít
-vnitřní logiku a parametry, které ovlivní jejich návratovou
-hodnotu~\parencite{React-Homepage}. (Samotné detaily změn uživatelského rozhraní zde
-nebudeme rozebírat, neboť nejsou příliš relevantní k tématu protokolu Matrix
-atp.)
+\parencite{GitHub-ElementCall-BreakoutRooms}. Element Call pro práci s
+uživatelským rozhraním využívá knihovnu React \parencite{GitHub-ElementCall}. Ta
+nám umožňuje abstrahovat části práce s jazykem \gls{html} a JavaScriptem pomocí
+tzv. komponentů (a jiných struktur jako jsou např. \textit{hooks}, či
+\textit{contexts}). Zjednodušeně řečeno, komponent je JavaScript funkce, jejíž
+návratová hodnota bude později překonvertována do \gls{html}, které bude
+zobrazeno na stránce. Komponenty mohou mít vnitřní logiku a parametry, které
+ovlivní jejich návratovou hodnotu~\parencite{React-Homepage}. (Samotné detaily
+změn uživatelského rozhraní zde nebudeme rozebírat, neboť nejsou příliš
+relevantní k tématu protokolu Matrix atp.)
 
 Aplikace využívá koncové šifrování, které využívá jeden klíč, jenž je sdílený
 mezi uživateli pomocí URL \parencite{GitHub-ElementCall-CompleteSPAE2EEWork}.

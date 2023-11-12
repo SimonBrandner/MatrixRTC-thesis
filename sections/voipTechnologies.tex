@@ -1,46 +1,48 @@
 \section{Další VoIP technologie}\label{voipTech}
 
-MatrixRTC a WebRTC samozřejmě nejsou jediné VoIP technologie -- v~této části se
-na tyto VoIP technologie podíváme.
+MatrixRTC a \gls{webrtc} samozřejmě nejsou jediné \gls{voip} technologie --
+v~této části se na tyto \gls{voip} technologie podíváme.
 
-\subsection{Protokol SIP}
+\subsection{Protokol SIP}\label{sip}
 
-\textit{Session Initiation Protocol} (\textit{SIP}) je protokol, který
-specifikuje komunikaci se signalling serverem, umožňuje oznámit ostatním
-klientům, že je klient aktivní, volat ostatní klienty, ukončení hovoru atp \parencite{ExtraHop-SIPOverview}.
+\gls{sip} je protokol, který specifikuje komunikaci se signalling serverem,
+umožňuje oznámit ostatním klientům, že je klient aktivní, volat ostatní klienty,
+ukončení hovoru atp \parencite{ExtraHop-SIPOverview}.
 
 \subsection{LiveKit}
 
 \textit{LiveKit} je open-source projekt, který by měl zjednodušit práci vývojářů
-s WebRTC. Jedná se o SFU (viz \ref{connectionModels}) a kolekci klient SDKs
-\parencite{LiveKit-Homepage,GitHub-LiveKit}.
+s \gls{webrtc}. Jedná se o \gls{sfu} (viz \ref{connectionModels}) a kolekci
+klient \gls{sdk} \parencite{LiveKit-Homepage,GitHub-LiveKit}.
 
-Jeho SFU využívá Pion a jako vrstva pro signalling se využívá
+Jeho \gls{sfu} využívá Pion a jako vrstva pro signalling se využívá
 \textit{WebSockets} \parencite{GitHub-LiveKit}.
 
 \subsection{Protokol aplikace Zoom}
 
-Zoom je konferenční software, který stojí na protokolech SIP, \textit{Real Time
-    Messaging Protocol} (\textit{RTMP}) a WebRTC. SIP se využívá na signalling,
-RTMP na samotný přenos médií a WebRTC API pro získání streamu dat z kamery
-či obrazovky. Ve webových prohlížečích používá pro přenos médií WebSockets,
-což je zvláštní rozhodnutí vzhledem k tomu, že WebSockets používají TCP~\parencite{WebRTCHacks-HowZoomAvoidWebRTC,EBODigital-HowDoesZoomWork,
+Zoom je konferenční software, který stojí na protokolech SIP, \gls{rtmp} a
+\gls{webrtc}. SIP se využívá na signalling, \gls{rtmp} na samotný přenos médií a
+\gls{webrtc} \gls{api} pro získání streamu dat z kamery či obrazovky. Ve
+webových prohlížečích používá pro přenos médií WebSockets, což je zvláštní
+rozhodnutí vzhledem k tomu, že WebSockets používají
+\gls{tcp}~\parencite{WebRTCHacks-HowZoomAvoidWebRTC,EBODigital-HowDoesZoomWork,
     Zoom-Homepage}.
 
 \subsection{Protokol aplikace Discord}
 
-Discord je aplikace na chat a VoIP hovory \parencite{Discord-WhatIsDiscord}. Používá
-protokol WebRTC jako základ své technologie, neboť je podporován na celé škále
-prohlížečů a operačních systémů. V prohlížečích Discord využívá jejich nativní
-implementace WebRTC, ale na desktopu, Androidu a iOS využívají nativní knihovnu
-pro WebRTC napsanou v C++; některé funkce tedy fungují lépe např. v desktopové
-aplikaci než v prohlížeči \parencite{Discord-HowDoesItHandleMillionsOfUsers}.
+Discord je aplikace na chat a \gls{voip} hovory
+\parencite{Discord-WhatIsDiscord}. Používá protokol \gls{webrtc} jako základ své
+technologie, neboť je podporován na celé škále prohlížečů a operačních systémů.
+V prohlížečích Discord využívá jejich nativní implementace \gls{webrtc}, ale na
+desktopu, Androidu a iOS využívají nativní knihovnu pro \gls{webrtc} napsanou v
+C++; některé funkce tedy fungují lépe např. v desktopové aplikaci než v
+prohlížeči \parencite{Discord-HowDoesItHandleMillionsOfUsers}.
 
-Nativní knihovna v C++ umožňuje Discordu větší kontrolu nad WebRTC, což dává
-prostor pro různá zjednodušení. Vzhledem k tomu, že v případě Discordu klient
-vždy volá server, je možné vynechat ICE. Discord také používá Salsa20 šifrování,
-protože je rychlejší než DTLS a SRTP. Zároveň šetří data tím, že neposílá žádné
-pakety, pokud uživatel zrovna nemluví
+Nativní knihovna v C++ umožňuje Discordu větší kontrolu nad \gls{webrtc}, což
+dává prostor pro různá zjednodušení. Vzhledem k tomu, že v případě Discordu
+klient vždy volá server, je možné vynechat \gls{ice}. Discord také používá
+Salsa20 šifrování, protože je rychlejší než \gls{dtls} a \gls{srtp}. Zároveň
+šetří data tím, že neposílá žádné pakety, pokud uživatel zrovna nemluví
 \parencite{Discord-HowDoesItHandleMillionsOfUsers}.
 
 Signalling server používá WebSockets a je napsaný v jazyce Elixir
@@ -48,6 +50,6 @@ Signalling server používá WebSockets a je napsaný v jazyce Elixir
 
 \subsection{Protokol aplikace Jitsi}
 
-\textit{Jitsi} je kolekce open-source projektů, které poskytují VoIP služby,
-které jsou vhodné pro self-hosting \parencite{Jitsi-Docs-Introduction}. Jako
-signalling vrstvu používá protokol XMPP \parencite{XMPPORG-WebRTC}.
+\textit{Jitsi} je kolekce open-source projektů, které poskytují \gls{voip}
+služby, které jsou vhodné pro self-hosting \parencite{Jitsi-Docs-Introduction}.
+Jako signalling vrstvu používá protokol XMPP \parencite{XMPPORG-WebRTC}.

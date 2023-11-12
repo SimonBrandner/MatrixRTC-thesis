@@ -1,0 +1,19 @@
+% We want an empty page for printing
+\newcommand\emptypage{
+    \null
+    \addtocounter{page}{-1}
+    \thispagestyle{empty}
+    \newpage
+}
+
+% Using 1.5 is UGLY
+\renewcommand{\baselinestretch}{1,15}
+
+% We want \listoffigures to be a section
+\makeatletter
+\renewcommand\listoffigures{
+    \section{\listfigurename}
+    \@mkboth{\MakeUppercase\listfigurename}%
+    {\MakeUppercase\listfigurename}%
+    \@starttoc{lof} }
+\makeatother

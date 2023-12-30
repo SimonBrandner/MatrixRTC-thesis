@@ -30,11 +30,13 @@
 \begin{document}
 
 \include{sections/titlepage.tex}
-%\emptypage
+%\emptypage % For printing
+\pagenumbering{Roman}
 \include{sections/declaration.tex}
 \include{sections/acknowledgements.tex}
 \include{sections/annotationAndKeywords.tex}
 \include{sections/tableOfContents.tex}
+\pagenumbering{arabic}
 \include{sections/introduction.tex}
 \include{sections/webrtc.tex}
 \include{sections/connectionModels.tex}

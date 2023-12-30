@@ -507,7 +507,8 @@ fungování \gls{webrtc}
           specifikuje informace o daném \gls{ice} kandidátu
 \end{itemize}
 
-\begin{minted}[breaklines,fontsize=\footnotesize]{text}
+\begin{figure}[H]
+    \begin{minted}[breaklines,fontsize=\footnotesize]{text}
 v=0
 o=- 2021867665009852994 2 IN IP4 127.0.0.1
 s=-
@@ -533,7 +534,8 @@ m=application 9 UDP/DTLS/SCTP webrtc-datachannel
 a=mid:2
 a=sctp-port:5000
 a=max-message-size:262144
-\end{minted}
+    \end{minted}
+\end{figure}
 
 Výše můžeme vidět příklad reálného \gls{sdp}, které obsahuje 3 média-sekce. Obě
 používají port \mintinline{text}{4000} a protokol \mintinline{text}{RTP/AVP}. V

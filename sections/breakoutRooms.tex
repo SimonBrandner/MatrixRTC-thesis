@@ -18,9 +18,10 @@ Pro reprezentaci jednotlivých break-out místností využijeme již existujíc�
 Matrix primitivum -- místnost, každé break-out místnosti bude tedy odpovídat
 jedna Matrix místnost. Pro informování ostatních uživatelů o existenci daných
 break-out místností též využijme existující Matrix primitivum -- state události
-\parencite{GitHub-MSC3985}.
+\parencite{GitHub-MSC3985}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{json}
 {
 	"type": "m.breakout",
 	"state_key": "",
@@ -36,7 +37,8 @@ break-out místností též využijme existující Matrix primitivum -- state ud
 		}
 	}
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Pokud chce klient vytvořit např. 2 break-out místnosti, vytvoří dané Matrix
 místnosti a následně pošle state událost typu \mintinline{text}{m.breakout},
@@ -94,7 +96,8 @@ Prvním krokem bude přidání nové veřejné metody s názvem
 místnosti vytváříme, a \mintinline{text}{rooms}, což je seznam break-out
 místností, o kterých chceme informovat další klienty v místnosti:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class MatrixClient extends TypedEventEmitter<
 	EmittedEvents,
 	ClientEventHandlerMap,
@@ -104,7 +107,8 @@ export class MatrixClient extends TypedEventEmitter<
 		rooms: BreakoutRoom[],
 	): Promise<ISendEventResponse>;
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Metoda projde seznam \mintinline{text}{rooms} a vytvoří z něj
 \mintinline{text}{content} pro \mintinline{text}{m.breakout} state událost (více
@@ -120,32 +124,37 @@ monitorovat break-out místnosti, na které odkazuje \mintinline{text}{m.breakou
 state událost v dané Matrix místnosti
 \parencite{GitHub-MatrixJSSDK-BreakoutRooms}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class BreakoutRooms extends TypedEventEmitter<
 	BreakoutRoomsEvent,
 	BreakoutRoomsEventHandlerMap,
 > { /* ...implementace... */ }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 V konstruktoru třídy si uložíme instanci \mintinline{typescript}{room}, což je
 místnost, ve které budeme monitorovat změny události typu
 \mintinline{text}{m.breakout}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class BreakoutRooms extends TypedEventEmitter<
 	BreakoutRoomsEvent,
 	BreakoutRoomsEventHandlerMap,
 > {
 	public constructor(private room: Room);
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Zároveň voláním metody \mintinline{typescript}{room.addListener()} docílíme
 toho, že bude-li \mintinline{typescript}{room} emitovat událost typu
 \mintinline{typescript}{RoomEvent.Timeline}, bude volána metoda
 \mintinline{typescript}{this.onEvent()}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class BreakoutRooms extends TypedEventEmitter<
 	BreakoutRoomsEvent,
 	BreakoutRoomsEventHandlerMap,
@@ -154,7 +163,8 @@ export class BreakoutRooms extends TypedEventEmitter<
 		room.addListener(RoomEvent.Timeline, this.onEvent);
 	}
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Posledním krokem v konstruktoru třídy
 je získání aktuální Matrix state události typu \mintinline{text}{m.breakout}
@@ -167,20 +177,23 @@ typu \mintinline{text}{m.breakout} v místnosti
 \mintinline{typescript}{this.room} a následně ji vrátí
 \parencite{GitHub-MatrixJSSDK-BreakoutRooms}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class BreakoutRooms extends TypedEventEmitter<
 	BreakoutRoomsEvent,
 	BreakoutRoomsEventHandlerMap,
 > {
 	private getBreakoutEvent(): MatrixEvent | null;
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Privátní metoda \mintinline{typescript}{parseBreakoutEvent()} překonvertuje
 \mintinline{text}{content} state události typu \mintinline{text}{m.breakout} na
 seznam \mintinline{typescript}{BreakoutRoomWithSummary[]}, který následně vrátí:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class BreakoutRooms extends TypedEventEmitter<
 	BreakoutRoomsEvent,
 	BreakoutRoomsEventHandlerMap,
@@ -189,7 +202,8 @@ export class BreakoutRooms extends TypedEventEmitter<
 		event: MatrixEvent,
 	): Promise<BreakoutRoomWithSummary[]>;
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Tento seznam je lépe zpracovatelný při dalším využití, neboť je obohacen o tzv.
 \textit{shrnutí místnosti} (\textit{room summary}), jež obsahuje různá metadata
@@ -211,28 +225,32 @@ tak je, využije k získání aktuálního seznamu break-out místností metod
 seznamu, je využita metoda \mintinline{typescript}{this.emit()} k emitování
 informací o změně~\parencite{GitHub-MatrixJSSDK-BreakoutRooms}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class BreakoutRooms extends TypedEventEmitter<
 	BreakoutRoomsEvent,
 	BreakoutRoomsEventHandlerMap,
 > {
 	private onEvent: (event: MatrixEvent) => Promise<void>;
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Veřejná metoda \mintinline{typescript}{getCurrentBreakoutRooms()} pak už jen
 vrací kopii privátního seznamu
 \mintinline{typescript}{this.currentBreakoutRooms}, která může být následně
 využita jinde \parencite{GitHub-MatrixJSSDK-BreakoutRooms}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class BreakoutRooms extends TypedEventEmitter<
 	BreakoutRoomsEvent,
 	BreakoutRoomsEventHandlerMap,
 > {
 	public getCurrentBreakoutRooms(): BreakoutRoomWithSummary[] | null;
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 V konstruktoru třídy \mintinline{typescript}{Room}, kterou najdeme v souboru
 \mintinline{text}{/src/models/room.ts}, vytvoříme instanci třídy
@@ -240,7 +258,8 @@ V konstruktoru třídy \mintinline{typescript}{Room}, kterou najdeme v souboru
 s názvem \mintinline{typescript}{breakoutRooms}, zároveň budeme re-emitovat
 všechny události emitované \mintinline{typescript}{breakoutRooms}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class Room extends ReadReceipt<RoomEmittedEvents, RoomEventHandlerMap> {
 	public constructor(
 		public readonly roomId: string,
@@ -252,20 +271,23 @@ export class Room extends ReadReceipt<RoomEmittedEvents, RoomEventHandlerMap> {
 		this.reEmitter.reEmit(this.breakoutRooms, [BreakoutRoomsEvent.RoomsChanged]);
 	}
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Přidáme také
 novou veřejnou metodu do třídy \mintinline{typescript}{Room} s názvem
 \mintinline{typescript}{getBreakoutRooms()}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export class BreakoutRooms extends TypedEventEmitter<
 	BreakoutRoomsEvent,
 	BreakoutRoomsEventHandlerMap,
 > {
 	public getBreakoutRooms(): BreakoutRoomWithSummary[] | null;
 }
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Tato metoda zavolá
 \mintinline{typescript}{this.breakoutRooms.getCurrentBreakoutRooms()} a vrátí
@@ -294,6 +316,8 @@ ovlivní jejich návratovou hodnotu~\parencite{React-Homepage}. (Samotné detail
 změn uživatelského rozhraní zde nebudeme rozebírat, neboť nejsou příliš
 relevantní k tématu protokolu Matrix atp.)
 
+\newpage
+
 Aplikace využívá koncové šifrování, které je založeno na jednom klíči, jenž je
 sdílený mezi uživateli pomocí URL
 \parencite{GitHub-ElementCall-CompleteSPAE2EEWork}. Bude tedy nutné přidat
@@ -307,22 +331,26 @@ místnostem ostatním klientům\footnote{Metodu
     -- správně bychom měli využít metodu
     \mintinline{typescript}{encryptAndSendToDevices()}, aby data byla šifrovaná.}:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export const BreakoutRoomModal: FC<Props> = ({ client, roomId, open, onDismiss }) => {
 	const onSubmit: () => Promise<void>;
 };
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Zároveň v kontextu \mintinline{typescript}{ClientContext}, jenž je v souboru
 \mintinline{text}{src/ClientContext.tsx}, přidáme nový event handler s názvem
 \mintinline{typescript}{onToDevice()}, který budeme volat, přijde-li nová
 to-device message:
 
-\begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
+\begin{figure}[H]
+    \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
 export const ClientProvider: FC<Props> = ({ children }) => {
 	const onToDevice: (event: MatrixEvent) => void;
 };
-\end{minted}
+	\end{minted}
+\end{figure}
 
 Bude-li obsahovat informace o nových klíčích, uložíme je
 k~dalšímu použití \parencite{GitHub-ElementCall-BreakoutRooms}.

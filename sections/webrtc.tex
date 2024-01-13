@@ -1,6 +1,6 @@
 \section{Protokol WebRTC}\label{webRTC}
 
-Tato část práce vychází převážně z knihy
+V této části práce vychází převážně z publikace
 \href{https://webrtcforthecurious.com/}{WebRTC For The Curious: Go beyond the
     APIs} \parencite{WebRTCForTheCurious}.
 
@@ -12,12 +12,12 @@ přes server, jak je popsáno v části \ref{connecting}. Je využíváno koncov
 jsou přes něj přeposílaná~\parencite{WebRTCForTheCurious}.
 
 \gls{webrtc} spojení je složeno ze \textit{stop} (\textit{tracks}) a
-\textit{datových kanálů} (\textit{data channels}). Stopa může být buď audio,
-či video \parencite{MDN-WebRTC-MediaStreamTrack}. Tyto stopy mohou být
-přiřazeny do tzv. \textit{streamů} (stream je často složen ze dvou stop --
-např. audia z mikrofonu a videa z
-kamery)~\parencite{MDN-WebRTC-MediaStream}. Datové kanály se pak používají k
-přenosu libovolných dat \parencite{WebRTCORG-GettingStarted-DataChannels}.
+\textit{datových kanálů} (\textit{data channels}). Stopa může být buď audio, či
+video \parencite{MDN-WebRTC-MediaStreamTrack}. Tyto stopy mohou být přiřazeny do
+tzv. \textit{streamů} (stream je často složen ze dvou stop -- např. audia z
+mikrofonu a~videa z~kamery)~\parencite{MDN-WebRTC-MediaStream}. Datové kanály se
+pak používají k přenosu libovolných dat
+\parencite{WebRTCORG-GettingStarted-DataChannels}.
 
 \gls{api} protokolu \gls{webrtc} je specifikováno jen v~JavaScriptu. Existují
 však i implementace \gls{webrtc}
@@ -27,7 +27,7 @@ však i implementace \gls{webrtc}
 
 Protokol \gls{webrtc} se skládá z mnoha komponentů a využívá ke svému fungování
 mnoha jiných protokolů \parencite{WebRTCForTheCurious}. V této části si
-jednotlivé komponenty rozebereme a popíšeme, k čemu slouží.
+jednotlivé komponenty rozebereme a~popíšeme, k čemu slouží.
 
 \subsection{Spojování}\label{connecting}
 
@@ -41,7 +41,7 @@ servery \parencite{WebRTCForTheCurious}.
 Pro vytvoření spojení se používá protokolu \gls{ice}. Protokol \gls{ice} slouží
 k nalezení nejlepšího způsobu, jak vytvořit spojení mezi dvěma klienty. Každý
 klient zveřejní své tzv. \textit{\gls{ice} kandidáty}, což jsou v podstatě IP
-adresy a porty, které je možno využít pro komunikaci s ním (více v části
+adresy a~porty, které je možno využít pro komunikaci s ním (více v části
 \ref{ice})~\parencite{WebRTCForTheCurious}. V této části se zabýváme jen
 samotným výběrem těchto kandidátů; jak si klienti předají informace o
 kandidátech je rozebráno v sekci \ref{signalling}.
@@ -106,8 +106,8 @@ dostupné na IP adrese routeru na pevně daném portu
 
 Mapování ale nemusí být pevné a může existovat jen dočasně. Pošle-li klient 1
 paket na \mintinline{text}{1.0.0.2:80} (port \mintinline{text}{80} na routeru
-2), vybere router 1 nějaký port \mintinline{text}{P}, vytvoří mapování a
-přepošle paket z tohoto portu (příjemce bude tedy vidět
+2), vybere router 1 nějaký port \mintinline{text}{P}, vytvoří mapování
+a~přepošle paket z tohoto portu (příjemce bude tedy vidět
 \mintinline{text}{1.0.0.1:P} jako zdrojovou adresu). Když následně klient 3
 pošle paket na \mintinline{text}{1.0.0.1:P} (port \mintinline{text}{P} na
 routeru~1), router 1 rozpozná dle portu, že má paket zpět přeposlat na
@@ -167,7 +167,7 @@ využije metody \gls{nat} pro vytvoření mapování na určitém portu
     Binding Response} pošle zpět na \mintinline{text}{1.0.0.1:P} (router 1).
 Protože bylo na routeru 1 vytvořeno mapování, router 1 ví, že pokud přijde
 paket na port \mintinline{text}{P}, má jej přeposlat na IP adresu
-\mintinline{text}{192.168.0.1} (klientovi 1), ten poté ze \gls{stun} Binding
+\mintinline{text}{192.168.0.1} (klientovi 1), ten poté ze~\gls{stun} Binding
 Response může vyčíst, jaká je jeho veřejná IP adresa (někdy také
 \textit{Mapped Address} či \textit{Server Reflexive Candidate}). V~podstatě
 se jedná o automatické dynamické port
@@ -295,16 +295,16 @@ technologie jako \gls{ice} a \gls{stun} rovněž zůstanou relevantní
 
 \subsection{Přenos audio a videa}
 
-\gls{webrtc} umožňuje posílat neomezené množství audio a video stop, které buď
+\gls{webrtc} umožňuje posílat neomezené množství audio a~video stop, které buď
 mohou být nezávislé, nebo mohou být součástí streamu. Typickým příkladem je
-uživatel, který v jednom streamu posílá audio stopu ze svého mikrofonu a video
-stopu ze své kamery a v druhém streamu audio stopu a video stopu ze svého
+uživatel, který v~jednom streamu posílá audio stopu ze svého mikrofonu a~video
+stopu ze své kamery a~v~druhém streamu audio stopu a~video stopu ze svého
 počítače. Dalším příkladem je server, který přeposílá streamy jiných uživatelů,
-jak je popsáno v části \ref{connectionModels} \parencite{WebRTCForTheCurious}.
+jak je popsáno v~části \ref{connectionModels} \parencite{WebRTCForTheCurious}.
 
 \subsubsection{RTP}\label{rtp}
 
-\gls{rtp} je protokol, který se využívá pro přenos audia a videa. \gls{rtp}
+\gls{rtp} je protokol, který se využívá pro přenos audia a~videa. \gls{rtp}
 umožňuje posílání několika streamů (ve \gls{webrtc} je \gls{rtp} stream jedna
 stopa) přes jedno peer-spojení. \gls{rtp} zároveň dává vývojáři informace o
 časování a pořadí paketů, je ale nezávislé na kodeku
@@ -453,8 +453,8 @@ video). \gls{sdp} podporuje několik klíčů, \gls{webrtc} využívá následuj
                         \item \mintinline{text}{udp} -- data jsou posílána přímo
                               přes protokol \gls{udp}
                         \item \mintinline{text}{RTP/AVP} -- data jsou posílána
-                              pomocí protokolu RTP (více v části \ref{rtp}) s
-                              profilem pro audio a video
+                              pomocí protokolu RTP (více v části \ref{rtp})
+                              s~profilem pro audio a video
                         \item \mintinline{text}{RTP/SAVP} -- data jsou posílána
                               pomocí protokolu \gls{srtp} (více v části
                               \ref{srtp})
@@ -466,8 +466,8 @@ video). \gls{sdp} podporuje několik klíčů, \gls{webrtc} využívá následuj
                     podporované formáty dat; čísla od \mintinline{text}{0} do
                     \mintinline{text}{95} referují ke specifickým formátům; u
                     čísel od \mintinline{text}{96} do \mintinline{text}{127} se
-                    využívá \mintinline{text}{a=rtpmap:<fmt> <codec>} pro
-                    specifikaci kodeku
+                    využívá atributu \mintinline{text}{a=rtpmap:<fmt> <codec>}
+                    pro specifikaci kodeku
           \end{itemize}
 \end{itemize}
 

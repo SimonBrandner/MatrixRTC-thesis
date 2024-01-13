@@ -26,7 +26,7 @@ následně rozebereme.
 \end{figure}
 
 Prvním způsobem je tzv. spojení \textit{full-mesh}, v rámci kterého každý klient
-komunikuje s každým dalším klientem, jak je zobrazeno na obrázku
+komunikuje s~každým dalším klientem, jak je zobrazeno na obrázku
 \ref{fullMeshFig}. Hlavní výhodou tohoto přístupu je, že nevyžaduje žádné
 \textit{backend komponenty} (servery) -- není tedy třeba vývojářů, kteří by na
 backendu pracovali, a zároveň není nutné vkládat finanční prostředky do jeho
@@ -39,12 +39,12 @@ v~klasickém \gls{p2p} modelu obvykle dochází k tomu, že jeden uživatel vol�
 druhého, to samé ale u full-mesh spojení platit nemusí. Když se nový uživatel
 pokouší připojit do skupinového hovoru, je nejasné, zda jeho klient volá
 klienty, kteří se hovoru již účastní, či naopak. Je sice možné definovat
-příslušné pravidlo, ale v případě, že se dva uživatelé pokusí připojit ve stejný
+příslušné pravidlo, ale v případě, že se dva uživatelé pokusí připojit ve~stejný
 okamžik, je situace komplikovanější, neboť nelze jednoznačně určit, kdo je
 volající a~kdo volaný. Jedním řešením jsou tzv. \textit{algoritmy pro glare
     resolution}, které řeší situaci, kdy se klienti snaží kontaktovat navzájem ve
 stejný okamžik. Obvykle každý klient vygeneruje náhodné číslo, které je poté v
-případě, že dochází ke \textit{glare} situaci, porovnáno s číslem druhého
+případě, že dochází ke \textit{glare} situaci, porovnáno s~číslem druhého
 klienta a klient s větším či menším číslem (záleží na implementaci) je pak
 vybrán jako volající \parencite{MagnusWesterlund-GlareInWebRTC}. Někdy také
 dochází k lexikografickému porovnání identifikátorů klientů pro zvolení klienta,
@@ -149,7 +149,7 @@ transkódovat a mixovat \parencite{WebRTCHacks-TrueE2EE}. Z tohoto důvodu také
 nemá takové požadavky na hardware, jednotlivé streamy jsou klientům posílány
 samostatně, takže si uživatel může zvolit, co bude sledovat
 \parencite{Red5Pro-WebRTCScalingApproaches}. Zároveň tento model umožňuje tzv.
-\textit{federaci} (více v částech \ref{matrix} a \ref{matrixRTC}).
+\textit{federaci} (více v~částech \ref{matrix} a~\ref{matrixRTC}).
 
 \begin{figure}[H]
     \centering
@@ -186,11 +186,11 @@ Oproti \gls{mcu} sice vyžaduje větší download ze strany klientů, neboť př
 streamy jednotlivě. Toto ale není tak velký problém, neboť \gls{sfu} může
 posílat jen určitou podskupinu streamů. Zároveň existuje metoda s názvem
 \textit{simulcast}, kdy klient \gls{sfu} posílá několik verzí svých streamů v
-různých rozlišeních (obvykle jsou to původní, poloviční a čtvrtinový) a s různým
+různých rozlišeních (obvykle jsou to původní, poloviční a čtvrtinový) a~s~různým
 počtem snímku za sekundu, \gls{sfu} poté přeposílá vhodnou verzi streamu (viz
 \ref{simulcast}). Vhodná verze se obvykle vybírá na základě několika kritérií.
 Prvním z~nich často je, v jakém rozlišení bude video zobrazeno na koncovém
 klientovi -- např. jestli má uživatel jedno video velkém rozlišení a ostatní
-jsou malá, nebo či má všechny videa zobrazena ve stejném rozlišení bez toho, aby
+jsou malá, nebo či má všechny videa zobrazena ve~stejném rozlišení bez toho, aby
 nějaké bylo zvětšené. Dalším faktorem při výběru je spojení s jednotlivým
 klienty a jeho kvalita \parencite{LiveKit-SimulcastIntroduction}.

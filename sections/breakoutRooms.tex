@@ -46,11 +46,11 @@ jejíž příklad můžeme vidět výše. V~poli \mintinline{text}{content} mů�
 pole \mintinline{text}{m.breakout}, ve kterém klíče jsou ID Matrix break-out
 místností (\mintinline{text}{!roomId1} a \mintinline{text}{!roomId2}) a hodnoty
 obsahující informace o těchto místnostech. V~informacích o místnosti najdeme
-pole \mintinline{text}{via}, což je výčet serverů, které je možno využít k
-připojení se k dané místnosti (ID místnosti nestačí pro připojení se k místnosti
-\parencite{MatrixORG-Spec}). V těchto informacích můžeme též najít pole
-\mintinline{text}{users}, což je výčet uživatelů, kterým je doporučeno se do
-dané místnosti připojit~\parencite{GitHub-MSC3985}.
+pole \mintinline{text}{via}, což je výčet serverů, které je možno využít
+k~připojení se k dané místnosti (ID místnosti nestačí pro připojení se k
+místnosti \parencite{MatrixORG-Spec}). V těchto informacích můžeme též najít
+pole \mintinline{text}{users}, což je výčet uživatelů, kterým je doporučeno se
+do dané místnosti připojit~\parencite{GitHub-MSC3985}.
 
 Dojde-li k přijetí této state událostí jiným klientem, měl by uživateli dát
 možnost se připojit do daných místností, zároveň by ve svém uživatelském
@@ -223,7 +223,7 @@ tak je, využije k získání aktuálního seznamu break-out místností metod
 \mintinline{typescript}{this.getBreakoutEvent()} a
 \mintinline{typescript}{this.parseBreakoutEvent()}. Pokud došlo ke změně tohoto
 seznamu, je využita metoda \mintinline{typescript}{this.emit()} k emitování
-informací o změně~\parencite{GitHub-MatrixJSSDK-BreakoutRooms}:
+informací o~změně~\parencite{GitHub-MatrixJSSDK-BreakoutRooms}:
 
 \begin{figure}[H]
     \begin{minted}[tabsize=4,fontsize=\footnotesize]{typescript}
@@ -311,7 +311,7 @@ nám umožňuje abstrahovat části práce s jazykem \gls{html} a JavaScriptem p
 tzv. komponentů (a jiných struktur jako jsou např. \textit{hooks}, či
 \textit{contexts}). Zjednodušeně řečeno, komponent je JavaScript funkce, jejíž
 návratová hodnota bude později překonvertována do \gls{html}, které bude
-zobrazeno na stránce. Komponenty mohou mít vnitřní logiku a parametry, které
+zobrazeno na~stránce. Komponenty mohou mít vnitřní logiku a parametry, které
 ovlivní jejich návratovou hodnotu~\parencite{React-Homepage}. (Samotné detaily
 změn uživatelského rozhraní zde nebudeme rozebírat, neboť nejsou příliš
 relevantní k tématu protokolu Matrix atp.)

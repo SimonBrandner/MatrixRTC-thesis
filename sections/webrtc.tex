@@ -105,11 +105,11 @@ dostupné na IP adrese routeru na pevně daném portu
 \parencite{G2-WhatIsPortForwarding}.
 
 Mapování ale nemusí být pevné a může existovat jen dočasně. Pošle-li klient 1
-paket na \mintinline{text}{1.0.0.2:80} (port \mintinline{text}{80} na routeru
+paket na~\mintinline{text}{1.0.0.2:80} (port \mintinline{text}{80} na routeru
 2), vybere router 1 nějaký port \mintinline{text}{P}, vytvoří mapování
 a~přepošle paket z tohoto portu (příjemce bude tedy vidět
 \mintinline{text}{1.0.0.1:P} jako zdrojovou adresu). Když následně klient 3
-pošle paket na \mintinline{text}{1.0.0.1:P} (port \mintinline{text}{P} na
+pošle paket na~\mintinline{text}{1.0.0.1:P} (port \mintinline{text}{P} na
 routeru~1), router 1 rozpozná dle portu, že má paket zpět přeposlat na
 \mintinline{text}{192.168.0.1:80} (klienta 1, který posláním svého paketu
 mapování vytvořil). Toto mapování může ale v budoucnosti zaniknout\footnote{Jak
@@ -159,18 +159,17 @@ je protokol, který nám umožňuje tato omezení překonat
 \parencite{WebRTCForTheCurious}.
 
 V síti, která je vidět na obrázku \ref{stunFig}, klient 1 pošle
-\textit{\gls{stun} Binding Request} na \mintinline{text}{1.0.0.3} (na
-\gls{stun} server, který má známou statickou veřejnou IP adresu). Router 1
-využije metody \gls{nat} pro vytvoření mapování na určitém portu
-\mintinline{text}{P}. \gls{stun} server vidí, že paket přišel z adresy
-\mintinline{text}{1.0.0.1:P}, tuto informací pomocí \textit{\gls{stun}
-    Binding Response} pošle zpět na \mintinline{text}{1.0.0.1:P} (router 1).
-Protože bylo na routeru 1 vytvořeno mapování, router 1 ví, že pokud přijde
-paket na port \mintinline{text}{P}, má jej přeposlat na IP adresu
-\mintinline{text}{192.168.0.1} (klientovi 1), ten poté ze~\gls{stun} Binding
-Response může vyčíst, jaká je jeho veřejná IP adresa (někdy také
-\textit{Mapped Address} či \textit{Server Reflexive Candidate}). V~podstatě
-se jedná o automatické dynamické port
+\textit{\gls{stun} Binding Request} na~\mintinline{text}{1.0.0.3} (na~\gls{stun}
+server, který má známou statickou veřejnou IP adresu). Router 1 využije metody
+\gls{nat} pro vytvoření mapování na určitém portu \mintinline{text}{P}.
+\gls{stun} server vidí, že paket přišel z adresy \mintinline{text}{1.0.0.1:P},
+tuto informací pomocí \textit{\gls{stun} Binding Response} pošle zpět
+na~\mintinline{text}{1.0.0.1:P} (router 1). Protože bylo na routeru 1 vytvořeno
+mapování, router 1 ví, že pokud přijde paket na port \mintinline{text}{P}, má
+jej přeposlat na IP adresu \mintinline{text}{192.168.0.1} (klientovi 1), ten
+poté ze~\gls{stun} Binding Response může vyčíst, jaká je jeho veřejná IP adresa
+(někdy také \textit{Mapped Address} či \textit{Server Reflexive Candidate}).
+V~podstatě se jedná o automatické dynamické port
 forwardování~\parencite{WebRTCForTheCurious}.
 
 Bohužel Mapped Address vůbec nemusí být užitečná, pokud je použito \gls{nat}
@@ -242,7 +241,7 @@ Nyní musí klient 2 poslat \gls{turn} serveru \gls{stun} Binding Request a
 klientovi 1 sdělit svou veřejnou adresu. Klient 1 pak může klientovi 2 povolit,
 aby na danou alokaci posílal pakety \parencite{WebRTCForTheCurious}.
 
-Klient 1 může posílat na \gls{turn} server \textit{Send Indication}, která
+Klient 1 může posílat na~\gls{turn} server \textit{Send Indication}, která
 obsahuje data, které se mají přeposlat klientovi 2
 \parencite{WebRTCForTheCurious}.
 

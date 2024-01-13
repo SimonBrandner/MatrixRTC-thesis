@@ -6,18 +6,18 @@ Tato část práce vychází převážně z knihy
 
 \gls{webrtc} je protokol, který umožňuje vytvoření bezpečného obousměrného
 spojení mezi dvěma klienty pro přeposílání audia, videa a libovolných dat v
-reálném čase. Toto spojení může být \gls{p2p}, ale data mohou být i přeposílaná
-přes server, jak je popsáno v části \ref{connecting}. Využívá se koncové
+reálném čase. Toto spojení může být \gls{p2p}, ale data mohou být přeposílaná i
+přes server, jak je popsáno v části \ref{connecting}. Je využíváno koncové
 šifrování, anglicky \gls{e2ee}, což zaručuje, že server nemůže číst data, pokud
 jsou přes něj přeposílaná~\parencite{WebRTCForTheCurious}.
 
-\gls{webrtc} spojení je složeno ze \textit{stop} (\textit{tracks}) a datových
-kanálů (\textit{data channels}). Stopa může být buď audio, či video
-\parencite{MDN-WebRTC-MediaStreamTrack}, tyto stopy mohou být přiřazeny do tzv.
-\textit{streamů} (stream je často složen ze dvou stop -- např. audia z mikrofonu
-a videa z kamery)~\parencite{MDN-WebRTC-MediaStream}. Datové kanály se pak
-používají k přenosu libovolných dat
-\parencite{WebRTCORG-GettingStarted-DataChannels}.
+\gls{webrtc} spojení je složeno ze \textit{stop} (\textit{tracks}) a
+\textit{datových kanálů} (\textit{data channels}). Stopa může být buď audio,
+či video \parencite{MDN-WebRTC-MediaStreamTrack}. Tyto stopy mohou být
+přiřazeny do tzv. \textit{streamů} (stream je často složen ze dvou stop --
+např. audia z mikrofonu a videa z
+kamery)~\parencite{MDN-WebRTC-MediaStream}. Datové kanály se pak používají k
+přenosu libovolných dat \parencite{WebRTCORG-GettingStarted-DataChannels}.
 
 \gls{api} protokolu \gls{webrtc} je specifikováno jen v~JavaScriptu. Existují
 však i implementace \gls{webrtc}
@@ -41,7 +41,7 @@ servery \parencite{WebRTCForTheCurious}.
 Pro vytvoření spojení se používá protokolu \gls{ice}. Protokol \gls{ice} slouží
 k nalezení nejlepšího způsobu, jak vytvořit spojení mezi dvěma klienty. Každý
 klient zveřejní své tzv. \textit{\gls{ice} kandidáty}, což jsou v podstatě IP
-adresy a porty, na kterých je klient dostižitelný (více v části
+adresy a porty, které je možno využít pro komunikaci s ním (více v části
 \ref{ice})~\parencite{WebRTCForTheCurious}. V této části se zabýváme jen
 samotným výběrem těchto kandidátů; jak si klienti předají informace o
 kandidátech je rozebráno v sekci \ref{signalling}.
@@ -101,7 +101,7 @@ routeru 2), router 2 ho přesměruje na adresu \mintinline{text}{192.168.0.1:90}
 routeru 2, bude přeposlán routerem přes port \mintinline{text}{80} (příjemce
 bude tedy vidět \mintinline{text}{1.0.0.2:80} jako zdrojovou adresu). Toto
 mapování je vhodné pro případy, kdy chceme, aby dané zařízení za routerem bylo
-dostižitelné na IP adrese routeru na pevně daném portu
+dostupné na IP adrese routeru na pevně daném portu
 \parencite{G2-WhatIsPortForwarding}.
 
 Mapování ale nemusí být pevné a může existovat jen dočasně. Pošle-li klient 1
@@ -154,7 +154,7 @@ nejčastější pro běžná zařízení \parencite{WebRTCForTheCurious}.
 \gls{nat} sice umožňuje vytvořit mapování mezi veřejnou IP adresou a portem a IP
 adresou a portem v podsíti, ale klienti v podsíti neví, jaká je veřejná IP
 adresa routeru (obzvlášť pokud je dynamická), a pokud není použit port
-forwarding, neví ani, jaký port budu využit pro přeposíláním paketů. \gls{stun}
+forwarding, neví ani, jaký port bude využit pro přeposílání paketů. \gls{stun}
 je protokol, který nám umožňuje tato omezení překonat
 \parencite{WebRTCForTheCurious}.
 
@@ -175,7 +175,7 @@ forwardování~\parencite{WebRTCForTheCurious}.
 
 Bohužel Mapped Address vůbec nemusí být užitečná, pokud je použito \gls{nat}
 mapování typu \textit{Address Dependent}, což znamená, že router 1 přijímá na
-daném mapování pakety pouze z IP adresy \mintinline{text}{1.0.0.1} (ze
+daném mapování pakety pouze z IP adresy \mintinline{text}{1.0.0.3} (ze
 \gls{stun} serveru)\footnote{Address Dependent mapování lze často také nalézt
     pod pojmem \textit{Symmetric} \gls{nat}. Tento pojem je ale nepřesný, neboť
     reálné \gls{nat} často nelze snadno klasifikovat do kategorií
@@ -216,9 +216,9 @@ mapování, takže klient předem ví, jestli ho bude možné kontaktovat
 \end{figure}
 
 \gls{turn} je metoda, která umožňuje vytvořit spojení i v případě, že je
-\gls{nat} mapování Address Dependent, či pokud je klient za jinak restriktivním
-firewallem. \gls{turn} lze také využít, přeje-li si klient, aby druhý klient
-neznal jeho IP adresu \parencite{WebRTCForTheCurious}.
+\gls{nat} mapování Address Dependent, či pokud je klient za jiným druhem
+restriktivního firewallu. \gls{turn} lze také využít, přeje-li si klient, aby
+druhý klient neznal jeho IP adresu \parencite{WebRTCForTheCurious}.
 
 \gls{turn} server funguje jako proxy (prostředník), přes které jsou přeposílána
 data. Přeje-li si klient 1 na obrázku \ref{turnFig} využít \gls{turn} server,
@@ -363,7 +363,7 @@ kandidáty a informace o tom, jaká data plánují posílat, jaké
 kodeky\footnote{Kodek je hardware či software, který se využívá pro zakódování,
     či rozkódování médii \parencite{Britannica-Codec,TechTarget-Codec}.} podporují
 atp. Zprávy, které si klienti pomocí signalling serveru vyměňují, se nazývají
-\textit{session descriptions}, jsou ve formátu, který je definován protokolem
+\textit{session descriptions}. Jsou ve formátu, který je definován protokolem
 zvaným \gls{sdp} (místo \textit{session description} se někdy píše jen
 \gls{sdp})~\parencite{WebRTCForTheCurious}. Signalling server není nijak
 standardizován, jedinou podmínkou je, že realizuje výměnu \gls{sdp}. To vede k
@@ -507,6 +507,13 @@ fungování \gls{webrtc}
           specifikuje informace o daném \gls{ice} kandidátu
 \end{itemize}
 
+Níže můžeme vidět příklad reálného \gls{sdp}, které obsahuje 3 média-sekce. Obě
+používají port \mintinline{text}{4000} a protokol \mintinline{text}{RTP/AVP}. V
+klíči \mintinline{text}{o} je důležité třetí pole s hodnotou
+\mintinline{text}{2}, která indikuje verzi session description. Klíč
+\mintinline{text}{s} nemá hodnotu, spojení je tedy bez názvu. Klíč
+\mintinline{text}{c} je pak pro \gls{webrtc} nepodstatný.
+
 \begin{figure}[H]
     \begin{minted}[breaklines,fontsize=\footnotesize]{text}
 v=0
@@ -537,25 +544,18 @@ a=max-message-size:262144
     \end{minted}
 \end{figure}
 
-Výše můžeme vidět příklad reálného \gls{sdp}, které obsahuje 3 média-sekce. Obě
-používají port \mintinline{text}{4000} a protokol \mintinline{text}{RTP/AVP}. V
-klíči \mintinline{text}{o} je důležité třetí pole s hodnotou
-\mintinline{text}{2}, která indikuje verzi session description. Klíč
-\mintinline{text}{s} nemá hodnotu, spojení je tedy bez názvu. Klíč
-\mintinline{text}{c} je pak pro \gls{webrtc} nepodstatný.
-
 První sekce je \mintinline{text}{audio}, její \mintinline{text}{mid} je
 \mintinline{text}{0} a její směr je \mintinline{text}{sendrecv}, takže umožňuje
-přijímání i posílání audio stopy Formát je dynamický a z
-\mintinline{text}{a=rtpmap} lze vidět, že \mintinline{text}{111} značí, že se
-jedná o kodek Opus. Můžeme si rovněž povšimnout specifikace ID streamu a stopy.
+přijímání i~posílání audio stopy. Formát je dynamický a z
+\mintinline{text}{a=rtpmap} je vidět, že~\mintinline{text}{111} označuje kodek
+Opus. Můžeme si rovněž povšimnout specifikace ID streamu a stopy.
 
 Druhá sekce je \mintinline{text}{video}, její \mintinline{text}{mid} je
 \mintinline{text}{1} a její směr je \mintinline{text}{sendonly}, klient tedy
 může používat tuto média-sekci pro posílání videa. Formát je opět dynamický, z
-\mintinline{text}{a=rtpmap} lze vidět, že číslo \mintinline{text}{96} značí, že
-se jedná o kodek VP8. Je také vidět, že stopa patří do stejného streamu jako
-stopa v první média-sekci.
+\mintinline{text}{a=rtpmap} je vidět, že~číslo \mintinline{text}{96} označuje
+kodek VP8. Je také vidět, že stopa patří do stejného streamu jako stopa v první
+média-sekci.
 
 Třetí sekce je \mintinline{text}{application} a popisuje datový kanál. Její
 \mintinline{text}{mid} je \mintinline{text}{2}. Protokol \gls{sctp} využívá port

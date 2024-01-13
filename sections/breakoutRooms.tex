@@ -17,7 +17,7 @@ specifikace, aby případně mohli i jiní klienti využívat tuto funkci.
 Pro reprezentaci jednotlivých break-out místností využijeme již existující
 Matrix primitivum -- místnost, každé break-out místnosti bude tedy odpovídat
 jedna Matrix místnost. Pro informování ostatních uživatelů o existenci daných
-break-out místností též využijme existující Matrix primitivum -- state události
+break-out místností též využijeme existující Matrix primitivum -- state události
 \parencite{GitHub-MSC3985}:
 
 \begin{figure}[H]
@@ -84,7 +84,7 @@ statické typování \parencite{TypeScript-Homepage}.
 
 \subsubsection{Matrix JavaScript SDK}
 
-Změny, o kterých bude v této části práce řeč, lze nalézt v
+Změny, které budeme v této části práce popisovat, lze nalézt
 \href{https://github.com/matrix-org/matrix-js-sdk/pull/3753/}{zde}
 \parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
@@ -255,7 +255,7 @@ export class BreakoutRooms extends TypedEventEmitter<
 V konstruktoru třídy \mintinline{typescript}{Room}, kterou najdeme v souboru
 \mintinline{text}{/src/models/room.ts}, vytvoříme instanci třídy
 \mintinline{typescript}{BreakoutRooms}, kterou uložíme do privátního člena třídy
-s názvem \mintinline{typescript}{breakoutRooms}, zároveň budeme re-emitovat
+s názvem \mintinline{typescript}{breakoutRooms}, zároveň budeme reemitovat
 všechny události emitované \mintinline{typescript}{breakoutRooms}:
 
 \begin{figure}[H]
@@ -291,7 +291,7 @@ export class BreakoutRooms extends TypedEventEmitter<
 
 Tato metoda zavolá
 \mintinline{typescript}{this.breakoutRooms.getCurrentBreakoutRooms()} a vrátí
-její návratovou hodnotu. Díky re-emitování událostí pocházejících z
+její návratovou hodnotu. Díky reemitování událostí pocházejících z
 \mintinline{typescript}{breakoutRooms} a metodě
 \mintinline{typescript}{getBreakoutRooms()} budou všichni s přístupem k instanci
 třídy \mintinline{typescript}{Room} mít přístupné i~informace o existujících
@@ -299,7 +299,7 @@ break-out místnostech \parencite{GitHub-MatrixJSSDK-BreakoutRooms}.
 
 \subsubsection{Element Call}
 
-Změny, o kterých bude v této části práce řeč, lze nalézt v
+Změny, které budeme v této části práce popisovat, lze nalézt
 \href{https://github.com/vector-im/element-call/pull/1615/}{zde}
 \parencite{GitHub-ElementCall-BreakoutRooms}.
 
@@ -352,3 +352,5 @@ export const ClientProvider: FC<Props> = ({ children }) => {
 
 Bude-li obsahovat informace o nových klíčích, uložíme je
 k~dalšímu použití \parencite{GitHub-ElementCall-BreakoutRooms}.
+
+Tímto je implementace break-out místností v aplikaci Element Call hotová.

@@ -25,7 +25,7 @@ v reálném čase. Protokol byl vytvořen jako způsob řešení problému tzv.
 \textit{walled gardens}. Sám o sobě je protokol federovaný, tedy podobně jako
 email umožňuje klientům jednoho serveru komunikovat s klienty serveru druhého
 (viz obrázek č. \ref{federation}). V protokolu Matrix se těmto serverům říká
-\textit{homeservery}. Od června 2019 je je stabilní
+\textit{homeservery}. Od června 2019 je stabilní
 \parencite{MatrixORG-FAQ,MatrixORG-Homepage}.
 
 Je spravován neziskovou organizací jménem Matrix.org Foundation a jeho
@@ -56,12 +56,12 @@ Tento pull request obsahuje text formátovaný pomocí
 řešení \parencite{MatrixORG-MSCs}.
 
 Poté, co je pull request vytvořen, nastává prostor pro to, aby komunita
-a~vývojáři \gls{msc} komentovali a aby se případné připomínky řešily.
-M\gls{msc}SC obvykle také bude zkontrolováno členy \gls{sct}, který se o
-specifikaci stará. Pokud se \gls{msc} dostane do stavu, kdy nejsou vznášeny
-připomínky (a ty, co byly vznešené, byly vyřešeny), může člen \gls{sct}
-navrhnout spuštění tzv. \gls{fcp}. Pro to, aby \gls{fcp} začala, je třeba
-souhlas 75~\% \gls{sct} \parencite{MatrixORG-MSCs}.
+a~vývojáři \gls{msc} komentovali a aby se případné připomínky řešily. \gls{msc}
+obvykle také bude zkontrolováno členy \gls{sct}, který se o specifikaci stará.
+Pokud se \gls{msc} dostane do stavu, kdy nejsou vznášeny připomínky (a ty, co
+byly vznešené, byly vyřešeny), může člen \gls{sct} navrhnout spuštění tzv.
+\gls{fcp}. Pro to, aby \gls{fcp} začala, je třeba souhlas 75~\% \gls{sct}
+\parencite{MatrixORG-MSCs}.
 
 Když \gls{fcp} započne, je prostor 5 dnů na to, aby kdokoliv vznesl připomínky.
 Jsou-li vzneseny závažné připomínky, člen \gls{sct} může \gls{fcp} zablokovat.
@@ -144,7 +144,7 @@ Desktopová verze Elementu je pak Electron\footnote{ Electron je framework pro
     \parencite{ElectronJS-Homepage}. } wrapper jeho webové verze
 \parencite{GitHub-ElementDesktop}. Hydrogen je rovněž webová aplikace,
 používající své vlastní SDK, které je z části v TypeScriptu a z části v
-JavaScriptu, toto SDK ale využívají i jiní klienti (viz \ref{thirdroom}).
+JavaScriptu. Toto SDK ale využívají i jiní klienti (viz \ref{thirdroom}).
 Hydrogen má za cíl vyžadovat co nejnižší požadavky na hardware a měl by běžet
 i~v~prohlížečích, jako je Internet Explorer\footnote{ Internet Explorer je jeden
     z nejvíce nenáviděných internetových prohlížečů, jedním z důvodů je, že
@@ -173,8 +173,8 @@ jazyce Python, jedná se o historicky první a referenční implementaci homeser
 \parencite{GitHub-Synapse}. Druhou je
 \href{https://github.com/matrix-org/dendrite/}{Dendrite}, která je napsaná v
 jazyce Go a má být nástupce Synapse \parencite{GitHub-Dendrite}. Poslední
-implementací \href{https://github.com/timokoesters/conduit}{Conduit}, která je
-napsaná v jazyce Rust a je spravovaná komunitou \parencite{GitHub-Conduit}.
+implementací je \href{https://github.com/timokoesters/conduit}{Conduit}, která
+je napsaná v jazyce Rust a je spravovaná komunitou \parencite{GitHub-Conduit}.
 
 Mezi další homeservery patří např.
 \href{https://github.com/matrix-construct/construct}{Construct} v jazyce C++
@@ -182,22 +182,21 @@ Mezi další homeservery patří např.
 
 \subsection{Přemostění (bridging)}
 
-Vzhledem k tomu k malé pravděpodobnosti, že by společnosti jako Google, či
-Microsoft začaly používat protokol Matrix, umožňuje tento protokol tzv.
-\textit{bridging}. Jedná se o způsob, jak \uv{přemostit} uživatele z jiných
-platforem (jako je např. Messenger či MS Teams) do protokolu Matrix
-\parencite{MatrixORG-Bridges}.
+Vzhledem k malé pravděpodobnosti, že by společnosti jako Google, či Microsoft
+začaly používat protokol Matrix, umožňuje tento protokol tzv. \textit{bridging}.
+Jedná se o způsob, jak \uv{přemostit} uživatele z jiných platforem (jako je
+např. Messenger či MS Teams) do protokolu Matrix \parencite{MatrixORG-Bridges}.
 
 \subsection{End-to-end šifrování}\label{matrix-encryption}
 
-Protokol MatMatrixrix podporuje \gls{e2ee} -- message události v místnostech
-mohou být šifrované. Pro dosažení \gls{e2ee} používá jak symetrické, tak
-asymetrické šifrování. Jednotlivé message události jsou zašifrovány pomocí
-symetrického šifrování \gls{aes}. K přeposílání klíčů mezi zařízeními, které
-jsou v dané místnosti, se používají to-device messages šifrované pomocí
-asymetrické kryptografie nad eliptickými křivkami (využívají se především dvě
-knihovny -- \href{https://gitlab.matrix.org/matrix-org/olm}{olm}, která je
-napsané v jazyce C \parencite{GitLab-Olm}, a
+Protokol Matrix podporuje \gls{e2ee} -- message události v místnostech mohou být
+šifrované. Pro dosažení \gls{e2ee} používá jak symetrické, tak asymetrické
+šifrování. Jednotlivé message události jsou zašifrovány pomocí symetrického
+šifrování \gls{aes}. K přeposílání klíčů mezi zařízeními, které jsou v dané
+místnosti, se používají to-device messages šifrované pomocí asymetrické
+kryptografie nad eliptickými křivkami (využívají se především dvě knihovny --
+\href{https://gitlab.matrix.org/matrix-org/olm}{olm}, která je napsané v jazyce
+C \parencite{GitLab-Olm}, a
 \href{https://github.com/matrix-org/vodozemac}{vodozemac}, která je napsaná v
 jazyce Rust a je součástí
 \href{https://github.com/matrix-org/matrix-rust-sdk}{matrix-rust-sdk})

@@ -34,7 +34,7 @@ provozu. Nehrozí ani, že při selhání backendu by se uživatelé klientů ne
 spojit. Tento přístup má ale bohužel také mnoho nevýhod
 \parencite{HalOpenScience-SFUs}.
 
-První může být složitější vytvoření samotného spojení dvou klientů --
+První nevýhodou může být složitější vytvoření samotného spojení dvou klientů --
 v~klasickém \gls{p2p} modelu obvykle dochází k tomu, že jeden uživatel volá
 druhého, to samé ale u full-mesh spojení platit nemusí. Když se nový uživatel
 pokouší připojit do skupinového hovoru, je nejasné, zda jeho klient volá
@@ -115,8 +115,8 @@ což znamená, že uživatelé vidí a slyší věci s mírným
 zpožděním~\parencite{Red5Pro-WebRTCScalingApproaches}.
 
 Poslední nevýhodou, kterou zmíníme, je to, že pro transkódování a mixování
-streamů je nutné, aby je server nejdříve rozšifroval. To znamená, že z principu
-není možné, aby komunikace mezi klienty byla
+streamů je nutné, aby je server nejdříve rozšifroval. To znamená, že není možné,
+aby komunikace mezi klienty byla
 \gls{e2ee}~\parencite{ITSecurityKnowHow-E2EGainsANewMeaning}.
 
 \subsubsection{Selective Forwarding Unit}\label{sfu}
@@ -186,7 +186,7 @@ Oproti \gls{mcu} sice vyžaduje větší download ze strany klientů, neboť př
 streamy jednotlivě. Toto ale není tak velký problém, neboť \gls{sfu} může
 posílat jen určitou podskupinu streamů. Zároveň existuje metoda s názvem
 \textit{simulcast}, kdy klient \gls{sfu} posílá několik verzí svých streamů v
-různých rozlišeních (obvykle jsou to původní, poloviční a čtvrteční) a s různým
+různých rozlišeních (obvykle jsou to původní, poloviční a čtvrtinový) a s různým
 počtem snímku za sekundu, \gls{sfu} poté přeposílá vhodnou verzi streamu (viz
 \ref{simulcast}). Vhodná verze se obvykle vybírá na základě několika kritérií.
 Prvním z~nich často je, v jakém rozlišení bude video zobrazeno na koncovém

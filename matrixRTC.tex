@@ -4,6 +4,19 @@
 \usepackage[T1]{fontenc}
 \usepackage[czech]{babel}
 \usepackage[nomessages]{fp}
+\usepackage{a4wide}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage{xurl}
+\usepackage{bookmark}
+\usepackage{minted}
+\usepackage{indentfirst}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{csquotes}
+\usepackage{afterpage}
 \usepackage[
     numbib,
     notlof,
@@ -26,19 +39,6 @@
     nopostdot,
     toc
 ]{glossaries-extra}
-\usepackage{a4wide}
-\usepackage{siunitx}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{comment}
-\usepackage{xurl}
-\usepackage{bookmark}
-\usepackage{minted}
-\usepackage{indentfirst}
-\usepackage{array}
-\usepackage{tikz}
-\usepackage{csquotes}
-\usepackage{afterpage}
 
 \def\publicPrivateIP{PU -- veřejná IP adresa, PR -- privátní IP adresa}
 
@@ -48,7 +48,7 @@
 
 \begin{document}
 \include{sections/titlepage.tex}
-%\emptypage % For printing
+\emptypage % For printing
 \pagenumbering{Roman}
 \include{sections/declaration.tex}
 \include{sections/acknowledgements.tex}

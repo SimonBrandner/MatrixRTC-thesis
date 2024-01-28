@@ -44,7 +44,7 @@
 \newtoggle{print}
 \newtoggle{school}
 
-\settoggle{print}{true}
+\settoggle{print}{false}
 \settoggle{school}{false}
 
 \def\publicPrivateIP{PU -- veřejná IP adresa, PR -- privátní IP adresa}
@@ -74,4 +74,5 @@
 \include{sections/acronyms.tex}
 \include{sections/figures.tex}
 \include{sections/references.tex}
+\iftoggle{school}{\include{sections/attachment.tex}}{}
 \end{document}

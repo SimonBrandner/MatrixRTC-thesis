@@ -1,0 +1,28 @@
+\section{Příloha -- zdrojový kód}\label{attachment}
+
+Zdrojový kód aplikace Element Call a Matrix JS SDK se nachází na přiloženém
+flash disku ve složce \mintinline{text}{RocnikovaPrace}.
+
+Pro zobrazení změn je potřeba mít nainstalovaný program \mintinline{text}{git}
+pro distribuovanou správu verzí. Pro zobrazení změn v repozitáři
+\mintinline{text}{matrix-js-sdk}, pak lze použít následující příkaz:
+\begin{minted}[tabsize=4,fontsize=\footnotesize]{bash}
+git -C ./matrix-js-sdk diff develop
+\end{minted}
+
+a k zobrazení změn v repozitáři \mintinline{text}{element-call}, lze použít příkaz:
+\begin{minted}[tabsize=4,fontsize=\footnotesize]{bash}
+git -C ./element-call diff livekit
+\end{minted}
+
+Pro spuštění aplikace Element Call je potřeba mít nainstalovaný \mintinline{text}{node.js} a
+\mintinline{text}{yarn}. Když jsou oba programy nainstalované, je možné spustit
+Element Call pomocí následujících příkazů:
+
+\begin{minted}[tabsize=4,fontsize=\footnotesize]{bash}
+cd element-call
+yarn dev
+\end{minted}
+
+Web server by měl poté běžet a Element Call by měl být dostupný na následující
+adrese: \href{https://localhost:3000}{https://localhost:3000}.

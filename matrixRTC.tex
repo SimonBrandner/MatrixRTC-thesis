@@ -57,10 +57,11 @@
 \include{sections/titlepage.tex}
 \printingemptypage
 \pagenumbering{Roman}
-\include{sections/declaration.tex}
+\iftoggle{school}{\include{sections/declaration.tex}}{}
 \include{sections/acknowledgements.tex}
 \include{sections/annotationAndKeywords.tex}
 \include{sections/tableOfContents.tex}
+\iftoggle{school}{\printingemptypage}{}
 \pagenumbering{arabic}
 \include{sections/introduction.tex}
 \include{sections/webrtc.tex}

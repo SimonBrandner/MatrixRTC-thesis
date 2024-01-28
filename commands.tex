@@ -1,5 +1,11 @@
 % We want an empty page for printing
-\newcommand\emptypage{
+\newcommand{\printingemptypage}{%
+    \iftoggle{print}{
+        \emptypage
+    }{}
+}
+
+\newcommand{\emptypage}{
     \null
     \addtocounter{page}{-1}
     \thispagestyle{empty}

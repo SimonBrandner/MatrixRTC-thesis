@@ -17,6 +17,7 @@
 \usepackage{tikz}
 \usepackage{csquotes}
 \usepackage{afterpage}
+\usepackage{etoolbox}
 \usepackage[
     numbib,
     notlof,
@@ -40,6 +41,10 @@
     toc
 ]{glossaries-extra}
 
+\newtoggle{print}
+
+\settoggle{print}{true}
+
 \def\publicPrivateIP{PU -- veřejná IP adresa, PR -- privátní IP adresa}
 
 \input{setup.tex}
@@ -48,7 +53,7 @@
 
 \begin{document}
 \include{sections/titlepage.tex}
-\emptypage % For printing
+\printingemptypage
 \pagenumbering{Roman}
 \include{sections/declaration.tex}
 \include{sections/acknowledgements.tex}

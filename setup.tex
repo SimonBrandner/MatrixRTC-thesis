@@ -1,24 +1,28 @@
 % My version
-\hypersetup{
-    colorlinks=true,
-    linkcolor=red,
-    urlcolor=blue,
-    citecolor=green,
+\iftoggle{school}{
+    \iftoggle{print}{
+        \hypersetup{
+            colorlinks=false,
+            linkcolor=red,
+            urlcolor=blue,
+            citecolor=green,
+        }
+    }{
+        \hypersetup{
+            colorlinks=true,
+            linkcolor=blue,
+            urlcolor=black,
+            citecolor=blue,
+        }
+    }
+}{
+    \hypersetup{
+        colorlinks=true,
+        linkcolor=red,
+        urlcolor=blue,
+        citecolor=green,
+    }
 }
-% For school digital PDF
-%\hypersetup{
-%    colorlinks=true,
-%    linkcolor=blue,
-%    urlcolor=black,
-%    citecolor=blue,
-%}
-% For printing
-%\hypersetup{
-%    colorlinks=false,
-%    linkcolor=red,
-%    urlcolor=blue,
-%    citecolor=green,
-%}
 
 \usetikzlibrary{calc}
 \usemintedstyle{vs}

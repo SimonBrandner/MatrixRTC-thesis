@@ -1,9 +1,19 @@
 \iftoggle{print}{
-    \newgeometry{
-        left=3cm,
-        right=2cm,
-        top=3.85cm,
-        bottom=3.80cm
+    \iftoggle{school}{
+        \newgeometry{
+            left=3cm,
+            right=2cm,
+            top=3.85cm,
+            bottom=3.80cm,
+            asymmetric
+        }
+    }{
+        \newgeometry{
+            left=3cm,
+            right=2cm,
+            top=3.85cm,
+            bottom=3.80cm
+        }
     }
 }{
     \newgeometry{

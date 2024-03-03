@@ -22,6 +22,8 @@
 *.glg-abr
 *.acr
 *.alg
+*.snm
+*.nav
 *blx.bib
 _minted*
 instructions/

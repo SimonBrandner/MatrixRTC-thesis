@@ -2,9 +2,6 @@
 
 ## Využití protokolu Matrix pro videohovory
 
-PDF lze nalézt
-[zde](https://nightly.link/SimonBrandner/RocnikovaPrace-MatrixRTC/workflows/build.yaml/stable/matrixRTC.pdf.zip).
-
 ### Anotace
 
 V posledních letech se značně rozšířilo využívání aplikací určených pro
@@ -25,10 +22,17 @@ rooms pomocí MatrixRTC.
 
 Matrix, WebRTC, VoIP, otevřený software
 
-## The Usage of the Matrix Protocol for Video Calls
+### Text práce
 
-PDF can be found
-[here](https://nightly.link/SimonBrandner/RocnikovaPrace-MatrixRTC/workflows/build.yaml/stable/matrixRTC.pdf.zip).
+PDF lze nalézt
+[zde](https://nightly.link/SimonBrandner/RocnikovaPrace-MatrixRTC/workflows/build.yaml/stable/matrixRTC.pdf.zip).
+
+### Prezentace práce
+
+PDF lze nalézt
+[zde](https://nightly.link/SimonBrandner/RocnikovaPrace-MatrixRTC/workflows/build.yaml/stable/matrixRTCPresentation.pdf.zip).
+
+## The Usage of the Matrix Protocol for Video Calls
 
 ### Annotation
 
@@ -49,3 +53,13 @@ part, the goal is then to design and implement break-out rooms using MatrixRTC.
 ### Keywords
 
 Matrix, WebRTC, VoIP, open source
+
+### Thesis text
+
+PDF can be found
+[here](https://nightly.link/SimonBrandner/RocnikovaPrace-MatrixRTC/workflows/build.yaml/stable/matrixRTC.pdf.zip).
+
+### Thesis presentation
+
+PDF can be found
+[here](https://nightly.link/SimonBrandner/RocnikovaPrace-MatrixRTC/workflows/build.yaml/stable/matrixRTCPresentation.pdf.zip).

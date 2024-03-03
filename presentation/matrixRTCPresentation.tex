@@ -1,0 +1,312 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[czech]{babel}
+\usepackage{tikz}
+\usepackage{csquotes}
+\usepackage{grid-system}
+\usepackage{verbatim}
+
+\usetheme[
+	background=dark,
+	numbering=none,
+	progressbar=frametitle
+]{metropolis}
+
+\usetikzlibrary{
+	positioning,
+	decorations,
+	tikzmark,
+	tikzmark,
+	fit,
+	shapes.misc,
+	decorations.pathreplacing,
+	calc,
+	matrix,
+	overlay-beamer-styles
+}
+
+\setbeamercovered{transparent}
+
+\makeatletter
+\setlength{\metropolis@titleseparator@linewidth}{1.5pt}
+\setlength{\metropolis@progressonsectionpage@linewidth}{1.5pt}
+\setlength{\metropolis@progressinheadfoot@linewidth}{1.5pt}
+\makeatother
+
+\graphicspath{{images/}}
+
+\title{Využití protokolu Matrix pro videohovory}
+\subtitle{Ročníková práce}
+\author{Šimon Brandner}
+\date{4. března 2024}
+
+\begin{document}
+\maketitle
+\begin{frame}{Protokoly aplikací MS Teams, WhatsApp, Discord, Zoom atp.}
+    \pause
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \begin{tikzpicture}[every node/.style={draw,circle}]
+                \onslide<+-> {
+                    \foreach \i in {1,...,3} {
+                            \node (client\i) at ({90-360/3*(\i-1)}:3.1) {Klient \i};
+                        }
+                }
+                \onslide<+-> {
+                    \node[minimum size=1.75cm] (server) at (0, 0) {Server};
+                }
+                \onslide<+-> {
+                    \foreach \i in {1,...,3} {
+                            \draw[green,<->] (server) -- (client\i);
+                        }
+                }
+            \end{tikzpicture}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}[<+->]
+                \item Uzavřená specifikace protokolu
+                \item Netransparentní specifikace protokolu
+                \item Centralizované
+                \item Poskytovatel ovládá protokol
+                \item Poskytovatel ovládá data
+                \item Poskytovatel ovládá uživatele
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+\begin{frame}{Protokol Matrix}
+    \pause
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \begin{tikzpicture}[every node/.style={draw,circle}]
+                \onslide<+-> {
+                    \foreach \i in {1,...,3} {
+                            \node (client\i) at ({90-360/3*(\i-1)}:3.1) {Klient \i};
+                        }
+                }
+                \onslide<+-> {
+                    \foreach \i in {1,...,3} {
+                            \node[minimum size=1.75cm] (server\i) at ({90-360/3*(\i-1)}:1.15) {Server \i};
+
+                            \draw[green,<->] (server\i) -- (client\i);
+                        }
+                }
+                \onslide<+-> {
+                    \foreach \i in {1,...,2} {
+                            \foreach \j in {\the\numexpr\i+1,...,3} {
+                                    \draw[cyan,<->] (server\i) -- (server\j);
+                                }
+                        }
+                }
+            \end{tikzpicture}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}[<+->]
+                \item Federace -- decentralizace
+                \item Svoboda uživatele
+                \item Otevřená specifikace protokolu
+                \item Transparentní specifikace protokolu
+                \item Interoperabilita
+                \item Alternativa -- protokol XMPP
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+\begin{frame}{Cíle práce}
+    \pause
+    \begin{itemize}[<+->]
+        \item Prozkoumat protokol Matrix
+        \item Prozkoumat fungování aplikací pro videohovory
+        \item Praktická část -- implementace break-out rooms
+              \begin{itemize}
+                  \item Návrh doplnění specifikace protokolu Matrix
+                  \item Implementace do aplikace Element Call
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+\begin{frame}{Break-out rooms}
+    \pause
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \centering
+            \onslide<+-> Zvolený přístup\\
+            \vspace{10px}
+            \begin{tikzpicture}
+                \useasboundingbox (-2.75,-1.75) rectangle (2.75,1.75);
+
+                \onslide<+-> {
+                    \node[draw] (mainRoom) at (-2, 0) {Hlavní místnost};
+                }
+
+                \onslide<+-> {
+                    \foreach \j in {1,...,3} {
+                            \node[draw] (breakoutRoom\j) at (1.5, 2-\j) {Break-out místnost \j};
+                            \draw[green,->] (mainRoom.east) -- (breakoutRoom\j.west);
+                        }
+                }
+            \end{tikzpicture}
+            \begin{itemize}[<+->]
+                \item Jeden hovor na místnost
+                \item Break-out místnosti opravdu místnosti
+                \item Kontrola nad právy v místnostech
+                \item Nejen pro účely videohovorů
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \onslide<+->Alternativa\\
+            \vspace{10px}
+            \begin{tikzpicture}
+                \useasboundingbox (-2.75,-1.75) rectangle (2.75,1.83);
+
+                \onslide<+-> {
+                    \node[draw, minimum width=190, minimum height=100]
+                    (room) at (0, 0) {};
+                    \node at (-2.55, 1.5) {Místnost};
+                }
+
+                \onslide<+-> {
+                    \node[draw] (mainCall) at (-2,0) {Hlavní hovor};
+                }
+
+                \onslide<+-> {
+                    \foreach \j in {1,...,3} {
+                            \node[draw] (breakoutCall\j) at (1.5, 2-\j) {Break-out hovor \j};
+                            \draw[green,->] (mainCall.east) -- (breakoutCall\j.west);
+                        }
+                }
+            \end{tikzpicture}
+            \begin{itemize}[<+->]
+                \item Více hovorů v jedné místnosti
+                \item Absence kontroly práv v hovorech
+                \item Jen pro účely videohovorů
+                \item Nutnost využití vláken pro chat
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+\begin{frame}{Výsledky práce}
+    \pause
+    \begin{itemize}[<+->]
+        \item Popis fungování aplikací pro videohovory
+        \item Popis protokolu Matrix
+        \item Návrh doplnění specifikace protokolu Matrix o break-out rooms
+        \item Implementace break-out rooms do aplikace Element Call
+    \end{itemize}
+\end{frame}
+\begin{frame}{Reakce na připomínky}
+    \pause
+    \begin{itemize}[<+->]
+        \item Alternativy
+              \begin{itemize}
+                  \item Protokol XMPP
+                  \item Implementace break-out rooms
+              \end{itemize}
+        \item Výchozí znalosti -- zkušenost s vývojem aplikace Element
+        \item Očekávaný výsledek a překážky v praktické části
+              \begin{itemize}
+                  \item Předpoklad byl, že výsledku lze dosáhnout
+                  \item Tvorba uživatelského rozhraní byla rozsáhlejší, než byl předpoklad
+              \end{itemize}
+        \item Absence vědeckého způsobu bádání a zhodnocení zdrojů
+              \begin{itemize}
+                  \item Absence zdrojů
+                  \item Jediný zdroj -- RFC (Request for Comments)
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+\section{Děkuji za pozornost}
+\begin{comment}
+\begin{frame}{Protokol WebRTC}
+    \centering
+    \begin{tikzpicture}
+        \pause
+        \node[draw] (client1) at (-6, 0) {Klient 1};
+        \node[draw] (client2) at (6, 0) {Klient 2};
+        \pause
+        \node[draw] (router1) at (-3.5, 0) {Router 1};
+        \draw[green, <->] (client1) -- (router1);
+        \node[draw] (router2) at (3.5, 0) {Router 2};
+        \draw[green, <->] (client2) -- (router2);
+        \pause
+        \node[draw] (stun) at (0,1.5) {STUN server};
+        \draw[yellow, <->] (router1) -- (stun);
+        \draw[yellow, <->] (router2) -- (stun);
+        \pause
+        \node[draw, alt=<8>{orange}] (signalling) at (0,-1.5) {Signalling server};
+        \draw[red, <->] (router1) -- (signalling);
+        \draw[red, <->] (router2) -- (signalling);
+        \pause
+        \onslide<6> \draw[cyan, <->] (router1) -- (router2) node[midway, anchor=south]
+        {Data};
+        \pause
+        \node[draw] (turn) at (0,0) {TURN server};
+        \draw[cyan, <->] (router1) -- (turn) node[midway, anchor=south]
+        {Data};
+        \draw[cyan, <->] (router2) -- (turn) node[midway, anchor=south]
+        {Data};
+    \end{tikzpicture}
+\end{frame}
+
+\foreach \i in {1,...,5} {
+        \newcounter{sfuEdgeCounter\i}
+    }
+\begin{frame}{Skupinové WebRTC}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \centering
+            Full-mesh\\
+            \vspace{10pt}
+            \begin{tikzpicture}[every node/.style={draw,circle}]
+                \onslide<+-> \foreach \i in {1,...,5} {
+                        \node (\i) at ({(90-360/5*(\i-1))}:2) {\i};
+                    }
+                \onslide<+-> \foreach \i in {1,...,4} {
+                        \foreach \j in {\the\numexpr\i+1,...,5} {
+                                \draw[cyan,->] (\i) edge[bend right=5] (\j);
+                                \draw[green,->] (\j) edge[bend right=5] (\i);
+                                \ifnum\i=1
+                                    \ifnum\j<6
+                                        \onslide<+->
+                                    \fi
+                                \fi
+                            }
+                    }
+            \end{tikzpicture}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \centering
+            Selective Forwarding Unit\\
+            \vspace{10pt}
+            \begin{tikzpicture}[every node/.style={draw,circle}]
+                \onslide<+-> \foreach \i in {1,...,5} {
+                        \node (\i) at ({90-360/5*(\i-1)}:2) {\i};
+                    }
+                \onslide<+-> \node (SFU) at (0,0) {SFU};
+                \foreach \i in {1,...,5} {
+                        \setcounter{sfuEdgeCounter\i}{1}
+                        \onslide<+-> \draw[green,->] (\i) edge[bend right=5] (SFU);
+                        \ifnum\i>1
+                            \foreach \j in {1,...,\the\numexpr\i-1} {
+                                    \draw[cyan,->] (SFU) edge[bend right=5*\value{sfuEdgeCounter\j}]
+                                    (\j);
+                                    \stepcounter{sfuEdgeCounter\j};
+                                }
+                            \foreach \j in {1,...,\the\numexpr\i-1} {
+                                    \draw[cyan,->] (SFU) edge[bend right=5*\value{sfuEdgeCounter\i}] (\i);
+                                    \stepcounter{sfuEdgeCounter\i};
+                                }
+                        \fi
+                    }
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+\end{frame}
+\begin{frame}{Demo}
+    \centering
+    \Huge Modlete se, že to bude pracuj!
+\end{frame}
+\end{comment}
+\end{document}

@@ -5,16 +5,17 @@ on:
   push:
     branches: [stable]
 jobs:
-  build:
-    name: Build
+  build_thesis:
+    name: Build thesis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: xu-cheng/latex-action@v2
         with:
           latexmk_shell_escape: true
-          root_file: matrixRTC.tex
+          root_file: thesis/matrixRTC.tex
+          work_in_root_file_dir: true
       - uses: actions/upload-artifact@v3
         with:
           name: matrixRTC.pdf
-          path: ./matrixRTC.pdf
+          path: thesis/matrixRTC.pdf

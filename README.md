@@ -1,4 +1,4 @@
-# Využití protokolu Matrix pro videohovory (The Usage of the Matrix Protocol for Video Calls)
+# Využití protokolu Matrix pro videohovory (Using the Matrix Protocol for Video Calls)
 
 ## Využití protokolu Matrix pro videohovory
 
@@ -32,7 +32,7 @@ PDF lze nalézt
 PDF lze nalézt
 [zde](https://nightly.link/SimonBrandner/RocnikovaPrace-MatrixRTC/workflows/build.yaml/stable/matrixRTCPresentation.pdf.zip).
 
-## The Usage of the Matrix Protocol for Video Calls
+## Using the Matrix Protocol for Video Calls
 
 ### Annotation
 

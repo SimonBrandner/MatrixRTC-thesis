@@ -1,0 +1,13 @@
+\newtoggle{print}
+
+\newtoggle{personal}
+\newtoggle{school}
+\newtoggle{soc}
+
+\newcommand{\setmode}[1]{%
+    \togglefalse{personal}%
+    \togglefalse{school}%
+    \togglefalse{soc}%
+
+    \toggletrue{#1}%
+}

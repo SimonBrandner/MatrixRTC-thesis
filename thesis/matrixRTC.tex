@@ -41,11 +41,10 @@
     toc
 ]{glossaries-extra}
 
-\newtoggle{print}
-\newtoggle{school}
+\input{mode.tex}
 
 \settoggle{print}{false}
-\settoggle{school}{false}
+\setmode{personal}
 
 \def\publicPrivateIP{PU -- veřejná IP adresa, PR -- privátní IP adresa}
 
@@ -54,14 +53,13 @@
 \input{acronyms.tex}
 
 \begin{document}
-\include{sections/titlepage.tex}
+\include{\iftoggle{soc}{sections/titlepageSOC.tex}{sections/titlepage.tex}}
 \printingemptypage
 \pagenumbering{Roman}
-\iftoggle{school}{\include{sections/declaration.tex}}{}
+\ifboolexpr{togl {school} or togl {soc}}{\include{sections/declaration.tex}}{}
 \include{sections/acknowledgements.tex}
 \include{sections/annotationAndKeywords.tex}
 \include{sections/tableOfContents.tex}
-\iftoggle{school}{\printingemptypage}{}
 \pagenumbering{arabic}
 \include{sections/introduction.tex}
 \include{sections/webrtc.tex}
@@ -75,5 +73,5 @@
 \include{sections/acronyms.tex}
 \include{sections/figures.tex}
 \include{sections/references.tex}
-\iftoggle{school}{\include{sections/attachment.tex}}{}
+\ifboolexpr{togl {school} or togl {soc}}{\include{sections/attachment.tex}}{}
 \end{document}

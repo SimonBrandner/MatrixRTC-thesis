@@ -36,9 +36,10 @@
 \graphicspath{{images/}}
 
 \title{Využití protokolu Matrix pro videohovory}
-\subtitle{Ročníková práce}
+\subtitle{Středoškolská odborná činnost (obor č. 18: Informatika)}
 \author{Šimon Brandner}
-\date{6. března 2024}
+\institute{Gymnázium Františka Křižíka a základní škola, s.r.o., Plzeňský kraj}
+\date{}
 
 \begin{document}
 \maketitle
@@ -104,6 +105,7 @@
         \begin{column}{0.5\textwidth}
             \begin{itemize}[<+->]
                 \item Federace -- decentralizace
+                \item Decentralizovaná databáze
                 \item Svoboda uživatele
                 \item Otevřená specifikace protokolu
                 \item Interoperabilita
@@ -120,14 +122,10 @@
                   \item Protokoly WebRTC, STUN, TURN a ICE
                   \item Skupinové videohovory
               \end{itemize}
-        \item Praktická část -- implementace break-out rooms
-              \begin{itemize}
-                  \item Návrh doplnění specifikace protokolu Matrix
-                  \item Přidání funkce do aplikace Element Call
-              \end{itemize}
+        \item Praktická část -- implementace break-out rooms do aplikace Element Call
     \end{itemize}
 \end{frame}
-\begin{frame}{Praktická část -- break-out rooms}
+\begin{frame}{Praktická část -- návrh doplnění specifikace protokolu}
     \pause
     \begin{columns}[T]
         \begin{column}{0.5\textwidth}
@@ -149,16 +147,34 @@
                 \item Jeden hovor na místnost
                 \item Break-out místnosti opravdu místnosti
                 \item Kontrola nad právy v místnostech
+                \item Nejen pro videohovory
             \end{itemize}
         \end{column}
     \end{columns}
 \end{frame}
+\begin{frame}{Praktická část -- implementace}
+    \pause
+    \begin{itemize}[<+->]
+        \item Matrix JS SDK
+              \begin{itemize}
+                  \item Funkce na vytváření break-out rooms
+                  \item Třída na správu break-out rooms
+              \end{itemize}
+        \item Element Call
+              \begin{itemize}
+                  \item Rozhraní pro vytváření break-out rooms
+                  \item Čtení informací o break-out rooms vytvořených jinými uživateli
+                  \item Rozhraní pro zobrazování existujících break-out rooms
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+\section{Ukázka}
 \begin{frame}{Budoucnost}
     \pause
     \begin{itemize}[<+->]
-        \item Break-out rooms jako součást protokolu a aplikace Element Call
-        \item Third Room -- Metaverse s použitím protokolu Matrix
         \item Digital Markets Act (DMA) a interoperabilita
+        \item Schválení návrhu doplnění protokolu Matrix o break-out rooms
+        \item Začlenění změn Matrix JS SDK a aplikace Element Call do hlavní vývojové větve
     \end{itemize}
 \end{frame}
 \section{Děkuji za pozornost}

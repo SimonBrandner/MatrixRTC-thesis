@@ -9,7 +9,8 @@
 *.fdb_latexmk
 *.bbl
 *.blg
-*.pdf
+thesis/*.pdf
+presentation/*.pdf
 *.toc
 *.lof
 *.ist
